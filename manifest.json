@@ -3,8 +3,10 @@
     "name": "BoardsUiEnhancer", 
     "version": "1.0", 
     "description": "Extension that enhances boards.ie interface", 
-	"content_scripts": [ { 
-		"matches": ["*://www.boards.ie/*"], 
-		"js": ["compressPosts.js"] 
-	} ] 
+	"content_scripts": [ 
+        { 
+            "matches": ["*://www.boards.ie/*"], 
+            "js": ["main.js"] 
+        } 
+    ] 
 }
