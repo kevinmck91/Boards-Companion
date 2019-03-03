@@ -1,0 +1,26 @@
+{
+  "name": "boards-ui-enhancer",
+  "version": "1.0.0",
+  "description": "Extension that enhances boards.ie interface",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeanMaclochlainn/BoardsUiEnhancer.git"
+  },
+  "author": "Sean Mcloughlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeanMaclochlainn/BoardsUiEnhancer/issues"
+  },
+  "homepage": "https://github.com/SeanMaclochlainn/BoardsUiEnhancer#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0"
+  }
+}

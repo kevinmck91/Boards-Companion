@@ -1,13 +1,17 @@
 "use strict";
-hideWelcomeNotice();
-hideAvatarInfo();
-hideFooter();
+export {hideSpecifiedElements};
+ 
+const hideSpecifiedElements = function(){
+    hideWelcomeNotice();
+    hideAvatarInfo();
+    hideFooter();
+}
 
-function hideWelcomeNotice(){
+function hideWelcomeNotice() {
     hideElement(document.getElementById('notices'));
 }
 
-function hideAvatarInfo(){
+function hideAvatarInfo() {
     for(let post of getAllPosts()){
         hideElements(getAvatarInfoElements(post));
     }
@@ -38,6 +42,5 @@ function getAvatarInfoElements(post){
 }
 
 function getFooterElement(post){
-    let result = post.querySelector('tr:nth-child(3)');
-    return result;
+    return post.querySelector('tr:nth-child(3)');
 }
