@@ -1,1 +1,1 @@
-# BoardsUiEnhancer
+# Boards-Companion

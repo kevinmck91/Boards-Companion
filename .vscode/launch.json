@@ -7,7 +7,7 @@
         "request": "launch",
         "runtimeArgs": [
           "--inspect-brk",
-          "~/Github/BoardsUiEnhancer/node_modules/.bin/jest",
+          "~/Github/Boards-Companion/node_modules/.bin/jest",
           "--runInBand"
         ],
         "console": "integratedTerminal",
