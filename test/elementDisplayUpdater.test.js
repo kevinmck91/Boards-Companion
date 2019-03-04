@@ -1,22 +1,38 @@
-import {hideSpecifiedElements} from "../src/elementDisplayUpdater.js";
+import { hideSpecifiedElements } from "../src/elementDisplayUpdater.js";
 
-it('Welcome notice hidden', () =>{
-    document.body.innerHTML = getTestPage();
+it('Welcome notice hidden', () => {
+    document.body.innerHTML = getUnsignedInUserPage();
     hideSpecifiedElements();
     expect(document.getElementById('notices').style.display).toBe('none');
 })
 
 it('Avatar Info Hidden', () => {
-    document.body.innerHTML = getTestPage();
-    hideSpecifiedElements(); 
+    document.body.innerHTML = getUnsignedInUserPage();
+    hideSpecifiedElements();
     expect(document.querySelectorAll('.alt2 .smallfont')[0].style.display).toBe('none');
 })
 
-function getTestPage(){
+it('Signed in user runs without exception', () => {
+    document.body.innerHTML = getSignedInUserPage();
+    hideSpecifiedElements();
+})
+
+function getUnsignedInUserPage() {
+    return getNoticesElement() + getPost();
+}
+
+function getSignedInUserPage() {
+    getPost();
+}
+
+function getNoticesElement() {
     return `<form id="notices">
                 <div>Welcome</div>
-            </form>
-            <div id="edit111">
+            </form>`;
+}
+
+function getPost() {
+    return `<div id="edit111">
                 <table>
                     <tr>
                     </tr>
