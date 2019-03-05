@@ -17,12 +17,19 @@ it('Signed in user runs without exception', () => {
     hideSpecifiedElements();
 })
 
+it('Header elements hidden', () => {
+    document.body.innerHTML = getUnsignedInUserPage();
+    hideSpecifiedElements();
+    const breadcrumb = document.body.children[2];
+    expect(breadcrumb.style.display).toBe('none');
+})
+
 function getUnsignedInUserPage() {
-    return getNoticesElement() + getPost();
+    return getHeader() + getNoticesElement() + getPost();
 }
 
 function getSignedInUserPage() {
-    getPost();
+    return getHeader() + getPost();
 }
 
 function getNoticesElement() {
@@ -50,4 +57,10 @@ function getPost() {
                     </tr>
                 </table>
             </div>`;
+}
+
+function getHeader(){
+    return `<div class="nav-area"></div>
+            <div id="header"></div>
+            <div id="breadcrumb"></div>`;
 }
