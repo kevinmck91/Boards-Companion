@@ -1,28 +1,5 @@
-import { hideSpecifiedElements } from "../src/elementDisplayUpdater.js";
-
-it('Welcome notice hidden', () => {
-    document.body.innerHTML = getUnsignedInUserPage();
-    hideSpecifiedElements();
-    expect(document.getElementById('notices').style.display).toBe('none');
-})
-
-it('Avatar Info Hidden', () => {
-    document.body.innerHTML = getUnsignedInUserPage();
-    hideSpecifiedElements();
-    expect(document.querySelectorAll('.alt2 .smallfont')[0].style.display).toBe('none');
-})
-
-it('Signed in user runs without exception', () => {
-    document.body.innerHTML = getSignedInUserPage();
-    hideSpecifiedElements();
-})
-
-it('Header elements hidden', () => {
-    document.body.innerHTML = getUnsignedInUserPage();
-    hideSpecifiedElements();
-    const breadcrumb = document.body.children[2];
-    expect(breadcrumb.style.display).toBe('none');
-})
+"use strict";
+export { getUnsignedInUserPage, getSignedInUserPage };
 
 function getUnsignedInUserPage() {
     return getHeader() + getNoticesElement() + getPost();
@@ -59,7 +36,7 @@ function getPost() {
             </div>`;
 }
 
-function getHeader(){
+function getHeader() {
     return `<div class="nav-area"></div>
             <div id="header"></div>
             <div id="breadcrumb"></div>`;

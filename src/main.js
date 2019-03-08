@@ -1,4 +1,9 @@
 "use strict";
-import {hideSpecifiedElements} from "./elementDisplayUpdater.js";
-hideSpecifiedElements();
+import { hideWelcomeNotice, hideAvatarInfo, hidePostFooter } from "./elementVisibilityUpdater.js";
+import { toggleHeaderReduction } from "./headerReducer.js";
+
+hideWelcomeNotice();
+hideAvatarInfo();
+hidePostFooter();
+toggleHeaderReduction();
 
