@@ -39,5 +39,5 @@ function getPost() {
 function getHeader() {
     return `<div class="nav-area"></div>
             <div id="header"></div>
-            <div id="breadcrumb"></div>`;
+            <div id="breadcrumb" style="top:87px;"></div>`;
 }
