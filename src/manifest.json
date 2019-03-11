@@ -20,9 +20,9 @@
     ],
     "web_accessible_resources": [
         "main.js",
-        "elementDisplayUpdater.js",
-        "elementVisibilityUpdater.js",
-        "elementFinder.js", 
-        "headerReducer.js"
+        "ElementDisplayUpdater.js",
+        "ElementVisibilityUpdater.js",
+        "ElementFinder.js", 
+        "HeaderReducer.js"
     ]
 }

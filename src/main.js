@@ -1,9 +1,12 @@
 "use strict";
-import { hideWelcomeNotice, hideAvatarInfo, hidePostFooter } from "./elementVisibilityUpdater.js";
-import { toggleHeaderReduction } from "./headerReducer.js";
+import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
+import { HeaderReducer } from "./HeaderReducer.js";
 
-hideWelcomeNotice();
-hideAvatarInfo();
-hidePostFooter();
-toggleHeaderReduction();
+let elementVisibilityUpdater = new ElementVisibilityUpdater();
+let headerReducer = new HeaderReducer();
+
+elementVisibilityUpdater.hideWelcomeNotice();
+elementVisibilityUpdater.hideAvatarInfo();
+elementVisibilityUpdater.hidePostFooter();
+headerReducer.toggleHeaderReduction();
 

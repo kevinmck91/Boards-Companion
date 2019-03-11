@@ -1,25 +1,29 @@
-import { hideWelcomeNotice, hideAvatarInfo } from "../src/elementVisibilityUpdater.js";
-import { getAllPosts, getAvatarInfoElements, getWelcomeNotice } from "../src/elementFinder.js";
-import { getUnsignedInUserPage, getSignedInUserPage } from "./testHtmlGenerator.js";
+import { ElementVisibilityUpdater } from "../src/ElementVisibilityUpdater.js";
+import { ElementFinder } from "../src/ElementFinder.js";
+import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
+
+let elementVisibilityUpdater = new ElementVisibilityUpdater();
+let elementFinder = new ElementFinder();
+let testHtmlGenerator = new TestHtmlGenerator();
 
 it('Welcome notice hidden', () => {
-    document.body.innerHTML = getUnsignedInUserPage();
+    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
 
-    hideWelcomeNotice();
+    elementVisibilityUpdater.hideWelcomeNotice();
     
-    expect(getWelcomeNotice().style.display).toBe('none');
+    expect(elementFinder.getWelcomeNotice().style.display).toBe('none');
 })
 
 it('Avatar Info Hidden', () => {
-    document.body.innerHTML = getUnsignedInUserPage();
+    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
     
-    hideAvatarInfo();
+    elementVisibilityUpdater.hideAvatarInfo();
     
-    expect(getAvatarInfoElements(getAllPosts()[0])[0].style.display).toBe('none');
+    expect(elementFinder.getAvatarInfoElements(elementFinder.getAllPosts()[0])[0].style.display).toBe('none');
 })
 
 it('Signed in user runs without exception', () => {
-    document.body.innerHTML = getSignedInUserPage();
+    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
     
-    hideWelcomeNotice();
+    elementVisibilityUpdater.hideWelcomeNotice();
 })

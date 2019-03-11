@@ -1,22 +1,24 @@
 "use strict";
-export { getUnsignedInUserPage, getSignedInUserPage };
+export { TestHtmlGenerator };
 
-function getUnsignedInUserPage() {
-    return getHeader() + getNoticesElement() + getPost();
-}
+class TestHtmlGenerator {
 
-function getSignedInUserPage() {
-    return getHeader() + getPost();
-}
+    getUnsignedInUserPage() {
+        return this.getHeader() + this.getNoticesElement() + this.getPost();
+    }
 
-function getNoticesElement() {
-    return `<form id="notices">
+    getSignedInUserPage() {
+        return this.getHeader() + this.getPost();
+    }
+
+    getNoticesElement() {
+        return `<form id="notices">
                 <div>Welcome</div>
             </form>`;
-}
+    }
 
-function getPost() {
-    return `<div id="edit111">
+    getPost() {
+        return `<div id="edit111">
                 <table>
                     <tr>
                     </tr>
@@ -34,10 +36,11 @@ function getPost() {
                     </tr>
                 </table>
             </div>`;
-}
+    }
 
-function getHeader() {
-    return `<div class="nav-area"></div>
+    getHeader() {
+        return `<div class="nav-area"></div>
             <div id="header"></div>
             <div id="breadcrumb" style="top:87px;"></div>`;
+    }
 }

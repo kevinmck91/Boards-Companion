@@ -1,39 +1,43 @@
 "use strict";
-import { toggleHeaderReduction } from "../src/headerReducer";
-import { getBreadCrumbs } from "../src/elementFinder.js";
-import { getUnsignedInUserPage, getSignedInUserPage } from "./testHtmlGenerator.js";
+import { HeaderReducer } from "../src/HeaderReducer.js";
+import { ElementFinder } from "../src/ElementFinder.js";
+import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
+
+let headerReducer =  new HeaderReducer();
+let elementFinder = new ElementFinder();
+let testHtmlGenerator = new TestHtmlGenerator();
 
 beforeEach(() => {
     loadThreadUrl();
   });
 
 it('Test mid page header reduced', () => {
-    document.body.innerHTML = getUnsignedInUserPage();
+    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
     setScrollPosition(10);
 
-    toggleHeaderReduction();
+    headerReducer.toggleHeaderReduction();
     triggerScrollEvent();
     
-    expect(getBreadCrumbs().style.top).toBe('0px');
+    expect(elementFinder.getBreadCrumbs().style.top).toBe('0px');
 })
 
 it('Test top of page restored header', () => {
-    document.body.innerHTML = getUnsignedInUserPage();
+    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
     setScrollPosition(0);
 
-    toggleHeaderReduction();
+    headerReducer.toggleHeaderReduction();
     triggerScrollEvent();
     
     expect(isHeaderRestored()).toBe(true);
 })
 
 it('Test restored on non-thread page', () =>{
-    document.body.innerHTML = getUnsignedInUserPage();
-    expect(getBreadCrumbs().style.top).toBe('87px');
+    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
+    expect(elementFinder.getBreadCrumbs().style.top).toBe('87px');
     loadNonThreadUrl();
     setScrollPosition(10);
     
-    toggleHeaderReduction();
+    headerReducer.toggleHeaderReduction();
     triggerScrollEvent();
 
     expect(isHeaderRestored()).toBe(true);
@@ -56,5 +60,5 @@ function loadNonThreadUrl(){
 }
 
 function isHeaderRestored(){
-    return getBreadCrumbs().style.top =='87px';
+    return elementFinder.getBreadCrumbs().style.top =='87px';
 }
