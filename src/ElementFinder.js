@@ -49,8 +49,12 @@ class ElementFinder {
         return document.getElementById('breadcrumb');
     }
 
-    getPageNavigator() {
-        return document.querySelector('.pagenav');
+    getTopPageNavigator() {
+        return document.querySelectorAll('.pagenav')[0];
+    }
+
+    getBottomPageNavigator(){
+        return document.querySelectorAll('.pagenav')[1];
     }
 
 }

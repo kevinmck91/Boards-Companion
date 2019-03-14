@@ -12,7 +12,8 @@ class AutomaticPageLoader {
         this.elementGenerator = new ElementGenerator();
         this.isNextPagePageLoading = false;
         this.pageInformationCollector = new PageInformationCollector();
-        this.pageNo = 2;
+        this.isInitialPage = true;
+        this.nextPageNo = 0;
     }
 
     autoScrollPages() {
@@ -28,7 +29,7 @@ class AutomaticPageLoader {
     }
 
     isLastPage() {
-        return this.pageNo > this.pageInformationCollector.getMaxNoOfPages();
+        return this.nextPageNo > this.pageInformationCollector.getMaxNoOfPages();
     }
 
     IsBottomOfPage() {
@@ -38,21 +39,31 @@ class AutomaticPageLoader {
     loadNextPage() {
         this.isNextPagePageLoading = true;
         let httpRequest = new XMLHttpRequest();
+        this.computeNextPageNo();
         let _this = this;
         httpRequest.onload = function () {
             if (this.status == 200) {
-                let nextPagePosts = _this.extractPosts(httpRequest);
-                _this.appendNextPage(nextPagePosts);
-                _this.pageNo++;
+                _this.appendNextPage(httpRequest);
                 _this.isNextPagePageLoading = false;
             }
         }
-        httpRequest.open('GET', this.pageInformationCollector.getNextPageUrl(this.pageNo), true);
+        httpRequest.open('GET', this.pageInformationCollector.getNextPageUrl(this.nextPageNo), true);
         httpRequest.send();
         this.insertLoadingElement();
     }
 
-    appendNextPage(nextPagePosts) {
+    computeNextPageNo() {
+        if (this.isInitialPage) {
+            this.nextPageNo = this.pageInformationCollector.getInitialPageNo() + 1;
+            this.isInitialPage = false;
+        }
+        else {
+            this.nextPageNo++;
+        }
+    }
+
+    appendNextPage(httpRequest) {
+        let nextPagePosts = this.extractPosts(httpRequest);
         this.insertNextPageNumber();
         this.appendNewPosts(nextPagePosts);
         this.removeLoadingElement();
@@ -90,7 +101,7 @@ class AutomaticPageLoader {
 
     insertNextPageNumber() {
         let postsContainer = this.elementFinder.getPostsContainer();
-        let pageNoElement = this.elementGenerator.generatePageNoElement(this.pageNo);
+        let pageNoElement = this.elementGenerator.generatePageNoElement(this.nextPageNo);
         postsContainer.appendChild(pageNoElement);
     }
 }

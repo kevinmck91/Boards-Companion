@@ -4,15 +4,19 @@ export { TestHtmlGenerator };
 class TestHtmlGenerator {
 
     getUnsignedInUserPage() {
-        return this.producePage(this.getHeader() + this.getNoticesElement() + this.getPost() + this.getPageNav());
+        return this.getPageNavigator(1, 2) + this.getHeader() + this.getNoticesElement() + this.collatePosts(this.getPost()) + this.getPageNavigator(1, 2);
     }
 
     getSignedInUserPage() {
-        return this.producePage(this.getHeader() + this.getPost() + this.getPageNav());
+        return this.getPageNavigator(1, 2) + this.getHeader() + this.collatePosts(this.getPost()) + this.getPageNavigator(1, 2);
     }
 
-    producePage(content){
-        return `<div class="left-col">`+content+`</div>`
+    getSpecificSignedInUserPage(pageNo, maxNoOfPages){
+        return this.getPageNavigator(pageNo, maxNoOfPages) + this.getHeader() + this.collatePosts(this.getPost()) + this.getPageNavigator(pageNo, maxNoOfPages);
+    }
+
+    collatePosts(posts) {
+        return `<div class="left-col">` + posts + `</div>`
     }
 
     getNoticesElement() {
@@ -42,18 +46,18 @@ class TestHtmlGenerator {
             </div>`;
     }
 
-    getPageNav() {
+    getPageNavigator(currentPageNo, totalPages) {
         return `<div class="pagenav">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="vbmenu_control">
-                                    Page 1 of 2
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>`;
+        <table>
+            <tbody>
+                <tr>
+                    <td class="vbmenu_control">
+                        Page `+ currentPageNo + ` of ` + totalPages + `
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>`;
     }
 
     getHeader() {

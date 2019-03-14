@@ -1,13 +1,17 @@
 export { TestPageManipulator };
 
 class TestPageManipulator {
-    
+
     loadThreadUrl() {
-        window.history.pushState({}, 'Title', '/vbulletin/showthread.php?t=1111');;
+        window.history.pushState({}, 'Title', '/vbulletin/showthread.php?t=1111');
+    }
+
+    loadNthThreadUrl(pageNo) {
+        window.history.pushState({}, 'Title', '/vbulletin/showthread.php?t=1111&page=' + pageNo);
     }
 
     loadNonThreadUrl() {
-        window.history.pushState({}, 'Title', 'vbulletin/forumdisplay.php?f=111');;
+        window.history.pushState({}, 'Title', 'vbulletin/forumdisplay.php?f=1111');
     }
 
     triggerScrollEvent() {

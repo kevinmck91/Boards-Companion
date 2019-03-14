@@ -6,7 +6,7 @@ class ElementGenerator {
     generateLoadingElement() {
         let loadingElement = document.createElement('div');
         loadingElement.className = "loading";
-        loadingElement.innerText = "loading";
+        loadingElement.innerText = "loading...";
         loadingElement.style.textAlign = "center";
         loadingElement.style.paddingBottom = "4px";
         return loadingElement;
