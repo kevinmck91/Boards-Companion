@@ -23,6 +23,9 @@
         "ElementDisplayUpdater.js",
         "ElementVisibilityUpdater.js",
         "ElementFinder.js", 
-        "HeaderReducer.js"
+        "HeaderReducer.js",
+        "AutomaticPageLoader.js",
+        "ElementGenerator.js",
+        "PageInformationCollector.js"
     ]
 }

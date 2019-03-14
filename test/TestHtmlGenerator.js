@@ -4,11 +4,15 @@ export { TestHtmlGenerator };
 class TestHtmlGenerator {
 
     getUnsignedInUserPage() {
-        return this.getHeader() + this.getNoticesElement() + this.getPost();
+        return this.producePage(this.getHeader() + this.getNoticesElement() + this.getPost() + this.getPageNav());
     }
 
     getSignedInUserPage() {
-        return this.getHeader() + this.getPost();
+        return this.producePage(this.getHeader() + this.getPost() + this.getPageNav());
+    }
+
+    producePage(content){
+        return `<div class="left-col">`+content+`</div>`
     }
 
     getNoticesElement() {
@@ -36,6 +40,20 @@ class TestHtmlGenerator {
                     </tr>
                 </table>
             </div>`;
+    }
+
+    getPageNav() {
+        return `<div class="pagenav">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="vbmenu_control">
+                                    Page 1 of 2
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>`;
     }
 
     getHeader() {

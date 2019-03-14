@@ -8,6 +8,12 @@ class ElementVisibilityUpdater {
         this.elementFinder = new ElementFinder();
     }
 
+    hideEachPostsElements() {
+        this.hideWelcomeNotice();
+        this.hideAvatarInfo();
+        this.hidePostFooter();
+    }
+
     hideWelcomeNotice() {
         const welcomeNotice = this.elementFinder.getWelcomeNotice();
         if (welcomeNotice != null)

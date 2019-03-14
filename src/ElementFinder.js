@@ -11,6 +11,23 @@ class ElementFinder {
         return Array.from(document.querySelectorAll("[id^='edit']"));
     }
 
+    getPostsContainer(){
+        return document.querySelector('.left-col');
+
+    }
+
+    getDocumentPosts(htmlDocument) {
+        let postsXpath = "//div[@align='center'][descendant::div[starts-with(@id,'edit')]]";
+        let xpathResult = htmlDocument.evaluate(postsXpath, htmlDocument.body, null, XPathResult.ANY_TYPE, null);
+        const posts = [];
+        let post = xpathResult.iterateNext();
+        while (post) {
+            posts.push(post);
+            post = xpathResult.iterateNext();
+        }
+        return posts;
+    }
+
     getAvatarInfoElements(post) {
         return Array.from(post.querySelectorAll('.alt2 .smallfont'));
     }
@@ -31,4 +48,9 @@ class ElementFinder {
     getBreadCrumbs() {
         return document.getElementById('breadcrumb');
     }
+
+    getPageNavigator() {
+        return document.querySelector('.pagenav');
+    }
+
 }
