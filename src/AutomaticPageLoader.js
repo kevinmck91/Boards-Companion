@@ -27,21 +27,20 @@ class AutomaticPageLoader {
     }
 
     isPageLoadRequired() {
-        return this.IsBottomOfPage() && !this.isNextPagePageLoading && !this.isLastPage();
+        return (this.IsBottomOfPage() && !this.isNextPagePageLoading && !this.isLastPage());
     }
 
     isLastPage() {
-        return this.nextPageNo > this.pageInformationCollector.getMaxNoOfPages();
+        return this.getNextPageNo() > this.pageInformationCollector.getMaxNoOfPages();
     }
 
     IsBottomOfPage() {
-        return (window.innerHeight + window.scrollY) >= document.querySelector(".wrapper").offsetHeight;;
+        return (window.innerHeight + window.scrollY) >= document.querySelector(".wrapper").offsetHeight;
     }
 
     loadNextPage() {
         this.isNextPagePageLoading = true;
         let httpRequest = new XMLHttpRequest();
-        this.computeNextPageNo();
         let _this = this;
         httpRequest.onload = function () {
             if (this.status == 200) {
@@ -49,21 +48,15 @@ class AutomaticPageLoader {
                 _this.isNextPagePageLoading = false;
             }
         }
-        httpRequest.open('GET', this.pageInformationCollector.getNextPageUrl(this.nextPageNo), true);
+        httpRequest.open('GET', this.pageInformationCollector.getNthPageUrl(this.getNextPageNo()), true);
         httpRequest.send();
         this.pageUpdater.insertLoadingElement();
     }
 
-    computeNextPageNo() {
-        if (this.isInitialPage) {
-            this.nextPageNo = this.pageInformationCollector.getInitialPageNo() + 1;
-            this.isInitialPage = false;
-        }
-        else {
-            this.nextPageNo++;
-        }
+    getNextPageNo() {
+        return this.pageInformationCollector.getCurrentPageNo() + 1;
     }
-    
+
     appendNextPage(successfulHttpRequest) {
         let nextPageDocument = this.extractDocument(successfulHttpRequest);
         this.pageUpdater.appendNextPage(nextPageDocument);

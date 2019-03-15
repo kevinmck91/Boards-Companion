@@ -4,30 +4,34 @@ export { TestHtmlGenerator };
 class TestHtmlGenerator {
 
     getUnsignedInUserPage() {
-        return this.getPageNavigator(1, 2) +
+        return this.wrapPageElements(this.getPageNavigator(1, 2) +
             this.getHeader() +
             this.getNoticesElement() +
             this.wrapMidsectionElements(this.getPost()) +
-            this.wrapFooterElements(this.getPageNavigator(1, 2));
+            this.wrapFooterElements(this.getPageNavigator(1, 2)));
     }
 
     getSignedInUserPage() {
-        return this.getPageNavigator(1, 2) +
+        return this.wrapPageElements(this.getPageNavigator(1, 2) +
             this.getHeader() +
             this.wrapMidsectionElements(this.getPost()) +
-            this.wrapFooterElements(this.getPageNavigator(1, 2));
+            this.wrapFooterElements(this.getPageNavigator(1, 2)));
     }
 
     getSpecificSignedInUserPage(pageNo, maxNoOfPages) {
-        return this.getPageNavigator(pageNo, maxNoOfPages) +
+        return this.wrapPageElements(this.getPageNavigator(pageNo, maxNoOfPages) +
             this.getHeader() +
             this.wrapMidsectionElements(this.getPost()) +
-            this.wrapFooterElements(this.getPageNavigator(pageNo, maxNoOfPages));
+            this.wrapFooterElements(this.getPageNavigator(pageNo, maxNoOfPages)));
     }
 
     convertToDocument(html) {
         let parser = new DOMParser();
         return parser.parseFromString(html, "text/html");
+    }
+
+    wrapPageElements(elements) {
+        return `<div class="wrapper">` + elements + `</div>`;
     }
 
     wrapMidsectionElements(elements) {

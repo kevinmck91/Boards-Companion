@@ -8,14 +8,14 @@ class PageInformationCollector {
         this.elementFinder = new ElementFinder();
     }
 
-    getNextPageUrl(nextPageNo) {
+    getNthPageUrl(pageNo) {
         let url = window.location.href;
         if (!this.isFirstPageInThread(url)) {
             url = url.replace(/&page=\d+/, '');
-            return url + '&page=' + nextPageNo;
+            return url + '&page=' + pageNo;
         }
         else {
-            return url + '&page=' + nextPageNo;
+            return url + '&page=' + pageNo;
         }
     }
 
@@ -28,8 +28,8 @@ class PageInformationCollector {
         return this.parseY(this.getPageXofY(navigator));
     }
 
-    getInitialPageNo() {
-        const navigator = this.elementFinder.getTopPageNavigator();
+    getCurrentPageNo() {
+        const navigator = this.elementFinder.getBottomPageNavigator();
         return this.parseX(this.getPageXofY(navigator));
     }
 
@@ -55,7 +55,7 @@ class PageInformationCollector {
         return this.elementFinder.getBreadCrumbs().style.top == '87px';
     }
 
-    getPageNoFromDocument(htmlDocument){
+    getPageNoFromDocument(htmlDocument) {
         let navigator = this.elementFinder.getTopPageNavigatorFromDocument(htmlDocument);
         return this.parseX(this.getPageXofY(navigator));
     }

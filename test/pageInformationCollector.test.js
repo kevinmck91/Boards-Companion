@@ -23,7 +23,7 @@ it('triple digits pageXOfY', () => {
 it('get next page url from nth page', () =>{
     testPageManipulator.loadNthThreadUrl(3);
 
-    let result = pageInformationCollector.getNextPageUrl(5);
+    let result = pageInformationCollector.getNthPageUrl(5);
 
     expect(result).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=5");
 })
@@ -31,7 +31,7 @@ it('get next page url from nth page', () =>{
 it('get next page url from nnth page', () =>{
     testPageManipulator.loadNthThreadUrl(11);
 
-    let result = pageInformationCollector.getNextPageUrl(12);
+    let result = pageInformationCollector.getNthPageUrl(12);
 
     expect(result).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=12");
 })
