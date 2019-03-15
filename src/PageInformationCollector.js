@@ -54,4 +54,9 @@ class PageInformationCollector {
     isHeaderRestored() {
         return this.elementFinder.getBreadCrumbs().style.top == '87px';
     }
+
+    getPageNoFromDocument(htmlDocument){
+        let navigator = this.elementFinder.getTopPageNavigatorFromDocument(htmlDocument);
+        return this.parseX(this.getPageXofY(navigator));
+    }
 }

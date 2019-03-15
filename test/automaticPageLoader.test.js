@@ -11,8 +11,7 @@ beforeEach(() => {
     xhrOpenMock = jest.fn();
     const xhrMock = () => ({
         open: xhrOpenMock,
-        send: jest.fn(),
-        setRequestHeader: jest.fn(),
+        send: jest.fn()
     })
     window.XMLHttpRequest = jest.fn().mockImplementation(xhrMock)
 });

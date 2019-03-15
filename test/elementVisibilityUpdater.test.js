@@ -19,7 +19,7 @@ it('Avatar Info Hidden', () => {
     
     elementVisibilityUpdater.hideAvatarInfo();
     
-    expect(elementFinder.getAvatarInfoElements(elementFinder.getAllPosts()[0])[0].style.display).toBe('none');
+    expect(elementFinder.getAvatarInfoElementsFromPost(elementFinder.getAllPosts()[0])[0].style.display).toBe('none');
 })
 
 it('Signed in user runs without exception', () => {

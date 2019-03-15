@@ -3,6 +3,7 @@ import { ElementFinder } from "./ElementFinder.js";
 import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { ElementGenerator } from "./ElementGenerator.js";
 import { PageInformationCollector } from "./PageInformationCollector.js";
+import { PageUpdater } from "./PageUpdater.js";
 
 class AutomaticPageLoader {
 
@@ -14,6 +15,7 @@ class AutomaticPageLoader {
         this.pageInformationCollector = new PageInformationCollector();
         this.isInitialPage = true;
         this.nextPageNo = 0;
+        this.pageUpdater = new PageUpdater();
     }
 
     autoScrollPages() {
@@ -49,7 +51,7 @@ class AutomaticPageLoader {
         }
         httpRequest.open('GET', this.pageInformationCollector.getNextPageUrl(this.nextPageNo), true);
         httpRequest.send();
-        this.insertLoadingElement();
+        this.pageUpdater.insertLoadingElement();
     }
 
     computeNextPageNo() {
@@ -61,47 +63,15 @@ class AutomaticPageLoader {
             this.nextPageNo++;
         }
     }
-
-    appendNextPage(httpRequest) {
-        let nextPagePosts = this.extractPosts(httpRequest);
-        this.insertNextPageNumber();
-        this.appendNewPosts(nextPagePosts);
-        this.removeLoadingElement();
-        this.elementVisibilityUpdater.hideEachPostsElements();
-    }
-
-    extractPosts(successfulHttpRequest) {
+    
+    appendNextPage(successfulHttpRequest) {
         let nextPageDocument = this.extractDocument(successfulHttpRequest);
-        return this.elementFinder.getDocumentPosts(nextPageDocument);
-    }
-
-    appendNewPosts(nextPagePostsArray) {
-        let postsContainer = this.elementFinder.getPostsContainer();
-        for (let post of nextPagePostsArray) {
-            postsContainer.appendChild(post);
-        }
+        this.pageUpdater.appendNextPage(nextPageDocument);
     }
 
     extractDocument(successfulHttpRequest) {
         let loadedPageContent = successfulHttpRequest.responseText;
         let parser = new DOMParser();
         return parser.parseFromString(loadedPageContent, "text/html");
-    }
-
-    insertLoadingElement() {
-        let postsContainer = this.elementFinder.getPostsContainer();
-        let loadingElement = this.elementGenerator.generateLoadingElement();
-        postsContainer.appendChild(loadingElement);
-    }
-
-    removeLoadingElement() {
-        let loadingElement = document.querySelector('.loading');
-        loadingElement.parentElement.removeChild(loadingElement);
-    }
-
-    insertNextPageNumber() {
-        let postsContainer = this.elementFinder.getPostsContainer();
-        let pageNoElement = this.elementGenerator.generatePageNoElement(this.nextPageNo);
-        postsContainer.appendChild(pageNoElement);
     }
 }

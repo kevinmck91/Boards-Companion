@@ -4,19 +4,38 @@ export { TestHtmlGenerator };
 class TestHtmlGenerator {
 
     getUnsignedInUserPage() {
-        return this.getPageNavigator(1, 2) + this.getHeader() + this.getNoticesElement() + this.collatePosts(this.getPost()) + this.getPageNavigator(1, 2);
+        return this.getPageNavigator(1, 2) +
+            this.getHeader() +
+            this.getNoticesElement() +
+            this.wrapMidsectionElements(this.getPost()) +
+            this.wrapFooterElements(this.getPageNavigator(1, 2));
     }
 
     getSignedInUserPage() {
-        return this.getPageNavigator(1, 2) + this.getHeader() + this.collatePosts(this.getPost()) + this.getPageNavigator(1, 2);
+        return this.getPageNavigator(1, 2) +
+            this.getHeader() +
+            this.wrapMidsectionElements(this.getPost()) +
+            this.wrapFooterElements(this.getPageNavigator(1, 2));
     }
 
-    getSpecificSignedInUserPage(pageNo, maxNoOfPages){
-        return this.getPageNavigator(pageNo, maxNoOfPages) + this.getHeader() + this.collatePosts(this.getPost()) + this.getPageNavigator(pageNo, maxNoOfPages);
+    getSpecificSignedInUserPage(pageNo, maxNoOfPages) {
+        return this.getPageNavigator(pageNo, maxNoOfPages) +
+            this.getHeader() +
+            this.wrapMidsectionElements(this.getPost()) +
+            this.wrapFooterElements(this.getPageNavigator(pageNo, maxNoOfPages));
     }
 
-    collatePosts(posts) {
-        return `<div class="left-col">` + posts + `</div>`
+    convertToDocument(html) {
+        let parser = new DOMParser();
+        return parser.parseFromString(html, "text/html");
+    }
+
+    wrapMidsectionElements(elements) {
+        return `<div class="left-col">` + elements + `</div>`;
+    }
+
+    wrapFooterElements(elements) {
+        return `<div align="centre">` + elements + `</div>`;
     }
 
     getNoticesElement() {
@@ -26,7 +45,9 @@ class TestHtmlGenerator {
     }
 
     getPost() {
-        return `<div id="edit111">
+        return `
+        <div align="center">
+            <div id="edit111">
                 <table>
                     <tr>
                     </tr>
@@ -43,7 +64,8 @@ class TestHtmlGenerator {
                     <tr>
                     </tr>
                 </table>
-            </div>`;
+            </div>
+        </div>`;
     }
 
     getPageNavigator(currentPageNo, totalPages) {

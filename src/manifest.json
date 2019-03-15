@@ -26,6 +26,7 @@
         "HeaderReducer.js",
         "AutomaticPageLoader.js",
         "ElementGenerator.js",
-        "PageInformationCollector.js"
+        "PageInformationCollector.js",
+        "PageUpdater.js"
     ]
 }

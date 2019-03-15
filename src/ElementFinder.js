@@ -13,22 +13,20 @@ class ElementFinder {
 
     getPostsContainer(){
         return document.querySelector('.left-col');
-
     }
 
-    getDocumentPosts(htmlDocument) {
-        let postsXpath = "//div[@align='center'][descendant::div[starts-with(@id,'edit')]]";
-        let xpathResult = htmlDocument.evaluate(postsXpath, htmlDocument.body, null, XPathResult.ANY_TYPE, null);
+    getPostsFromDocument(htmlDocument) {
+        let divsContainingPosts = Array.from(htmlDocument.querySelectorAll('div[align="center"]'));
         const posts = [];
-        let post = xpathResult.iterateNext();
-        while (post) {
-            posts.push(post);
-            post = xpathResult.iterateNext();
+        for(let div of divsContainingPosts){
+            if(div.querySelector('div[id^=edit]')!=null){
+                posts.push(div);
+            }
         }
         return posts;
     }
 
-    getAvatarInfoElements(post) {
+    getAvatarInfoElementsFromPost(post) {
         return Array.from(post.querySelectorAll('.alt2 .smallfont'));
     }
 
@@ -55,6 +53,10 @@ class ElementFinder {
 
     getBottomPageNavigator(){
         return document.querySelectorAll('.pagenav')[1];
+    }
+
+    getTopPageNavigatorFromDocument(htmlDocument){
+        return htmlDocument.querySelectorAll('.pagenav')[0];
     }
 
 }

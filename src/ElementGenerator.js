@@ -14,7 +14,7 @@ class ElementGenerator {
 
     generatePageNoElement(pageNo) {
         let pageNoElement = document.createElement('div');
-        pageNoElement.innerText = "page " + pageNo;
+        pageNoElement.innerHTML = "page " + pageNo;
         pageNoElement.style.textAlign = "center";
         pageNoElement.style.paddingBottom = "4px";
         return pageNoElement;

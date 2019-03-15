@@ -22,7 +22,7 @@ class ElementVisibilityUpdater {
 
     hideAvatarInfo() {
         for (let post of this.elementFinder.getAllPosts()) {
-            this.hideElements(this.elementFinder.getAvatarInfoElements(post));
+            this.hideElements(this.elementFinder.getAvatarInfoElementsFromPost(post));
         }
     }
 
