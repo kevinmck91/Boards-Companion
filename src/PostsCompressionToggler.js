@@ -16,9 +16,12 @@ class PostsCompressionToggler {
 
     applyCompressionTogglingToPosts(posts) {
         for (let post of posts) {
-            post.addEventListener('click', () => {
-                this._togglePostCompression(post);
-            })
+            let _this = this;
+            post.addEventListener('click', function (e) {
+                if (!_this._isClickWithinFooterElement(e, post)) {
+                    _this._togglePostCompression(post);
+                }
+            });
         }
     }
 
@@ -29,10 +32,14 @@ class PostsCompressionToggler {
         else {
             this.elementVisibilityUpdater.hidePostElements(post);
         }
-
     }
 
     _isPostCompressed(post) {
         return this.elementFinder.getFooterElementFromPost(post).style.display == 'none';
+    }
+
+    _isClickWithinFooterElement(clickEvent, post) {
+        let postFooter = this.elementFinder.getFooterElementFromPost(post);
+        return postFooter.contains(clickEvent.target);
     }
 }

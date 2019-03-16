@@ -66,6 +66,9 @@ class TestHtmlGenerator {
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            <a class="postbit_thanks"></a>
+                        </td>
                     </tr>
                 </table>
             </div>
