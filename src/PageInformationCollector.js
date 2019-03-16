@@ -8,8 +8,12 @@ class PageInformationCollector {
         this.elementFinder = new ElementFinder();
     }
 
-    isFirstPageInThread(url) {
-        return url.indexOf('&page=') == -1;
+    isFirstPageInThread() {
+        return window.location.href.indexOf('&page=') == -1;
+    }
+
+    isThreadPage() {
+        return window.location.href.indexOf('showthread') != -1;
     }
 
     getMaxNoOfPages() {

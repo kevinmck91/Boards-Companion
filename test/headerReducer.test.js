@@ -37,7 +37,6 @@ it('Test top of page restored header', () => {
 
 it('Test restored on non-thread page', () => {
     document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
-    expect(elementFinder.getBreadCrumbs().style.top).toBe('87px');
     testPageManipulator.loadNonThreadUrl();
     testPageManipulator.setScrollPosition(10);
 

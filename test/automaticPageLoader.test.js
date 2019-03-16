@@ -51,6 +51,15 @@ it('get next page url from nnth page', () => {
     expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=12");
 })
 
+it('only load on pages that are threads', () => {
+    testPageManipulator.loadNonThreadUrl();
+    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+
+    triggerNextPageLoad();
+
+    expect(xhrOpenMock.mock.calls.length).toBe(0);
+})
+
 function triggerNextPageLoad() {
     testPageManipulator.setScrollPosition(10);
     automaticPageLoader.autoScrollPages();

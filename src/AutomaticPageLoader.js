@@ -27,7 +27,10 @@ class AutomaticPageLoader {
     }
 
     _isPageLoadRequired() {
-        return (this._IsBottomOfPage() && !this.isNextPagePageLoading && !this._isLastPage());
+        return this.pageInformationCollector.isThreadPage() &&
+            this._IsBottomOfPage() &&
+            !this.isNextPagePageLoading &&
+            !this._isLastPage();
     }
 
     _isLastPage() {
@@ -70,7 +73,7 @@ class AutomaticPageLoader {
 
     _getNthPageUrl(pageNo) {
         let url = window.location.href;
-        if (!this.pageInformationCollector.isFirstPageInThread(url)) {
+        if (!this.pageInformationCollector.isFirstPageInThread()) {
             url = url.replace(/&page=\d+/, '');
             return url + '&page=' + pageNo;
         }
