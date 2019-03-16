@@ -9,27 +9,24 @@ class ElementVisibilityUpdater {
     }
 
     hideEachPostsElements() {
-        this.hideWelcomeNotice();
-        this.hideAvatarInfo();
-        this.hidePostFooter();
+        this._hideEachPostsAvatarInfo();
+        this._hideEachPostsFooter();
+    }
+
+    hidePostElements(post) {
+        this._hidePostAvatarInfo(post);
+        this._hidePostFooter(post);
+    }
+
+    showPostElements(post) {
+        this._showPostAvatarInfo(post);
+        this._showPostFooter(post);
     }
 
     hideWelcomeNotice() {
         const welcomeNotice = this.elementFinder.getWelcomeNotice();
         if (welcomeNotice != null)
             this.hideElement(welcomeNotice);
-    }
-
-    hideAvatarInfo() {
-        for (let post of this.elementFinder.getAllPosts()) {
-            this.hideElements(this.elementFinder.getAvatarInfoElementsFromPost(post));
-        }
-    }
-
-    hidePostFooter() {
-        for (let post of this.elementFinder.getAllPosts()) {
-            this.hideElement(this.elementFinder.getFooterElement(post));
-        }
     }
 
     hideElement(element) {
@@ -50,5 +47,33 @@ class ElementVisibilityUpdater {
 
     showElement(element) {
         element.style.display = '';
+    }
+
+    _hideEachPostsAvatarInfo() {
+        for (let post of this.elementFinder.getAllPosts()) {
+            this.hideElements(this.elementFinder.getAvatarInfoElementsFromPost(post));
+        }
+    }
+
+    _hidePostAvatarInfo(post) {
+        this.hideElements(this.elementFinder.getAvatarInfoElementsFromPost(post));
+    }
+
+    _showPostAvatarInfo(post) {
+        this.showElements(this.elementFinder.getAvatarInfoElementsFromPost(post));
+    }
+
+    _hideEachPostsFooter() {
+        for (let post of this.elementFinder.getAllPosts()) {
+            this.hideElement(this.elementFinder.getFooterElementFromPost(post));
+        }
+    }
+
+    _hidePostFooter(post) {
+        this.hideElement(this.elementFinder.getFooterElementFromPost(post));
+    }
+
+    _showPostFooter(post) {
+        this.showElement(this.elementFinder.getFooterElementFromPost(post));
     }
 }

@@ -26,8 +26,19 @@ it('update navigator', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
     appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
-    
+
     expect(document.body.outerHTML.indexOf("Page 2 of 2")).not.toBe(-1);
+})
+
+it('next page posts have compression toggling', () => {
+    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+
+    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    let post = elementFinder.getAllPosts()[1];
+    post.click();
+
+    post = elementFinder.getAllPosts()[1];
+    expect(elementFinder.getAvatarInfoElementsFromPost(post)[0].style.display).toBe('');
 })
 
 function appendNextPage(pageHtml) {

@@ -3,6 +3,7 @@ import { ElementFinder } from "./ElementFinder.js";
 import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { ElementGenerator } from "./ElementGenerator.js";
 import { PageInformationCollector } from "./PageInformationCollector.js";
+import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 
 class PageUpdater {
 
@@ -11,6 +12,7 @@ class PageUpdater {
         this.elementVisibilityUpdater = new ElementVisibilityUpdater();
         this.elementGenerator = new ElementGenerator();
         this.pageInformationCollector = new PageInformationCollector();
+        this.postsCompressionToggler = new PostsCompressionToggler();
     }
 
     appendNextPage(nextPageDocument) {
@@ -20,6 +22,7 @@ class PageUpdater {
         this._updateCurrentPageNavigator(nextPageDocument);
         this.removeLoadingElement();
         this.elementVisibilityUpdater.hideEachPostsElements();
+        this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
     }
 
     insertLoadingElement() {

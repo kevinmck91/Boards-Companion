@@ -10,20 +10,20 @@ it('Welcome notice hidden', () => {
     document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
 
     elementVisibilityUpdater.hideWelcomeNotice();
-    
+
     expect(elementFinder.getWelcomeNotice().style.display).toBe('none');
 })
 
 it('Avatar Info Hidden', () => {
     document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
-    
-    elementVisibilityUpdater.hideAvatarInfo();
-    
+
+    elementVisibilityUpdater.hideEachPostsElements();
+
     expect(elementFinder.getAvatarInfoElementsFromPost(elementFinder.getAllPosts()[0])[0].style.display).toBe('none');
 })
 
 it('Signed in user runs without exception', () => {
     document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
-    
+
     elementVisibilityUpdater.hideWelcomeNotice();
 })

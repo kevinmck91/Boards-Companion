@@ -30,7 +30,7 @@ class ElementFinder {
         return Array.from(post.querySelectorAll('.alt2 .smallfont'));
     }
 
-    getFooterElement(post) {
+    getFooterElementFromPost(post) {
         return post.querySelector('tr:nth-child(3)');
     }
 
