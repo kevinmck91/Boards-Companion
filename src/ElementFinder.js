@@ -11,15 +11,15 @@ class ElementFinder {
         return Array.from(document.querySelectorAll("[id^='edit']"));
     }
 
-    getPostsContainer(){
+    getPostsContainer() {
         return document.querySelector('.left-col');
     }
 
     getPostsFromDocument(htmlDocument) {
         let divsContainingPosts = Array.from(htmlDocument.querySelectorAll('div[align="center"]'));
         const posts = [];
-        for(let div of divsContainingPosts){
-            if(div.querySelector('div[id^=edit]')!=null){
+        for (let div of divsContainingPosts) {
+            if (div.querySelector('div[id^=edit]') != null) {
                 posts.push(div);
             }
         }
@@ -51,11 +51,11 @@ class ElementFinder {
         return document.querySelectorAll('.pagenav')[0];
     }
 
-    getBottomPageNavigator(){
+    getBottomPageNavigator() {
         return document.querySelectorAll('.pagenav')[1];
     }
 
-    getTopPageNavigatorFromDocument(htmlDocument){
+    getTopPageNavigatorFromDocument(htmlDocument) {
         return htmlDocument.querySelectorAll('.pagenav')[0];
     }
 

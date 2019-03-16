@@ -20,51 +20,62 @@ class AutomaticPageLoader {
 
     autoScrollPages() {
         window.addEventListener('scroll', () => {
-            if (this.isPageLoadRequired()) {
-                this.loadNextPage();
+            if (this._isPageLoadRequired()) {
+                this._loadNextPage();
             }
         });
     }
 
-    isPageLoadRequired() {
-        return (this.IsBottomOfPage() && !this.isNextPagePageLoading && !this.isLastPage());
+    _isPageLoadRequired() {
+        return (this._IsBottomOfPage() && !this.isNextPagePageLoading && !this._isLastPage());
     }
 
-    isLastPage() {
-        return this.getNextPageNo() > this.pageInformationCollector.getMaxNoOfPages();
+    _isLastPage() {
+        return this._getNextPageNo() > this.pageInformationCollector.getMaxNoOfPages();
     }
 
-    IsBottomOfPage() {
+    _IsBottomOfPage() {
         return (window.innerHeight + window.scrollY) >= document.querySelector(".wrapper").offsetHeight;
     }
 
-    loadNextPage() {
+    _loadNextPage() {
         this.isNextPagePageLoading = true;
         let httpRequest = new XMLHttpRequest();
         let _this = this;
         httpRequest.onload = function () {
             if (this.status == 200) {
-                _this.appendNextPage(httpRequest);
+                _this._appendNextPage(httpRequest);
                 _this.isNextPagePageLoading = false;
             }
         }
-        httpRequest.open('GET', this.pageInformationCollector.getNthPageUrl(this.getNextPageNo()), true);
+        httpRequest.open('GET', this._getNthPageUrl(this._getNextPageNo()), true);
         httpRequest.send();
         this.pageUpdater.insertLoadingElement();
     }
 
-    getNextPageNo() {
+    _getNextPageNo() {
         return this.pageInformationCollector.getCurrentPageNo() + 1;
     }
 
-    appendNextPage(successfulHttpRequest) {
-        let nextPageDocument = this.extractDocument(successfulHttpRequest);
+    _appendNextPage(successfulHttpRequest) {
+        let nextPageDocument = this._extractDocument(successfulHttpRequest);
         this.pageUpdater.appendNextPage(nextPageDocument);
     }
 
-    extractDocument(successfulHttpRequest) {
+    _extractDocument(successfulHttpRequest) {
         let loadedPageContent = successfulHttpRequest.responseText;
         let parser = new DOMParser();
         return parser.parseFromString(loadedPageContent, "text/html");
+    }
+
+    _getNthPageUrl(pageNo) {
+        let url = window.location.href;
+        if (!this.pageInformationCollector.isFirstPageInThread(url)) {
+            url = url.replace(/&page=\d+/, '');
+            return url + '&page=' + pageNo;
+        }
+        else {
+            return url + '&page=' + pageNo;
+        }
     }
 }

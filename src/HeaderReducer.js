@@ -12,45 +12,34 @@ class HeaderReducer {
 
     toggleHeaderReduction() {
         window.addEventListener('scroll', () => {
-            if (this.isThread()) {
-                if (this.isTopOfPage()) {
-                    this.restoreHeader();
+            if (this._isThread()) {
+                if (this._isTopOfPage()) {
+                    this._restoreHeader();
                 }
                 else {
-                    this.reduceHeader();
+                    this._reduceHeader();
                 }
             }
         });
     }
 
-    processScrollEvent() {
-        if (this.isThread()) {
-            if (this.isTopOfPage()) {
-                this.restoreHeader();
-            }
-            else {
-                this.reduceHeader();
-            }
-        }
-    }
-
-    isThread() {
+    _isThread() {
         return window.location.href.includes("showthread");
     }
 
-    reduceHeader() {
+    _reduceHeader() {
         const breadcrumbs = this.elementFinder.getBreadCrumbs();
         breadcrumbs.style.top = '0px';
         this.elementVisibilityUpdater.hideElements(this.elementFinder.getReducibleHeaderElements());
     }
 
-    restoreHeader() {
+    _restoreHeader() {
         const breadcrumbs = this.elementFinder.getBreadCrumbs();
         breadcrumbs.style.top = '87px';
         this.elementVisibilityUpdater.showElements(this.elementFinder.getReducibleHeaderElements());
     }
 
-    isTopOfPage() {
+    _isTopOfPage() {
         return window.scrollY == 0;
     }
 }

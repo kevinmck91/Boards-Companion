@@ -21,7 +21,7 @@ it('test page 2 url loaded', () => {
     testPageManipulator.loadThreadUrl();
     document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
 
-    automaticPageLoader.loadNextPage();
+    triggerNextPageLoad();
 
     expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=2");
 })
@@ -30,17 +30,29 @@ it('test starting on page 2', () => {
     testPageManipulator.loadNthThreadUrl(2);
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(2, 3);
 
-    automaticPageLoader.loadNextPage();
+    triggerNextPageLoad();
 
     expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=3");
 })
 
 it('test last page only loads once', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(2, 2);
-    testPageManipulator.setScrollPosition(10);
 
-    automaticPageLoader.autoScrollPages();
-    testPageManipulator.triggerScrollEvent();
+    triggerNextPageLoad();
 
     expect(xhrOpenMock.mock.calls.length).toBe(0);
 })
+
+it('get next page url from nnth page', () => {
+    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(11, 20);
+
+    triggerNextPageLoad();
+
+    expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=12");
+})
+
+function triggerNextPageLoad() {
+    testPageManipulator.setScrollPosition(10);
+    automaticPageLoader.autoScrollPages();
+    testPageManipulator.triggerScrollEvent();
+}

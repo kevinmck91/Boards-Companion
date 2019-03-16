@@ -8,47 +8,18 @@ class PageInformationCollector {
         this.elementFinder = new ElementFinder();
     }
 
-    getNthPageUrl(pageNo) {
-        let url = window.location.href;
-        if (!this.isFirstPageInThread(url)) {
-            url = url.replace(/&page=\d+/, '');
-            return url + '&page=' + pageNo;
-        }
-        else {
-            return url + '&page=' + pageNo;
-        }
-    }
-
     isFirstPageInThread(url) {
-        return url.indexOf('&page=') == -1
+        return url.indexOf('&page=') == -1;
     }
 
     getMaxNoOfPages() {
         const navigator = this.elementFinder.getTopPageNavigator();
-        return this.parseY(this.getPageXofY(navigator));
+        return this._parseY(this._getPageXofY(navigator));
     }
 
     getCurrentPageNo() {
         const navigator = this.elementFinder.getBottomPageNavigator();
-        return this.parseX(this.getPageXofY(navigator));
-    }
-
-    getPageXofY(navigator) {
-        return navigator.querySelector('.vbmenu_control').textContent;
-    }
-
-    parseY(pageXofY) {
-        pageXofY = pageXofY.trim();
-        let pageXOfYSplit = Array.from(pageXofY.split(' '));
-        let noOfPages = pageXOfYSplit[pageXOfYSplit.length - 1];
-        return parseInt(noOfPages);
-    }
-
-    parseX(pageXofY) {
-        pageXofY = pageXofY.trim();
-        let pageXOfYSplit = Array.from(pageXofY.split(' '));
-        let x = pageXOfYSplit[1];
-        return parseInt(x);
+        return this._parseX(this._getPageXofY(navigator));
     }
 
     isHeaderRestored() {
@@ -57,6 +28,24 @@ class PageInformationCollector {
 
     getPageNoFromDocument(htmlDocument) {
         let navigator = this.elementFinder.getTopPageNavigatorFromDocument(htmlDocument);
-        return this.parseX(this.getPageXofY(navigator));
+        return this._parseX(this._getPageXofY(navigator));
+    }
+
+    _getPageXofY(navigator) {
+        return navigator.querySelector('.vbmenu_control').textContent;
+    }
+
+    _parseY(pageXofY) {
+        pageXofY = pageXofY.trim();
+        let pageXOfYSplit = Array.from(pageXofY.split(' '));
+        let noOfPages = pageXOfYSplit[pageXOfYSplit.length - 1];
+        return parseInt(noOfPages);
+    }
+
+    _parseX(pageXofY) {
+        pageXofY = pageXofY.trim();
+        let pageXOfYSplit = Array.from(pageXofY.split(' '));
+        let x = pageXOfYSplit[1];
+        return parseInt(x);
     }
 }

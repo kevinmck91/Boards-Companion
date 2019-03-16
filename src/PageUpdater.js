@@ -14,10 +14,10 @@ class PageUpdater {
     }
 
     appendNextPage(nextPageDocument) {
-        this.insertNextPageNumber(nextPageDocument);
+        this._insertNextPageNumber(nextPageDocument);
         let nextPagePosts = this.elementFinder.getPostsFromDocument(nextPageDocument);
-        this.appendNewPosts(nextPagePosts);
-        this.updateCurrentPageNavigator(nextPageDocument);
+        this._appendNewPosts(nextPagePosts);
+        this._updateCurrentPageNavigator(nextPageDocument);
         this.removeLoadingElement();
         this.elementVisibilityUpdater.hideEachPostsElements();
     }
@@ -35,26 +35,22 @@ class PageUpdater {
         }
     }
 
-    insertNextPageNumber(nextPageDocument) {
+    _insertNextPageNumber(nextPageDocument) {
         let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
         let postsContainer = this.elementFinder.getPostsContainer();
         let pageNoElement = this.elementGenerator.generatePageNoElement(nextPageNo);
         postsContainer.appendChild(pageNoElement);
     }
 
-    appendNewPosts(nextPagePostsArray) {
+    _appendNewPosts(nextPagePostsArray) {
         let postsContainer = this.elementFinder.getPostsContainer();
         for (let post of nextPagePostsArray) {
             postsContainer.appendChild(post);
         }
     }
 
-    updateCurrentPageNavigator(nextPageDocument) {
-        let navigator = this.elementFinder.getTopPageNavigatorFromDocument(nextPageDocument);
-        this.updateBottomNavigator(navigator);
-    }
-
-    updateBottomNavigator(newNavigator) {
+    _updateCurrentPageNavigator(nextPageDocument) {
+        let newNavigator = this.elementFinder.getTopPageNavigatorFromDocument(nextPageDocument);
         let currentNavigator = this.elementFinder.getBottomPageNavigator();
         currentNavigator.parentNode.replaceChild(newNavigator, currentNavigator);
     }
