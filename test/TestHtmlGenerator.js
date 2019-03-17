@@ -7,7 +7,7 @@ class TestHtmlGenerator {
         return this.wrapPageElements(this.getPageNavigator(1, 2) +
             this.getHeader() +
             this.getWelcomeNotice() +
-            this.wrapMidsectionElements(this.getPost()) +
+            this.wrapPosts(this.getUnsignedInUserPost()) +
             this.wrapFooterElements(this.getPageNavigator(1, 2)));
     }
 
@@ -15,14 +15,14 @@ class TestHtmlGenerator {
         return this.wrapPageElements(this.getPageNavigator(1, 2) +
             this.getHeader() +
             this.getNotice() +
-            this.wrapMidsectionElements(this.getPost()) +
+            this.wrapPosts(this.getSignedInUserPost()) +
             this.wrapFooterElements(this.getPageNavigator(1, 2)));
     }
 
     getSpecificSignedInUserPage(pageNo, maxNoOfPages) {
         return this.wrapPageElements(this.getPageNavigator(pageNo, maxNoOfPages) +
             this.getHeader() +
-            this.wrapMidsectionElements(this.getPost()) +
+            this.wrapPosts(this.getSignedInUserPost()) +
             this.wrapFooterElements(this.getPageNavigator(pageNo, maxNoOfPages)));
     }
 
@@ -35,7 +35,7 @@ class TestHtmlGenerator {
         return `<div class="wrapper">` + elements + `</div>`;
     }
 
-    wrapMidsectionElements(elements) {
+    wrapPosts(elements) {
         return `<div class="left-col">` + elements + `</div>`;
     }
 
@@ -44,41 +44,50 @@ class TestHtmlGenerator {
     }
 
     getNotice() {
-        return `<form id="notices">
-                <div>Catch up with all the community</div>
-            </form>`;
+        return `
+        <form id="notices">
+            <div>Catch up with all the community</div>
+        </form>`;
     }
 
     getWelcomeNotice() {
-        return `<form id="notices">
-                <div>here are some tips and tricks to help you get started</div>
-            </form>`
+        return `
+        <form id="notices">
+            <div>here are some tips and tricks to help you get started</div>
+        </form>`;
     }
 
-    getPost() {
+    getSignedInUserPost() {
         return `
-        <div align="center">
-            <div id="edit111">
-                <table>
-                    <tr>
-                    </tr>
-                    <tr>
-                        <td class="alt2">
-                            <div>
-                                <a>username</a>
-                            </div>
-                            <div class="smallfont">
-                                Registered User
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a class="postbit_thanks"></a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+        <div align="center">`+ this.getPostContent() + `</div>`;
+    }
+
+    getUnsignedInUserPost() {
+        return `<div>` + this.getPostContent() + `</div`;
+    }
+
+    getPostContent() {
+        return `
+        <div id="edit111">
+            <table>
+                <tr>
+                </tr>
+                <tr>
+                    <td class="alt2">
+                        <div>
+                            <a>username</a>
+                        </div>
+                        <div class="smallfont">
+                            Registered User
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="postbit_thanks"></a>
+                    </td>
+                </tr>
+            </table>
         </div>`;
     }
 

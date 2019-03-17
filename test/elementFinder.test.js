@@ -12,8 +12,16 @@ it('test get posts from document', () => {
     expect(posts.length).toBe(1);
 })
 
+it('test get posts from unsigned in user page', () => {
+    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
+
+    let posts = elementFinder.getPostsFromDocument(document);
+
+    expect(posts.length).toBe(1);
+})
+
 it('test get avatar info elements', () => {
-    document.body.innerHTML = testHtmlGenerator.getPost();
+    document.body.innerHTML = testHtmlGenerator.getSignedInUserPost();
 
     let avatarInfoElements = elementFinder.getAvatarInfoElementsFromPost(elementFinder.getAllPosts()[0]);
 

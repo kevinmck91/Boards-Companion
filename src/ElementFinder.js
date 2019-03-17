@@ -19,19 +19,16 @@ class ElementFinder {
         return Array.from(document.querySelectorAll("[id^='edit']"));
     }
 
+    getPostsContainerFromDocument(htmlDocument) {
+        return htmlDocument.querySelector('.left-col');
+    }
+
     getPostsContainer() {
-        return document.querySelector('.left-col');
+        return this.getPostsContainerFromDocument(document);
     }
 
     getPostsFromDocument(htmlDocument) {
-        let divsContainingPosts = Array.from(htmlDocument.querySelectorAll('div[align="center"]'));
-        const posts = [];
-        for (let div of divsContainingPosts) {
-            if (div.querySelector('div[id^=edit]') != null) {
-                posts.push(div);
-            }
-        }
-        return posts;
+        return htmlDocument.querySelectorAll('.left-col > div');
     }
 
     getAvatarInfoElementsFromPost(post) {
