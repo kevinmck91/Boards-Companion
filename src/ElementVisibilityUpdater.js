@@ -24,7 +24,7 @@ class ElementVisibilityUpdater {
     }
 
     hideWelcomeNotice() {
-        const welcomeNotice = this.elementFinder.getWelcomeNotice();
+        const welcomeNotice = this.elementFinder.searchForWelcomeNotice();
         if (welcomeNotice != null)
             this.hideElement(welcomeNotice);
     }

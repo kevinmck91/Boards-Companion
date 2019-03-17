@@ -6,7 +6,7 @@ class TestHtmlGenerator {
     getUnsignedInUserPage() {
         return this.wrapPageElements(this.getPageNavigator(1, 2) +
             this.getHeader() +
-            this.getNoticesElement() +
+            this.getWelcomeNotice() +
             this.wrapMidsectionElements(this.getPost()) +
             this.wrapFooterElements(this.getPageNavigator(1, 2)));
     }
@@ -14,6 +14,7 @@ class TestHtmlGenerator {
     getSignedInUserPage() {
         return this.wrapPageElements(this.getPageNavigator(1, 2) +
             this.getHeader() +
+            this.getNotice() +
             this.wrapMidsectionElements(this.getPost()) +
             this.wrapFooterElements(this.getPageNavigator(1, 2)));
     }
@@ -42,10 +43,16 @@ class TestHtmlGenerator {
         return `<div align="centre">` + elements + `</div>`;
     }
 
-    getNoticesElement() {
+    getNotice() {
         return `<form id="notices">
-                <div>Welcome</div>
+                <div>Catch up with all the community</div>
             </form>`;
+    }
+
+    getWelcomeNotice() {
+        return `<form id="notices">
+                <div>here are some tips and tricks to help you get started</div>
+            </form>`
     }
 
     getPost() {

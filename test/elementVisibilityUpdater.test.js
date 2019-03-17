@@ -11,7 +11,15 @@ it('Welcome notice hidden', () => {
 
     elementVisibilityUpdater.hideWelcomeNotice();
 
-    expect(elementFinder.getWelcomeNotice().style.display).toBe('none');
+    expect(elementFinder.searchForWelcomeNotice().style.display).toBe('none');
+})
+
+it('normal notice not hidden', () => {
+    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+
+    elementVisibilityUpdater.hideWelcomeNotice();
+
+    expect(elementFinder.getNotice().style.display).toBe('');
 })
 
 it('Avatar Info Hidden', () => {
