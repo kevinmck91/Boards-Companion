@@ -22,6 +22,12 @@ it('normal notice not hidden', () => {
     expect(elementFinder.getNotice().style.display).toBe('');
 })
 
+it('page without notice runs without error', () => {
+    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+
+    elementVisibilityUpdater.hideWelcomeNotice();
+})
+
 it('Avatar Info Hidden', () => {
     document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
 

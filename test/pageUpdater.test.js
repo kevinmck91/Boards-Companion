@@ -41,6 +41,12 @@ it('next page posts have compression toggling', () => {
     expect(elementFinder.getAvatarInfoElementsFromPost(post)[0].style.display).toBe('');
 })
 
+it('console is restored', () => {
+    console.log = function () { };
+    pageUpdater.restoreConsole();
+    expect(console.log.toString()).not.toBe('function () {}');
+})
+
 function appendNextPage(pageHtml) {
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
     pageUpdater.appendNextPage(htmlDocument);

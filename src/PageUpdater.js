@@ -38,6 +38,13 @@ class PageUpdater {
         }
     }
 
+    restoreConsole() {
+        let iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        window.console = iframe.contentWindow.console;
+    }
+
     _insertNextPageNumber(nextPageDocument) {
         let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
         let postsContainer = this.elementFinder.getPostsContainer();
