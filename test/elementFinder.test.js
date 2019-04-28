@@ -27,3 +27,19 @@ it('test get avatar info elements', () => {
 
     expect(avatarInfoElements[0].outerHTML.includes("Registered User")).toBe(true);
 })
+
+it('test get posts from new signed in user page', () => {
+    document.body.innerHTML = testHtmlGenerator.getNewUserSignedInPage();
+
+    let posts = elementFinder.getPostsFromDocument(document);
+
+    expect(posts.length).toBe(1);
+})
+
+it('test get posts container from new signed in user page', () => {
+    document.body.innerHTML = testHtmlGenerator.getNewUserSignedInPage();
+
+    let posts = elementFinder.getPostsContainerFromDocument(document);
+
+    expect(posts).not.toBe(null);
+})

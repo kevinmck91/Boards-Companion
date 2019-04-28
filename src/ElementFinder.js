@@ -20,7 +20,12 @@ class ElementFinder {
     }
 
     getPostsContainerFromDocument(htmlDocument) {
-        return htmlDocument.querySelector('.left-col');
+        let regularUserPosts = htmlDocument.querySelector('.left-col');
+        let newSignedInUserPosts = htmlDocument.querySelector('#posts');
+        if (regularUserPosts == null)
+            return newSignedInUserPosts;
+        else
+            return regularUserPosts;
     }
 
     getPostsContainer() {
@@ -28,7 +33,12 @@ class ElementFinder {
     }
 
     getPostsFromDocument(htmlDocument) {
-        return htmlDocument.querySelectorAll('.left-col > div');
+        let regularUserPosts = htmlDocument.querySelectorAll('.left-col > div');
+        let newSignedInUserPosts = htmlDocument.querySelectorAll('#posts > div');
+        if (regularUserPosts.length == 0)
+            return newSignedInUserPosts;
+        else
+            return regularUserPosts;
     }
 
     getAvatarInfoElementsFromPost(post) {

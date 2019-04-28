@@ -19,6 +19,14 @@ class TestHtmlGenerator {
             this.wrapFooterElements(this.getPageNavigator(1, 2)));
     }
 
+    getNewUserSignedInPage() {
+        return this.wrapPageElements(this.getPageNavigator(1, 2) +
+            this.getHeader() +
+            this.getNotice() +
+            this.wrapNewSignedInUserPosts(this.getSignedInUserPost()) +
+            this.wrapFooterElements(this.getPageNavigator(1, 2)));
+    }
+
     getSpecificSignedInUserPage(pageNo, maxNoOfPages) {
         return this.wrapPageElements(this.getPageNavigator(pageNo, maxNoOfPages) +
             this.getHeader() +
@@ -36,7 +44,16 @@ class TestHtmlGenerator {
     }
 
     wrapPosts(elements) {
-        return `<div class="left-col">` + elements + `</div>`;
+        return `
+        <div id="posts">
+            <div class="left-col">
+                ` + elements + `
+            </div>
+        </div>`;
+    }
+
+    wrapNewSignedInUserPosts(elements) {
+        return `<div id="posts">` + elements + `</div>`;
     }
 
     wrapFooterElements(elements) {
@@ -63,7 +80,7 @@ class TestHtmlGenerator {
     }
 
     getUnsignedInUserPost() {
-        return `<div>` + this.getPostContent() + `</div`;
+        return `<div>` + this.getPostContent() + `</div>`;
     }
 
     getPostContent() {
