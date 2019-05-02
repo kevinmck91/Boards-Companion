@@ -44,6 +44,8 @@ class AutomaticPageLoader {
     _loadNextPage() {
         this.isNextPagePageLoading = true;
         let httpRequest = new XMLHttpRequest();
+        httpRequest.open('GET', this.pageInformationCollector.getNextPageUrl(), true);
+        httpRequest.send();
         let _this = this;
         httpRequest.onload = function () {
             if (this.status == 200) {
@@ -51,8 +53,6 @@ class AutomaticPageLoader {
                 _this.isNextPagePageLoading = false;
             }
         }
-        httpRequest.open('GET', this._getNthPageUrl(this._getNextPageNo()), true);
-        httpRequest.send();
         this.pageUpdater.insertLoadingElement();
     }
 
@@ -71,14 +71,4 @@ class AutomaticPageLoader {
         return parser.parseFromString(loadedPageContent, "text/html");
     }
 
-    _getNthPageUrl(pageNo) {
-        let url = window.location.href;
-        if (!this.pageInformationCollector.isFirstPageInThread()) {
-            url = url.replace(/&page=\d+/, '');
-            return url + '&page=' + pageNo;
-        }
-        else {
-            return url + '&page=' + pageNo;
-        }
-    }
 }

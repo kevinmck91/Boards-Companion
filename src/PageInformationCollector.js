@@ -8,8 +8,10 @@ class PageInformationCollector {
         this.elementFinder = new ElementFinder();
     }
 
-    isFirstPageInThread() {
-        return window.location.href.indexOf('&page=') == -1;
+    getNextPageUrl() {
+        const navigator = this.elementFinder.getBottomPageNavigator();
+        const nextPageElement = this.elementFinder.getNextPageElementFromNavigator(navigator);
+        return this._getLinkFromElement(nextPageElement);
     }
 
     isThreadPage() {
@@ -51,5 +53,11 @@ class PageInformationCollector {
         let pageXOfYSplit = Array.from(pageXofY.split(' '));
         let x = pageXOfYSplit[1];
         return parseInt(x);
+    }
+
+    _getLinkFromElement(pageLinkElement) {
+        let elementHref = pageLinkElement.querySelector("a").getAttribute("href");
+        let paredIdentifier = elementHref.replace("showthread.php", "");
+        return window.location.origin + window.location.pathname + paredIdentifier;
     }
 }

@@ -116,6 +116,11 @@ class TestHtmlGenerator {
                     <td class="vbmenu_control">
                         Page `+ currentPageNo + ` of ` + totalPages + `
                     </td>
+                    <td class="alt2">
+                    </td>
+                    <td class="alt1">
+                        <a href="showthread.php?t=1111&page=`+ (currentPageNo + 1) + `"></a>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -4,6 +4,7 @@ import { TestPageManipulator } from "./TestPageManipulator.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let pageInformationCollector = new PageInformationCollector();
+let testPageManipulator = new TestPageManipulator();
 
 it('max no of pages', () => {
     document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
@@ -17,4 +18,14 @@ it('triple digits pageXOfY', () => {
     let result = pageInformationCollector.getMaxNoOfPages(document);
 
     expect(result).toBe(482);
+})
+
+it('get next page url from navigator', () => {
+    testPageManipulator.loadThreadUrl();
+    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(2, 4);
+
+    let result = pageInformationCollector.getNextPageUrl();
+
+    expect(result).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=3");
+
 })

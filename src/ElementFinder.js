@@ -74,4 +74,8 @@ class ElementFinder {
         return htmlDocument.querySelectorAll('.pagenav')[0];
     }
 
+    getNextPageElementFromNavigator(navigator) {
+        return navigator.querySelector('.alt2 + .alt1');
+    }
+
 }
