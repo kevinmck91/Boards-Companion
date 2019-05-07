@@ -26,32 +26,36 @@ catch (error) {
 }
 
 try {
-    elementVisibilityUpdater.hideEachPostsElements();
+    chrome.storage.sync.get('hidePostElementsEnabled', function (result) {
+        if (result.hidePostElementsEnabled != false) {
+            elementVisibilityUpdater.hideEachPostsElements();
+            postsCompressionToggler.applyCompressionToggling();
+        }
+    });
 }
 catch (error) {
     console.error("Unable to hide post elements: " + error);
 }
 
 try {
-    headerReducer.toggleHeaderReduction();
+    chrome.storage.sync.get('reduceHeaderEnabled', function (result) {
+        if (result.reduceHeaderEnabled != false) {
+            headerReducer.toggleHeaderReduction();
+        }
+    });
 }
 catch (error) {
     console.error("Unable to toggle header reduction: " + error);
 }
 
 try {
-    automaticPageLoader.autoScrollPages();
+    chrome.storage.sync.get('autoscrollingEnabled', function (result) {
+        if (result.autoscrollingEnabled != false) {
+            automaticPageLoader.autoScrollPages();
+        }
+    });
 }
 catch (error) {
     console.error("Unable to activate auto page scrolling: " + error);
 }
-
-try {
-    postsCompressionToggler.applyCompressionToggling();
-}
-catch (error) {
-    console.error("Unable to apply compression toggling: " + error);
-}
-
-
 
