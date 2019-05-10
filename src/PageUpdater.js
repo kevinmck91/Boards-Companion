@@ -15,14 +15,16 @@ class PageUpdater {
         this.postsCompressionToggler = new PostsCompressionToggler();
     }
 
-    appendNextPage(nextPageDocument) {
+    appendNextPage(nextPageDocument, isHidePostElementsEnabled) {
         this._insertNextPageNumber(nextPageDocument);
         let nextPagePosts = this.elementFinder.getPostsFromDocument(nextPageDocument);
         this._appendNewPosts(nextPagePosts);
         this._updateCurrentPageNavigator(nextPageDocument);
         this.removeLoadingElement();
-        this.elementVisibilityUpdater.hideEachPostsElements();
-        this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
+        if (isHidePostElementsEnabled) {
+            this.elementVisibilityUpdater.hideEachPostsElements();
+            this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
+        }
     }
 
     insertLoadingElement() {
