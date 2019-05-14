@@ -6,6 +6,10 @@ let testHtmlGenerator = new TestHtmlGenerator();
 let pageUpdater = new PageUpdater();
 let elementFinder = new ElementFinder();
 
+beforeEach(() => {
+    document.body.appendChild(testHtmlGenerator.getExistingJavascriptElement());
+});
+
 it('add next page successfully', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
@@ -45,6 +49,14 @@ it('console is restored', () => {
     console.log = function () { };
     pageUpdater.restoreConsole();
     expect(console.log.toString()).not.toBe('function () {}');
+})
+
+it('next page contains custom boards script', () => {
+    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+
+    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+
+    expect(document.body.innerHTML.indexOf("Boards.load('thread')")).not.toBe(-1);
 })
 
 function appendNextPage(pageHtml) {

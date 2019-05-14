@@ -20,4 +20,11 @@ class ElementGenerator {
         return pageNoElement;
     }
 
+    GenerateScriptElement(contents) {
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+        script.innerHTML = contents;
+        return script;
+    }
+
 }

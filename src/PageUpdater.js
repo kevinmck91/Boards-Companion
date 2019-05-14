@@ -4,6 +4,7 @@ import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { ElementGenerator } from "./ElementGenerator.js";
 import { PageInformationCollector } from "./PageInformationCollector.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
+import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
 
 class PageUpdater {
 
@@ -13,6 +14,7 @@ class PageUpdater {
         this.elementGenerator = new ElementGenerator();
         this.pageInformationCollector = new PageInformationCollector();
         this.postsCompressionToggler = new PostsCompressionToggler();
+        this.BoardsScriptGenerator = new BoardsScriptGenerator();
     }
 
     appendNextPage(nextPageDocument, isHidePostElementsEnabled) {
@@ -21,6 +23,7 @@ class PageUpdater {
         this._appendNewPosts(nextPagePosts);
         this._updateCurrentPageNavigator(nextPageDocument);
         this.removeLoadingElement();
+        this.insertPostPostsInsertScript();
         if (isHidePostElementsEnabled) {
             this.elementVisibilityUpdater.hideEachPostsElements();
             this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
@@ -31,6 +34,10 @@ class PageUpdater {
         let postsContainer = this.elementFinder.getPostsContainer();
         let loadingElement = this.elementGenerator.generateLoadingElement();
         postsContainer.appendChild(loadingElement);
+    }
+
+    insertPostPostsInsertScript() {
+        document.body.appendChild(this.BoardsScriptGenerator.GeneratePostPostsInsertScript());
     }
 
     removeLoadingElement() {
