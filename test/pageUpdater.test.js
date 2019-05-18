@@ -1,13 +1,16 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { PageUpdater } from "../src/PageUpdater.js";
 import { ElementFinder } from "../src/ElementFinder.js";
+import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let pageUpdater = new PageUpdater();
 let elementFinder = new ElementFinder();
+let chromeStorageMocker = new ChromeStorageMocker();
 
 beforeEach(() => {
     document.body.appendChild(testHtmlGenerator.getExistingJavascriptElement());
+    chromeStorageMocker.MockReturnValue(true);
 });
 
 it('add next page successfully', () => {

@@ -36,6 +36,8 @@
         "PageInformationCollector.js",
         "PageUpdater.js",
         "PostsCompressionToggler.js",
-        "BoardsScriptGenerator.js"
+        "BoardsScriptGenerator.js",
+        "ConfigurationSettings.js",
+        "ConfigurationSettingExecutor.js"
     ]
 }

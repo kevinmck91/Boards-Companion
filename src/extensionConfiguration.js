@@ -1,4 +1,6 @@
-let configurationSettingIdentifiers = ["autoscrollingEnabled", "hidePostElementsEnabled", "reduceHeaderEnabled"];
+import { Settings } from "./ConfigurationSettings.js";
+
+let configurationSettingIdentifiers = [Settings.AutoScrollingEnabled, Settings.HidePostElementsEnabled, Settings.ReduceHeaderEnabled];
 updateCheckboxValuesFromStorage();
 enableSaving();
 

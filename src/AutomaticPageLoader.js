@@ -16,11 +16,9 @@ class AutomaticPageLoader {
         this.isInitialPage = true;
         this.nextPageNo = 0;
         this.pageUpdater = new PageUpdater();
-        this.ishidePostElementsEnabled = true;
     }
 
-    autoScrollPages(ishidePostElementsEnabled) {
-        this.ishidePostElementsEnabled = ishidePostElementsEnabled;
+    autoScrollPages() {
         window.addEventListener('scroll', () => {
             if (this._isPageLoadRequired()) {
                 this._loadNextPage();
@@ -64,7 +62,7 @@ class AutomaticPageLoader {
 
     _appendNextPage(successfulHttpRequest) {
         let nextPageDocument = this._extractDocument(successfulHttpRequest);
-        this.pageUpdater.appendNextPage(nextPageDocument, this.ishidePostElementsEnabled);
+        this.pageUpdater.appendNextPage(nextPageDocument);
     }
 
     _extractDocument(successfulHttpRequest) {

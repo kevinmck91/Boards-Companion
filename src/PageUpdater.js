@@ -5,6 +5,8 @@ import { ElementGenerator } from "./ElementGenerator.js";
 import { PageInformationCollector } from "./PageInformationCollector.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
+import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
+import { Settings } from "./ConfigurationSettings.js";
 
 class PageUpdater {
 
@@ -15,19 +17,20 @@ class PageUpdater {
         this.pageInformationCollector = new PageInformationCollector();
         this.postsCompressionToggler = new PostsCompressionToggler();
         this.BoardsScriptGenerator = new BoardsScriptGenerator();
+        this.configurationSettingExecutor = new ConfigurationSettingExecutor();
     }
 
-    appendNextPage(nextPageDocument, isHidePostElementsEnabled) {
+    appendNextPage(nextPageDocument) {
         this._insertNextPageNumber(nextPageDocument);
         let nextPagePosts = this.elementFinder.getPostsFromDocument(nextPageDocument);
         this._appendNewPosts(nextPagePosts);
         this._updateCurrentPageNavigator(nextPageDocument);
         this.removeLoadingElement();
         this.insertPostPostsInsertScript();
-        if (isHidePostElementsEnabled) {
+        this.configurationSettingExecutor.ConditionallyExecute(Settings.HidePostElementsEnabled, () => {
             this.elementVisibilityUpdater.hideEachPostsElements();
             this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
-        }
+        });
     }
 
     insertLoadingElement() {

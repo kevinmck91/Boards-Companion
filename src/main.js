@@ -4,12 +4,15 @@ import { HeaderReducer } from "./HeaderReducer.js";
 import { AutomaticPageLoader } from "./AutomaticPageLoader.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { PageUpdater } from "./PageUpdater.js";
+import { Settings } from "./ConfigurationSettings.js";
+import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
 
 let elementVisibilityUpdater = new ElementVisibilityUpdater();
 let headerReducer = new HeaderReducer();
 let automaticPageLoader = new AutomaticPageLoader();
 let postsCompressionToggler = new PostsCompressionToggler();
 let pageUpdater = new PageUpdater();
+let configurationSettingExecutor = new ConfigurationSettingExecutor();
 
 try {
     pageUpdater.restoreConsole();
@@ -25,16 +28,10 @@ catch (error) {
     console.error("Unable to hide welcome notice: " + error);
 }
 
-let isHidePostElementsEnabled = true;
 try {
-    chrome.storage.sync.get('hidePostElementsEnabled', function (result) {
-        if (result.hidePostElementsEnabled != false) {
-            elementVisibilityUpdater.hideEachPostsElements();
-            postsCompressionToggler.applyCompressionToggling();
-        }
-        else {
-            isHidePostElementsEnabled = false;
-        }
+    configurationSettingExecutor.ConditionallyExecute(Settings.HidePostElementsEnabled, () => {
+        elementVisibilityUpdater.hideEachPostsElements();
+        postsCompressionToggler.applyCompressionToggling();
     });
 }
 catch (error) {
@@ -42,22 +39,14 @@ catch (error) {
 }
 
 try {
-    chrome.storage.sync.get('reduceHeaderEnabled', function (result) {
-        if (result.reduceHeaderEnabled != false) {
-            headerReducer.toggleHeaderReduction();
-        }
-    });
+    configurationSettingExecutor.ConditionallyExecute(Settings.ReduceHeaderEnabled, () => { headerReducer.toggleHeaderReduction(); });
 }
 catch (error) {
     console.error("Unable to toggle header reduction: " + error);
 }
 
 try {
-    chrome.storage.sync.get('autoscrollingEnabled', function (result) {
-        if (result.autoscrollingEnabled != false) {
-            automaticPageLoader.autoScrollPages(isHidePostElementsEnabled);
-        }
-    });
+    configurationSettingExecutor.ConditionallyExecute(Settings.AutoScrollingEnabled, () => { automaticPageLoader.autoScrollPages(); })
 }
 catch (error) {
     console.error("Unable to activate auto page scrolling: " + error);
