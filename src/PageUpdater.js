@@ -27,10 +27,7 @@ class PageUpdater {
         this._updateCurrentPageNavigator(nextPageDocument);
         this.removeLoadingElement();
         this.insertPostPostsInsertScript();
-        this.configurationSettingExecutor.ConditionallyExecute(Settings.HidePostElementsEnabled, () => {
-            this.elementVisibilityUpdater.hideEachPostsElements();
-            this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
-        });
+        this._formatNextPagePosts(nextPagePosts);
     }
 
     insertLoadingElement() {
@@ -55,6 +52,13 @@ class PageUpdater {
         iframe.style.display = 'none';
         document.body.appendChild(iframe);
         window.console = iframe.contentWindow.console;
+    }
+
+    _formatNextPagePosts(nextPagePosts) {
+        this.configurationSettingExecutor.ConditionallyExecute(Settings.HidePostElementsEnabled, () => {
+            this.elementVisibilityUpdater.hideEachPostsElements();
+            this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
+        });
     }
 
     _insertNextPageNumber(nextPageDocument) {
