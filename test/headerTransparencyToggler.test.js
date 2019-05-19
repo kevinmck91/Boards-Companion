@@ -1,11 +1,11 @@
 "use strict";
-import { HeaderReducer } from "../src/HeaderReducer.js";
+import { HeaderTransparencyToggler } from "../src/HeaderTransparencyToggler.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { TestPageManipulator } from "./TestPageManipulator.js";
 import { PageInformationCollector } from "../src/PageInformationCollector.js";
 
-let headerReducer = new HeaderReducer();
+let headerTransparencyToggler = new HeaderTransparencyToggler();
 let elementFinder = new ElementFinder();
 let testHtmlGenerator = new TestHtmlGenerator();
 let testPageManipulator = new TestPageManipulator();
@@ -15,34 +15,34 @@ beforeEach(() => {
     testPageManipulator.loadThreadUrl();
 });
 
-it('Test mid page header reduced', () => {
+it('Test mid page header transparent', () => {
     document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
     testPageManipulator.setScrollPosition(10);
 
-    headerReducer.toggleHeaderReduction();
+    headerTransparencyToggler.enableToggling();
     testPageManipulator.triggerScrollEvent();
 
-    expect(elementFinder.getBreadCrumbs().style.top).toBe('0px');
+    expect(elementFinder.getBreadCrumbs().style.opacity).toBe('0');
 })
 
-it('Test top of page restored header', () => {
+it('Test top of page non-transparent header', () => {
     document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
     testPageManipulator.setScrollPosition(0);
 
-    headerReducer.toggleHeaderReduction();
+    headerTransparencyToggler.enableToggling();
     testPageManipulator.triggerScrollEvent();
 
-    expect(pageInformationCollector.isHeaderRestored()).toBe(true);
+    expect(pageInformationCollector.isHeaderNontransparent()).toBe(true);
 })
 
-it('Test restored on non-thread page', () => {
+it('Test non-transparent on non-thread page', () => {
     document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
     testPageManipulator.loadNonThreadUrl();
     testPageManipulator.setScrollPosition(10);
 
-    headerReducer.toggleHeaderReduction();
+    headerTransparencyToggler.enableToggling();
     testPageManipulator.triggerScrollEvent();
 
-    expect(pageInformationCollector.isHeaderRestored()).toBe(true);
+    expect(pageInformationCollector.isHeaderNontransparent()).toBe(true);
 })
 

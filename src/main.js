@@ -1,6 +1,6 @@
 "use strict";
 import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
-import { HeaderReducer } from "./HeaderReducer.js";
+import { HeaderTransparencyToggler } from "./HeaderTransparencyToggler.js";
 import { AutomaticPageLoader } from "./AutomaticPageLoader.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { PageUpdater } from "./PageUpdater.js";
@@ -8,7 +8,7 @@ import { Settings } from "./ConfigurationSettings.js";
 import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
 
 let elementVisibilityUpdater = new ElementVisibilityUpdater();
-let headerReducer = new HeaderReducer();
+let headerTransparencyToggler = new HeaderTransparencyToggler();
 let automaticPageLoader = new AutomaticPageLoader();
 let postsCompressionToggler = new PostsCompressionToggler();
 let pageUpdater = new PageUpdater();
@@ -39,7 +39,7 @@ catch (error) {
 }
 
 try {
-    configurationSettingExecutor.ConditionallyExecute(Settings.ReduceHeaderEnabled, () => { headerReducer.toggleHeaderReduction(); });
+    configurationSettingExecutor.ConditionallyExecute(Settings.ToggleHeaderTransparency, () => { headerTransparencyToggler.enableToggling(); });
 }
 catch (error) {
     console.error("Unable to toggle header reduction: " + error);

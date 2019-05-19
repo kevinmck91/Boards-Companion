@@ -1,7 +1,7 @@
 export const Settings = {
     HidePostElementsEnabled: "hidePostElementsEnabled",
     AutoScrollingEnabled: "autoscrollingEnabled",
-    ReduceHeaderEnabled: "reduceHeaderEnabled"
+    ToggleHeaderTransparency: "toggleHeaderTransparency"
 };
 
 export { ConfigurationSettings }

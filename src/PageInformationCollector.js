@@ -28,8 +28,8 @@ class PageInformationCollector {
         return this._parseX(this._getPageXofY(navigator));
     }
 
-    isHeaderRestored() {
-        return this.elementFinder.getBreadCrumbs().style.top == '87px';
+    isHeaderNontransparent() {
+        return this.elementFinder.getBreadCrumbs().style.opacity != '0';
     }
 
     getPageNoFromDocument(htmlDocument) {
