@@ -11,7 +11,7 @@ class AutomaticPageLoader {
         this.elementFinder = new ElementFinder();
         this.elementVisibilityUpdater = new ElementVisibilityUpdater();
         this.elementGenerator = new ElementGenerator();
-        this.isNextPagePageLoading = false;
+        this.isPageLoading = false;
         this.pageInformationCollector = new PageInformationCollector();
         this.isInitialPage = true;
         this.nextPageNo = 0;
@@ -19,30 +19,39 @@ class AutomaticPageLoader {
     }
 
     autoScrollPages() {
+        this._conditionallyLoadPage();
         window.addEventListener('scroll', () => {
-            if (this._isPageLoadRequired()) {
+            this._conditionallyLoadPage();
+        });
+    }
+
+    _conditionallyLoadPage() {
+        if (this._isPageLoadRequired()) {
+            if (this._isNextPageLoadRequired()) {
                 this._loadNextPage();
             }
-        });
+            else {
+                this._loadPreviousPage();
+            }
+        }
     }
 
     _isPageLoadRequired() {
         return this.pageInformationCollector.isThreadPage() &&
-            this._IsBottomOfPage() &&
-            !this.isNextPagePageLoading &&
-            !this._isLastPage();
+            (this._isNextPageLoadRequired() || this._isPreviousPageLoadRequired()) &&
+            !this.isPageLoading;
     }
 
-    _isLastPage() {
-        return this._getNextPageNo() > this.pageInformationCollector.getMaxNoOfPages();
+    _isNextPageLoadRequired() {
+        return this.pageInformationCollector.isBottomOfPage() && !this.pageInformationCollector.isLastPage();
     }
 
-    _IsBottomOfPage() {
-        return (window.innerHeight + window.scrollY) >= document.querySelector(".wrapper").offsetHeight;
+    _isPreviousPageLoadRequired() {
+        return this.pageInformationCollector.isTopOfPage() && !this.pageInformationCollector.isFirstPage();
     }
 
     _loadNextPage() {
-        this.isNextPagePageLoading = true;
+        this.isPageLoading = true;
         let httpRequest = new XMLHttpRequest();
         httpRequest.open('GET', this.pageInformationCollector.getNextPageUrl(), true);
         httpRequest.send();
@@ -50,19 +59,35 @@ class AutomaticPageLoader {
         httpRequest.onload = function () {
             if (this.status == 200) {
                 _this._appendNextPage(httpRequest);
-                _this.isNextPagePageLoading = false;
+                _this.isPageLoading = false;
             }
         }
         this.pageUpdater.insertLoadingElement();
     }
 
-    _getNextPageNo() {
-        return this.pageInformationCollector.getCurrentPageNo() + 1;
+    _loadPreviousPage() {
+        this.isPageLoading = true;
+        let httpRequest = new XMLHttpRequest();
+        httpRequest.open('GET', this.pageInformationCollector.getPreviousPageUrl(), true);
+        httpRequest.send();
+        let _this = this;
+        httpRequest.onload = function () {
+            if (this.status == 200) {
+                _this._prependPreviousPage(httpRequest);
+                _this.isPageLoading = false;
+            }
+        }
+        this.pageUpdater.prependLoadingElement();
     }
 
     _appendNextPage(successfulHttpRequest) {
         let nextPageDocument = this._extractDocument(successfulHttpRequest);
         this.pageUpdater.appendNextPage(nextPageDocument);
+    }
+
+    _prependPreviousPage(successfulHttpRequest) {
+        let previousPageDocument = this._extractDocument(successfulHttpRequest);
+        this.pageUpdater.prependPreviousPage(previousPageDocument);
     }
 
     _extractDocument(successfulHttpRequest) {

@@ -16,7 +16,17 @@ class ElementGenerator {
         let pageNoElement = document.createElement('div');
         pageNoElement.innerHTML = "page " + pageNo;
         pageNoElement.style.textAlign = "center";
-        pageNoElement.style.paddingBottom = "4px";
+        pageNoElement.style.paddingBottom = "5px";
+        pageNoElement.style.paddingTop = "12px";
+        return pageNoElement;
+    }
+
+
+    generateTopPageNoElement(pageNo) {
+        let pageNoElement = document.createElement('div');
+        pageNoElement.innerHTML = "page " + pageNo;
+        pageNoElement.style.textAlign = "center";
+        pageNoElement.style.paddingBottom = "20px";
         return pageNoElement;
     }
 

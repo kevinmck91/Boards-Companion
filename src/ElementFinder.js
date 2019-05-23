@@ -80,4 +80,12 @@ class ElementFinder {
         return navigator.querySelector('.alt2 + .alt1');
     }
 
+    getPreviousPageElementFromNavigator(navigator) {
+        return navigator.querySelector('.alt2').previousElementSibling;
+    }
+
+    getLoadingElements() {
+        return Array.from(document.querySelectorAll('.loading'));
+    }
+
 }

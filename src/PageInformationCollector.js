@@ -14,6 +14,12 @@ class PageInformationCollector {
         return this._getLinkFromElement(nextPageElement);
     }
 
+    getPreviousPageUrl() {
+        const navigator = this.elementFinder.getTopPageNavigator();
+        const previousPageElement = this.elementFinder.getPreviousPageElementFromNavigator(navigator);
+        return this._getLinkFromElement(previousPageElement);
+    }
+
     isThreadPage() {
         return window.location.href.indexOf('showthread') != -1;
     }
@@ -35,6 +41,34 @@ class PageInformationCollector {
     getPageNoFromDocument(htmlDocument) {
         let navigator = this.elementFinder.getTopPageNavigatorFromDocument(htmlDocument);
         return this._parseX(this._getPageXofY(navigator));
+    }
+
+    getNextPageNo() {
+        return this.getCurrentPageNo() + 1;
+    }
+
+    isBottomOfPage() {
+        return (window.innerHeight + window.scrollY) >= document.querySelector(".wrapper").offsetHeight;
+    }
+
+    isLastPage() {
+        return this.getNextPageNo() > this.getMaxNoOfPages();
+    }
+
+    isFirstPage() {
+        return this.getCurrentPageNo() == 1;
+    }
+
+    isTopOfPage() {
+        return window.scrollY == 0;
+    }
+
+    getDocumentHeight() {
+        return document.documentElement.scrollHeight;
+    }
+
+    getCurrentYCoordinate() {
+        return window.scrollY;
     }
 
     _getPageXofY(navigator) {

@@ -24,10 +24,47 @@ class PageUpdater {
         this._insertNextPageNumber(nextPageDocument);
         let nextPagePosts = this.elementFinder.getPostsFromDocument(nextPageDocument);
         this._appendNewPosts(nextPagePosts);
-        this._updateCurrentPageNavigator(nextPageDocument);
-        this.removeLoadingElement();
+        this._updateBottomPageNavigator(nextPageDocument);
+        this.removeLoadingElements();
         this.insertPostPostsInsertScript();
-        this._formatNextPagePosts(nextPagePosts);
+        this._conditionallyFormatPosts(nextPagePosts);
+    }
+
+    prependPreviousPage(nextPageDocument) {
+        this.configurationSettingExecutor.ConditionallyExecute(
+            Settings.HidePostElementsEnabled,
+            () => {
+                this._prependPage(nextPageDocument, true);
+            },
+            () => {
+                this._prependPage(nextPageDocument, false);
+            });
+    }
+
+    _prependPage(previousPageDocument, HidePostElementsEnabled) {
+        let currentDocumentHeight = this.pageInformationCollector.getDocumentHeight();
+        let currentYCoordinate = this.pageInformationCollector.getCurrentYCoordinate();
+        this._insertPreviousPageNumber(previousPageDocument);
+        let previousPagePosts = this.elementFinder.getPostsFromDocument(previousPageDocument);
+        this._prependNewPosts(previousPagePosts);
+        this.removeLoadingElements();
+        this.insertPostPostsInsertScript();
+        this._updateTopPageNavigator(previousPageDocument);
+        if (HidePostElementsEnabled) {
+            this._formatPosts(previousPagePosts);
+        }
+        this._scrollToOriginalLocation(currentDocumentHeight, currentYCoordinate);
+    }
+
+    _scrollToOriginalLocation(originalDocumentHeight, originalYcoordinate) {
+        window.scrollTo(0, (originalYcoordinate + this.pageInformationCollector.getDocumentHeight() - originalDocumentHeight));
+    }
+
+    _prependNewPosts(nextPagePostsArray) {
+        let postsContainer = this.elementFinder.getPostsContainer();
+        for (let i = nextPagePostsArray.length - 1; i >= 0; i--) {
+            postsContainer.insertBefore(nextPagePostsArray[i], postsContainer.children[0]);
+        }
     }
 
     insertLoadingElement() {
@@ -36,15 +73,22 @@ class PageUpdater {
         postsContainer.appendChild(loadingElement);
     }
 
-    insertPostPostsInsertScript() {
-        document.body.appendChild(this.BoardsScriptGenerator.GeneratePostPostsInsertScript());
+    prependLoadingElement() {
+        let postsContainer = this.elementFinder.getPostsContainer();
+        let loadingElement = this.elementGenerator.generateLoadingElement();
+        postsContainer.insertBefore(loadingElement, postsContainer.children[0]);
     }
 
-    removeLoadingElement() {
-        let loadingElement = document.querySelector('.loading');
-        if (loadingElement != null) {
-            loadingElement.parentElement.removeChild(loadingElement);
+    removeLoadingElements() {
+        for (let loadingElement of this.elementFinder.getLoadingElements()) {
+            if (loadingElement != null) {
+                loadingElement.parentElement.removeChild(loadingElement);
+            }
         }
+    }
+
+    insertPostPostsInsertScript() {
+        document.body.appendChild(this.BoardsScriptGenerator.GeneratePostPostsInsertScript());
     }
 
     restoreConsole() {
@@ -54,11 +98,15 @@ class PageUpdater {
         window.console = iframe.contentWindow.console;
     }
 
-    _formatNextPagePosts(nextPagePosts) {
+    _conditionallyFormatPosts(nextPagePosts) {
         this.configurationSettingExecutor.ConditionallyExecute(Settings.HidePostElementsEnabled, () => {
-            this.elementVisibilityUpdater.hideEachPostsElements();
-            this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
+            this._formatPosts(nextPagePosts);
         });
+    }
+
+    _formatPosts(nextPagePosts) {
+        this.elementVisibilityUpdater.hideEachPostsElements();
+        this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
     }
 
     _insertNextPageNumber(nextPageDocument) {
@@ -68,6 +116,13 @@ class PageUpdater {
         postsContainer.appendChild(pageNoElement);
     }
 
+    _insertPreviousPageNumber(previousPageDocument) {
+        let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(previousPageDocument);
+        let postsContainer = this.elementFinder.getPostsContainer();
+        let pageNoElement = this.elementGenerator.generateTopPageNoElement(previousPageNo);
+        postsContainer.insertBefore(pageNoElement, postsContainer.children[0]);
+    }
+
     _appendNewPosts(nextPagePostsArray) {
         let postsContainer = this.elementFinder.getPostsContainer();
         for (let post of nextPagePostsArray) {
@@ -75,9 +130,15 @@ class PageUpdater {
         }
     }
 
-    _updateCurrentPageNavigator(nextPageDocument) {
+    _updateBottomPageNavigator(nextPageDocument) {
         let newNavigator = this.elementFinder.getTopPageNavigatorFromDocument(nextPageDocument);
         let currentNavigator = this.elementFinder.getBottomPageNavigator();
+        currentNavigator.parentNode.replaceChild(newNavigator, currentNavigator);
+    }
+
+    _updateTopPageNavigator(nextPageDocument) {
+        let newNavigator = this.elementFinder.getTopPageNavigatorFromDocument(nextPageDocument);
+        let currentNavigator = this.elementFinder.getTopPageNavigator();
         currentNavigator.parentNode.replaceChild(newNavigator, currentNavigator);
     }
 }

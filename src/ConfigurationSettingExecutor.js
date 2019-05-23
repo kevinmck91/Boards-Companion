@@ -1,10 +1,12 @@
 export { ConfigurationSettingExecutor }
 
 class ConfigurationSettingExecutor {
-    ConditionallyExecute(settingIdentifier, functionality) {
+    ConditionallyExecute(settingIdentifier, ifTrueFuctionality, ifFalseFunctionality) {
         chrome.storage.sync.get(settingIdentifier, function (result) {
             if (result[settingIdentifier] != false) {
-                functionality();
+                ifTrueFuctionality();
+            } else if (ifFalseFunctionality != undefined) {
+                ifFalseFunctionality();
             }
         });
     }
