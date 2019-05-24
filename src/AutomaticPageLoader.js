@@ -16,9 +16,11 @@ class AutomaticPageLoader {
         this.isInitialPage = true;
         this.nextPageNo = 0;
         this.pageUpdater = new PageUpdater();
+        this.hidePostElements = true;
     }
 
-    autoScrollPages() {
+    autoScrollPages(hidePostElements) {
+        this.hidePostElements = hidePostElements;
         this._conditionallyLoadPage();
         window.addEventListener('scroll', () => {
             this._conditionallyLoadPage();
@@ -82,12 +84,12 @@ class AutomaticPageLoader {
 
     _appendNextPage(successfulHttpRequest) {
         let nextPageDocument = this._extractDocument(successfulHttpRequest);
-        this.pageUpdater.appendNextPage(nextPageDocument);
+        this.pageUpdater.appendNextPage(nextPageDocument, this.hidePostElements);
     }
 
     _prependPreviousPage(successfulHttpRequest) {
         let previousPageDocument = this._extractDocument(successfulHttpRequest);
-        this.pageUpdater.prependPreviousPage(previousPageDocument);
+        this.pageUpdater.prependPreviousPage(previousPageDocument, this.hidePostElements);
     }
 
     _extractDocument(successfulHttpRequest) {

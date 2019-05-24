@@ -18,30 +18,22 @@ class PageUpdater {
         this.postsCompressionToggler = new PostsCompressionToggler();
         this.BoardsScriptGenerator = new BoardsScriptGenerator();
         this.configurationSettingExecutor = new ConfigurationSettingExecutor();
+        this.hidePostElements = true;
     }
 
-    appendNextPage(nextPageDocument) {
+    appendNextPage(nextPageDocument, hidePostElements) {
+        this.hidePostElements = hidePostElements;
         this._insertNextPageNumber(nextPageDocument);
         let nextPagePosts = this.elementFinder.getPostsFromDocument(nextPageDocument);
         this._appendNewPosts(nextPagePosts);
         this._updateBottomPageNavigator(nextPageDocument);
         this.removeLoadingElements();
         this.insertPostPostsInsertScript();
-        this._conditionallyFormatPosts(nextPagePosts);
+        this._formatPosts(nextPagePosts);
     }
 
-    prependPreviousPage(nextPageDocument) {
-        this.configurationSettingExecutor.ConditionallyExecute(
-            Settings.HidePostElementsEnabled,
-            () => {
-                this._prependPage(nextPageDocument, true);
-            },
-            () => {
-                this._prependPage(nextPageDocument, false);
-            });
-    }
-
-    _prependPage(previousPageDocument, HidePostElementsEnabled) {
+    prependPreviousPage(previousPageDocument, hidePostElements) {
+        this.hidePostElements = hidePostElements;
         let currentDocumentHeight = this.pageInformationCollector.getDocumentHeight();
         let currentYCoordinate = this.pageInformationCollector.getCurrentYCoordinate();
         this._insertPreviousPageNumber(previousPageDocument);
@@ -50,9 +42,7 @@ class PageUpdater {
         this.removeLoadingElements();
         this.insertPostPostsInsertScript();
         this._updateTopPageNavigator(previousPageDocument);
-        if (HidePostElementsEnabled) {
-            this._formatPosts(previousPagePosts);
-        }
+        this._formatPosts(previousPagePosts);
         this._scrollToOriginalLocation(currentDocumentHeight, currentYCoordinate);
     }
 
@@ -98,15 +88,11 @@ class PageUpdater {
         window.console = iframe.contentWindow.console;
     }
 
-    _conditionallyFormatPosts(nextPagePosts) {
-        this.configurationSettingExecutor.ConditionallyExecute(Settings.HidePostElementsEnabled, () => {
-            this._formatPosts(nextPagePosts);
-        });
-    }
-
     _formatPosts(nextPagePosts) {
-        this.elementVisibilityUpdater.hideEachPostsElements();
-        this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
+        if (this.hidePostElements) {
+            this.elementVisibilityUpdater.hideEachPostsElements();
+            this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
+        }
     }
 
     _insertNextPageNumber(nextPageDocument) {

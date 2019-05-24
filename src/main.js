@@ -12,7 +12,8 @@ let headerTransparencyToggler = new HeaderTransparencyToggler();
 let automaticPageLoader = new AutomaticPageLoader();
 let postsCompressionToggler = new PostsCompressionToggler();
 let pageUpdater = new PageUpdater();
-let configurationSettingExecutor = new ConfigurationSettingExecutor();
+let hidePostElementsSetting = new ConfigurationSettingExecutor(Settings.HidePostElementsEnabled);
+let toggleHeaderTransparencySetting = new ConfigurationSettingExecutor(Settings.ToggleHeaderTransparency);
 
 try {
     pageUpdater.restoreConsole();
@@ -29,7 +30,7 @@ catch (error) {
 }
 
 try {
-    configurationSettingExecutor.ConditionallyExecute(Settings.HidePostElementsEnabled, () => {
+    hidePostElementsSetting.ConditionallyExecute(() => {
         elementVisibilityUpdater.hideEachPostsElements();
         postsCompressionToggler.applyCompressionToggling();
     });
@@ -39,14 +40,20 @@ catch (error) {
 }
 
 try {
-    configurationSettingExecutor.ConditionallyExecute(Settings.ToggleHeaderTransparency, () => { headerTransparencyToggler.enableToggling(); });
+    toggleHeaderTransparencySetting.ConditionallyExecute(() => {
+        headerTransparencyToggler.enableToggling();
+    });
 }
 catch (error) {
     console.error("Unable to toggle header reduction: " + error);
 }
 
 try {
-    configurationSettingExecutor.ConditionallyExecute(Settings.AutoScrollingEnabled, () => { automaticPageLoader.autoScrollPages(); })
+    hidePostElementsSetting.ConditionallyExecute(() => {
+        automaticPageLoader.autoScrollPages(true);
+    }, () => {
+        automaticPageLoader.autoScrollPages(false);
+    });
 }
 catch (error) {
     console.error("Unable to activate auto page scrolling: " + error);
