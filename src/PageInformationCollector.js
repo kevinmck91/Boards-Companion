@@ -29,7 +29,7 @@ class PageInformationCollector {
         return this._parseY(this._getPageXofY(navigator));
     }
 
-    getCurrentPageNo() {
+    getBottomNavigatorPageNo() {
         const navigator = this.elementFinder.getBottomPageNavigator();
         return this._parseX(this._getPageXofY(navigator));
     }
@@ -44,7 +44,7 @@ class PageInformationCollector {
     }
 
     getNextPageNo() {
-        return this.getCurrentPageNo() + 1;
+        return this.getBottomNavigatorPageNo() + 1;
     }
 
     isBottomOfPage() {
@@ -55,8 +55,9 @@ class PageInformationCollector {
         return this.getNextPageNo() > this.getMaxNoOfPages();
     }
 
-    isFirstPage() {
-        return this.getCurrentPageNo() == 1;
+    isFirstPageOfTopNavigator() {
+        const navigator = this.elementFinder.getTopPageNavigator();
+        return this._parseX(this._getPageXofY(navigator)) == 1;
     }
 
     isTopOfPage() {

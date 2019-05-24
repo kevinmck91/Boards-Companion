@@ -26,13 +26,18 @@ class AutomaticPageLoader {
     }
 
     _conditionallyLoadPage() {
-        if (this._isPageLoadRequired()) {
-            if (this._isNextPageLoadRequired()) {
-                this._loadNextPage();
+        try {
+            if (this._isPageLoadRequired()) {
+                if (this._isNextPageLoadRequired()) {
+                    this._loadNextPage();
+                }
+                else {
+                    this._loadPreviousPage();
+                }
             }
-            else {
-                this._loadPreviousPage();
-            }
+        } catch (error) {
+            this.isPageLoading = false;
+            console.error("Error loading new page: " + error);
         }
     }
 
@@ -47,7 +52,7 @@ class AutomaticPageLoader {
     }
 
     _isPreviousPageLoadRequired() {
-        return this.pageInformationCollector.isTopOfPage() && !this.pageInformationCollector.isFirstPage();
+        return this.pageInformationCollector.isTopOfPage() && !this.pageInformationCollector.isFirstPageOfTopNavigator();
     }
 
     _loadNextPage() {
