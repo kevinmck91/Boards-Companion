@@ -1,15 +1,17 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
-import { PageUpdater } from "../src/PageUpdater.js";
+import { NextPageAppender } from "../src/NextPageAppender.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
+import { BoardsScriptInserter } from "../src/BoardsScriptInserter.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
-let pageUpdater = new PageUpdater();
+let nextPageAppender = new NextPageAppender();
 let elementFinder = new ElementFinder();
 let chromeStorageMocker = new ChromeStorageMocker();
+let boardsScriptInserter = new BoardsScriptInserter();
 
 beforeEach(() => {
-    document.body.appendChild(testHtmlGenerator.getExistingJavascriptElement());
+    boardsScriptInserter.insertScript(testHtmlGenerator.getExistingJavascriptScriptElement());
     chromeStorageMocker.MockReturnValue(true);
 });
 
@@ -20,6 +22,7 @@ it('add next page successfully', () => {
 
     expect(elementFinder.getAllPosts().length).toBe(2);
 })
+
 
 it('insert correct page no', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
@@ -48,12 +51,6 @@ it('next page posts have compression toggling', () => {
     expect(elementFinder.getAvatarInfoElementsFromPost(post)[0].style.display).toBe('');
 })
 
-it('console is restored', () => {
-    console.log = function () { };
-    pageUpdater.restoreConsole();
-    expect(console.log.toString()).not.toBe('function () {}');
-})
-
 it('next page contains custom boards script', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
@@ -62,7 +59,8 @@ it('next page contains custom boards script', () => {
     expect(document.body.innerHTML.indexOf("Boards.load('thread')")).not.toBe(-1);
 })
 
+
 function appendNextPage(pageHtml) {
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
-    pageUpdater.appendNextPage(htmlDocument);
+    nextPageAppender.appendNextPage(htmlDocument);
 }

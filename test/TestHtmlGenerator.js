@@ -136,7 +136,7 @@ class TestHtmlGenerator {
             <div id="breadcrumb" style="top:87px;"></div>`;
     }
 
-    getExistingJavascriptElement() {
+    getExistingJavascriptScriptElement() {
         let script = document.createElement("script");
         script.type = "text/javascript";
         script.innerHTML = `

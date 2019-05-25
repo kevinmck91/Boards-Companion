@@ -74,7 +74,7 @@ it('test previous page url loaded', () => {
 
 function triggerNextPageLoad() {
     testPageManipulator.setScrollPosition(10);
-    automaticPageLoader.autoScrollPages();
+    automaticPageLoader.autoScrollPages(true);
     testPageManipulator.triggerScrollEvent();
 }
 

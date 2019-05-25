@@ -1,21 +1,17 @@
 export { AutomaticPageLoader }
-import { ElementFinder } from "./ElementFinder.js";
-import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
-import { ElementGenerator } from "./ElementGenerator.js";
 import { PageInformationCollector } from "./PageInformationCollector.js";
-import { PageUpdater } from "./PageUpdater.js";
+import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
+import { NextPageAppender } from "./NextPageAppender.js";
+import { PreviousPageAppender } from "./PreviousPageAppender.js";
 
 class AutomaticPageLoader {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
-        this.elementVisibilityUpdater = new ElementVisibilityUpdater();
-        this.elementGenerator = new ElementGenerator();
         this.isPageLoading = false;
         this.pageInformationCollector = new PageInformationCollector();
-        this.isInitialPage = true;
-        this.nextPageNo = 0;
-        this.pageUpdater = new PageUpdater();
+        this.loadingElementUpdater = new LoadingElementUpdater();
+        this.nextPageAppender = new NextPageAppender();
+        this.previousPageAppender = new PreviousPageAppender();
         this.hidePostElements = true;
     }
 
@@ -64,7 +60,7 @@ class AutomaticPageLoader {
                 _this.isPageLoading = false;
             }
         }
-        this.pageUpdater.insertLoadingElement();
+        this.loadingElementUpdater.insertLoadingElement();
     }
 
     _loadPreviousPage() {
@@ -79,17 +75,17 @@ class AutomaticPageLoader {
                 _this.isPageLoading = false;
             }
         }
-        this.pageUpdater.prependLoadingElement();
+        this.loadingElementUpdater.prependLoadingElement();
     }
 
     _appendNextPage(successfulHttpRequest) {
         let nextPageDocument = this._extractDocument(successfulHttpRequest);
-        this.pageUpdater.appendNextPage(nextPageDocument, this.hidePostElements);
+        this.nextPageAppender.appendNextPage(nextPageDocument, this.hidePostElements);
     }
 
     _prependPreviousPage(successfulHttpRequest) {
         let previousPageDocument = this._extractDocument(successfulHttpRequest);
-        this.pageUpdater.prependPreviousPage(previousPageDocument, this.hidePostElements);
+        this.previousPageAppender.prependPreviousPage(previousPageDocument, this.hidePostElements);
     }
 
     _extractDocument(successfulHttpRequest) {

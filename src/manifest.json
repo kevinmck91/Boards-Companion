@@ -34,10 +34,15 @@
         "AutomaticPageLoader.js",
         "ElementGenerator.js",
         "PageInformationCollector.js",
-        "PageUpdater.js",
+        "PageInternalsUpdater.js",
         "PostsCompressionToggler.js",
         "BoardsScriptGenerator.js",
         "ConfigurationSettings.js",
-        "ConfigurationSettingExecutor.js"
+        "ConfigurationSettingExecutor.js",
+        "LoadingElementUpdater.js",
+        "NextPageAppender.js",
+        "PreviousPageAppender.js",
+        "BoardsScriptInserter.js",
+        "PostsFormatter.js"
     ]
 }

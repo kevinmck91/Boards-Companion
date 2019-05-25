@@ -3,7 +3,7 @@ import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { HeaderTransparencyToggler } from "./HeaderTransparencyToggler.js";
 import { AutomaticPageLoader } from "./AutomaticPageLoader.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
-import { PageUpdater } from "./PageUpdater.js";
+import { PageInternalsUpdater } from "./PageInternalsUpdater.js";
 import { Settings } from "./ConfigurationSettings.js";
 import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
 
@@ -11,12 +11,12 @@ let elementVisibilityUpdater = new ElementVisibilityUpdater();
 let headerTransparencyToggler = new HeaderTransparencyToggler();
 let automaticPageLoader = new AutomaticPageLoader();
 let postsCompressionToggler = new PostsCompressionToggler();
-let pageUpdater = new PageUpdater();
+let pageInternalsUpdater = new PageInternalsUpdater();
 let hidePostElementsSetting = new ConfigurationSettingExecutor(Settings.HidePostElementsEnabled);
 let toggleHeaderTransparencySetting = new ConfigurationSettingExecutor(Settings.ToggleHeaderTransparency);
 
 try {
-    pageUpdater.restoreConsole();
+    pageInternalsUpdater.restoreConsole();
 }
 catch (error) {
     console.error("Error restoring console: " + error);
