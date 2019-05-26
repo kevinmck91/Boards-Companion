@@ -46,6 +46,7 @@
         "ThreadPageUpdater.js",
         "ThreadPageAppender.js",
         "ThreadPagePrepender.js",
-        "ForumHomepageAppender.js"
+        "ForumHomepageAppender.js",
+        "NavigatorUpdater.js"
     ]
 }

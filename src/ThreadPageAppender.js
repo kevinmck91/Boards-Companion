@@ -7,6 +7,7 @@ import { PostsFormatter } from "./PostsFormatter.js";
 import { PageInformationCollector } from "./PageInformationCollector.js";
 import { ElementGenerator } from "./ElementGenerator.js";
 import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
+import { NavigatorUpdater } from "./NavigatorUpdater.js";
 
 class ThreadPageAppender {
 
@@ -19,13 +20,14 @@ class ThreadPageAppender {
         this.pageInformationCollector = new PageInformationCollector();
         this.elementGenerator = new ElementGenerator();
         this.boardsScriptGenerator = new BoardsScriptGenerator();
+        this.navigatorUpdater = new NavigatorUpdater();
     }
 
     appendNextPage(nextPageDocument, hidePostElements) {
         this._insertPageNumber(nextPageDocument);
         let nextPagePosts = this.elementFinder.getPostsFromDocument(nextPageDocument);
         this.threadPageUpdater.appendElements(nextPagePosts);
-        this._updateBottomPageNavigator(nextPageDocument);
+        this.navigatorUpdater.updateBottomPageNavigatorFromDocument(nextPageDocument);
         this.loadingElementUpdater.removeLoadingElements();
         this.boardsScriptInserter.insertScript(this.boardsScriptGenerator.GeneratePostPostsInsertScript());
         this.postsFormatter.formatPosts(nextPagePosts, hidePostElements);
@@ -36,12 +38,6 @@ class ThreadPageAppender {
         this.threadPageUpdater.appendElement(pageNoElement);
     }
 
-    _updateBottomPageNavigator(nextPageDocument) {
-        let newNavigator = this.elementFinder.getTopPageNavigatorFromDocument(nextPageDocument);
-        this.threadPageUpdater.updateBottomPageNavigator(newNavigator);
-    }
-
-    //todo - duplicate functionality, put in separate class
     _getPageNoElement(nextPageDocument) {
         let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
         return this.elementGenerator.generatePageNoElement(nextPageNo);

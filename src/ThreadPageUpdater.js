@@ -30,9 +30,4 @@ class ThreadPageUpdater {
             postsContainer.insertBefore(elements[i], postsContainer.children[0]);
         }
     }
-
-    updateBottomPageNavigator(navigator) {
-        let currentNavigator = this.elementFinder.getBottomPageNavigator();
-        currentNavigator.parentNode.replaceChild(navigator, currentNavigator);
-    }
 }

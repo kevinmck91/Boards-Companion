@@ -5,6 +5,7 @@ import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { ThreadPageUpdater } from "./ThreadPageUpdater.js";
 import { PageInformationCollector } from "./PageInformationCollector.js";
 import { ElementGenerator } from "./ElementGenerator.js";
+import { NavigatorUpdater } from "./NavigatorUpdater.js";
 
 class ForumHomepageAppender {
 
@@ -15,25 +16,20 @@ class ForumHomepageAppender {
         this.threadPageUpdater = new ThreadPageUpdater();
         this.pageInformationCollector = new PageInformationCollector();
         this.elementGenerator = new ElementGenerator();
+        this.navigatorUpdater = new NavigatorUpdater();
     }
 
     appendNextPage(nextPageDocument) {
         this._insertNextPageNumber(nextPageDocument);
         let nextPageThreadContainer = this.elementFinder.getThreadsContainerFromDocument(nextPageDocument);
         this.forumHomepageUpdater.appendElement(nextPageThreadContainer);
-        this._updateBottomPageNavigator(nextPageDocument);
+        this.navigatorUpdater.updateBottomPageNavigatorFromDocument(nextPageDocument);
         this.loadingElementUpdater.removeLoadingElements();
     }
 
     _insertNextPageNumber(nextPageDocument) {
         let pageNoElement = this._getPageNoElement(nextPageDocument);
         this.forumHomepageUpdater.appendElement(pageNoElement);
-    }
-
-    _updateBottomPageNavigator(nextPageDocument) {
-        let newNavigator = this.elementFinder.getTopPageNavigatorFromDocument(nextPageDocument);
-        //todo refactor into navigator updater class
-        this.threadPageUpdater.updateBottomPageNavigator(newNavigator);
     }
 
     _getPageNoElement(nextPageDocument) {

@@ -7,6 +7,7 @@ import { PostsFormatter } from "./PostsFormatter.js";
 import { ElementGenerator } from "./ElementGenerator.js";
 import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
 import { ThreadPageUpdater } from "./ThreadPageUpdater.js"
+import { NavigatorUpdater } from "./NavigatorUpdater.js";
 
 class ThreadPagePrepender {
 
@@ -22,6 +23,7 @@ class ThreadPagePrepender {
         this.originalYCoordinate = 0;
         this.previousPageDocument = "";
         this.threadPageUpdater = new ThreadPageUpdater();
+        this.navigatorUpdater = new NavigatorUpdater();
     }
 
     prependPage(previousPageDocument, hidePostElements) {
@@ -31,7 +33,7 @@ class ThreadPagePrepender {
         this.threadPageUpdater.prependElements(this._getPreviousPagePosts());
         this.loadingElementUpdater.removeLoadingElements();
         this.boardsScriptInserter.insertScript(this.boardsScriptGenerator.GeneratePostPostsInsertScript());
-        this._updateTopPageNavigator();
+        this.navigatorUpdater.updateTopPageNavigatorFromDocument(this.previousPageDocument);
         this.postsFormatter.formatPosts(this._getPreviousPagePosts(), hidePostElements);
         this._scrollToOriginalPosition();
     }
@@ -49,12 +51,6 @@ class ThreadPagePrepender {
 
     _getPreviousPagePosts() {
         return this.elementFinder.getPostsFromDocument(this.previousPageDocument);
-    }
-
-    _updateTopPageNavigator() {
-        let newNavigator = this.elementFinder.getTopPageNavigatorFromDocument(this.previousPageDocument);
-        let currentNavigator = this.elementFinder.getTopPageNavigator();
-        currentNavigator.parentNode.replaceChild(newNavigator, currentNavigator);
     }
 
     _scrollToOriginalPosition() {
