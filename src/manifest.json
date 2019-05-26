@@ -40,11 +40,12 @@
         "ConfigurationSettings.js",
         "ConfigurationSettingExecutor.js",
         "LoadingElementUpdater.js",
-        "NextPageAppender.js",
-        "PreviousPageAppender.js",
         "BoardsScriptInserter.js",
         "PostsFormatter.js",
         "ForumHomepageUpdater.js",
-        "ThreadPageUpdater.js"
+        "ThreadPageUpdater.js",
+        "ThreadPageAppender.js",
+        "ThreadPagePrepender.js",
+        "ForumHomepageAppender.js"
     ]
 }

@@ -1,10 +1,10 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
-import { PreviousPageAppender } from "../src/PreviousPageAppender.js";
+import { ThreadPagePrepender } from "../src/ThreadPagePrepender.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { BoardsScriptInserter } from "../src/BoardsScriptInserter.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
-let previousPageAppender = new PreviousPageAppender();
+let threadPagePrepender = new ThreadPagePrepender();
 let elementFinder = new ElementFinder();
 let boardsScriptInserter = new BoardsScriptInserter();
 
@@ -23,5 +23,5 @@ it('add previous page successfully', () => {
 
 function prependPage(pageHtml) {
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
-    previousPageAppender.prependPreviousThreadPage(htmlDocument);
+    threadPagePrepender.prependPage(htmlDocument);
 }

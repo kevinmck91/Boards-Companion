@@ -1,8 +1,9 @@
 export { AutomaticPageLoader }
 import { PageInformationCollector } from "./PageInformationCollector.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
-import { NextPageAppender } from "./NextPageAppender.js";
-import { PreviousPageAppender } from "./PreviousPageAppender.js";
+import { ThreadPageAppender } from "./ThreadPageAppender.js";
+import { ThreadPagePrepender } from "./ThreadPagePrepender.js";
+import { ForumHomepageAppender } from "./ForumHomepageAppender.js";
 
 class AutomaticPageLoader {
 
@@ -10,8 +11,9 @@ class AutomaticPageLoader {
         this.isPageLoading = false;
         this.pageInformationCollector = new PageInformationCollector();
         this.loadingElementUpdater = new LoadingElementUpdater();
-        this.nextPageAppender = new NextPageAppender();
-        this.previousPageAppender = new PreviousPageAppender();
+        this.threadPageAppender = new ThreadPageAppender();
+        this.threadPagePrepender = new ThreadPagePrepender();
+        this.forumHomepageAppender = new ForumHomepageAppender();
         this.hidePostElements = true;
     }
 
@@ -103,17 +105,17 @@ class AutomaticPageLoader {
 
     _appendNextThreadPage(successfulHttpRequest) {
         let nextPageDocument = this._extractDocument(successfulHttpRequest);
-        this.nextPageAppender.appendNextThreadPage(nextPageDocument, this.hidePostElements);
+        this.threadPageAppender.appendNextPage(nextPageDocument, this.hidePostElements);
     }
 
     _prependPreviousThreadPage(successfulHttpRequest) {
         let previousPageDocument = this._extractDocument(successfulHttpRequest);
-        this.previousPageAppender.prependPreviousThreadPage(previousPageDocument, this.hidePostElements);
+        this.threadPagePrepender.prependPage(previousPageDocument, this.hidePostElements);
     }
 
     _appendNextForumPage(successfulHttpRequest) {
         let previousPageDocument = this._extractDocument(successfulHttpRequest);
-        this.nextPageAppender.appendNextForumPage(previousPageDocument);
+        this.forumHomepageAppender.appendNextPage(previousPageDocument);
     }
 
     _extractDocument(successfulHttpRequest) {

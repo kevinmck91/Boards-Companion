@@ -1,4 +1,4 @@
-export { PreviousPageAppender }
+export { ThreadPagePrepender }
 import { PageInformationCollector } from "./PageInformationCollector.js";
 import { ElementFinder } from "./ElementFinder.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
@@ -8,7 +8,7 @@ import { ElementGenerator } from "./ElementGenerator.js";
 import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
 import { ThreadPageUpdater } from "./ThreadPageUpdater.js"
 
-class PreviousPageAppender {
+class ThreadPagePrepender {
 
     constructor() {
         this.pageInformationCollector = new PageInformationCollector();
@@ -24,10 +24,10 @@ class PreviousPageAppender {
         this.threadPageUpdater = new ThreadPageUpdater();
     }
 
-    prependPreviousThreadPage(previousPageDocument, hidePostElements) {
+    prependPage(previousPageDocument, hidePostElements) {
         this.previousPageDocument = previousPageDocument;
         this._setOriginalPosition();
-        this._insertPreviousThreadPageNumber();
+        this._insertPreviousPageNumber();
         this.threadPageUpdater.prependElements(this._getPreviousPagePosts());
         this.loadingElementUpdater.removeLoadingElements();
         this.boardsScriptInserter.insertScript(this.boardsScriptGenerator.GeneratePostPostsInsertScript());
@@ -41,7 +41,7 @@ class PreviousPageAppender {
         this.originalYCoordinate = this.pageInformationCollector.getCurrentYCoordinate();
     }
 
-    _insertPreviousThreadPageNumber() {
+    _insertPreviousPageNumber() {
         let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
         let pageNoElement = this.elementGenerator.generateTopPageNoElement(previousPageNo);
         this.threadPageUpdater.prependElement(pageNoElement)
@@ -60,4 +60,6 @@ class PreviousPageAppender {
     _scrollToOriginalPosition() {
         window.scrollTo(0, (this.originalYCoordinate + this.pageInformationCollector.getDocumentHeight() - this.originalDocumentHeight));
     }
+
+
 }

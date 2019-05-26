@@ -1,11 +1,11 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
-import { NextPageAppender } from "../src/NextPageAppender.js";
+import { ThreadPageAppender } from "../src/ThreadPageAppender.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
 import { BoardsScriptInserter } from "../src/BoardsScriptInserter.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
-let nextPageAppender = new NextPageAppender();
+let threadPageAppender = new ThreadPageAppender();
 let elementFinder = new ElementFinder();
 let chromeStorageMocker = new ChromeStorageMocker();
 let boardsScriptInserter = new BoardsScriptInserter();
@@ -18,7 +18,7 @@ beforeEach(() => {
 it('add next page successfully', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
-    appendNextPageOfThread(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
 
     expect(elementFinder.getAllPosts().length).toBe(2);
 })
@@ -27,7 +27,7 @@ it('add next page successfully', () => {
 it('insert correct page no', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
-    appendNextPageOfThread(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
 
     expect(document.body.outerHTML.indexOf("page 2")).not.toBe(-1);
 })
@@ -35,7 +35,7 @@ it('insert correct page no', () => {
 it('update navigator', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
-    appendNextPageOfThread(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
 
     expect(document.body.outerHTML.indexOf("Page 2 of 2")).not.toBe(-1);
 })
@@ -43,7 +43,7 @@ it('update navigator', () => {
 it('next page posts have compression toggling', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
-    appendNextPageOfThread(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
     let post = elementFinder.getAllPosts()[1];
     post.click();
 
@@ -54,33 +54,13 @@ it('next page posts have compression toggling', () => {
 it('next page contains custom boards script', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
-    appendNextPageOfThread(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
 
     expect(document.body.innerHTML.indexOf("Boards.load('thread')")).not.toBe(-1);
 })
 
-it('append forum page threads', () => {
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
-
-    appendNextPageOfForumHomepage(testHtmlGenerator.getForumHomePage(2, 2));
-
-    expect(document.body.outerHTML.match(/threadslist/g).length).toBe(2);
-})
-
-it('forum page - ensure next page navigator updated', () => {
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
-
-    appendNextPageOfForumHomepage(testHtmlGenerator.getForumHomePage(2, 2));
-
-    expect(document.body.outerHTML.indexOf('2 of 2')).not.toBe(-1);
-})
-
-function appendNextPageOfThread(pageHtml) {
+function appendNextPage(pageHtml) {
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
-    nextPageAppender.appendNextThreadPage(htmlDocument);
+    threadPageAppender.appendNextPage(htmlDocument, true);
 }
 
-function appendNextPageOfForumHomepage(pageHtml) {
-    let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
-    nextPageAppender.appendNextForumPage(htmlDocument);
-}

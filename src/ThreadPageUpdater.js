@@ -2,6 +2,7 @@ export { ThreadPageUpdater }
 import { ElementFinder } from "./ElementFinder.js";
 
 class ThreadPageUpdater {
+
     constructor() {
         this.elementFinder = new ElementFinder();
     }
