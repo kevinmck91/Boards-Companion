@@ -11,17 +11,21 @@ class PageInformationCollector {
     getNextPageUrl() {
         const navigator = this.elementFinder.getBottomPageNavigator();
         const nextPageElement = this.elementFinder.getNextPageElementFromNavigator(navigator);
-        return this._getLinkFromElement(nextPageElement);
+        return this._getLinkFromPageLinkElement(nextPageElement);
     }
 
     getPreviousPageUrl() {
         const navigator = this.elementFinder.getTopPageNavigator();
         const previousPageElement = this.elementFinder.getPreviousPageElementFromNavigator(navigator);
-        return this._getLinkFromElement(previousPageElement);
+        return this._getLinkFromPageLinkElement(previousPageElement);
     }
 
     isThreadPage() {
         return window.location.href.indexOf('showthread') != -1;
+    }
+
+    isForumHomePage() {
+        return window.location.href.indexOf('forumdisplay.php') != -1;
     }
 
     getMaxNoOfPages() {
@@ -90,9 +94,10 @@ class PageInformationCollector {
         return parseInt(x);
     }
 
-    _getLinkFromElement(pageLinkElement) {
+    _getLinkFromPageLinkElement(pageLinkElement) {
         let elementHref = pageLinkElement.querySelector("a").getAttribute("href");
         let paredIdentifier = elementHref.replace("showthread.php", "");
+        paredIdentifier = paredIdentifier.replace("forumdisplay.php", "");
         return window.location.origin + window.location.pathname + paredIdentifier;
     }
 }

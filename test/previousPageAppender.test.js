@@ -23,5 +23,5 @@ it('add previous page successfully', () => {
 
 function prependPage(pageHtml) {
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
-    previousPageAppender.prependPreviousPage(htmlDocument);
+    previousPageAppender.prependPreviousThreadPage(htmlDocument);
 }

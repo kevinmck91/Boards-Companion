@@ -22,7 +22,7 @@ class PreviousPageAppender {
         this.previousPageDocument = "";
     }
 
-    prependPreviousPage(previousPageDocument, hidePostElements) {
+    prependPreviousThreadPage(previousPageDocument, hidePostElements) {
         this.previousPageDocument = previousPageDocument;
         this._setOriginalPosition();
         this._insertPreviousPageNumber();

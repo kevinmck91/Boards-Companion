@@ -37,7 +37,7 @@ it('Test top of page non-transparent header', () => {
 
 it('Test non-transparent on non-thread page', () => {
     document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
-    testPageManipulator.loadNonThreadUrl();
+    testPageManipulator.loadForumPageUrl();
     testPageManipulator.setScrollPosition(10);
 
     headerTransparencyToggler.enableToggling();

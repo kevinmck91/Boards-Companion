@@ -29,6 +29,14 @@ class NextPageAppender {
         this.postsFormatter.formatPosts(nextPagePosts, hidePostElements);
     }
 
+    appendNextForumPage(nextPageDocument) {
+        this._insertNextForumPageNumber(nextPageDocument);
+        let nextPageThreadContainer = this.elementFinder.getThreadsContainerFromDocument(nextPageDocument);
+        this._appendNewThreadContainer(nextPageThreadContainer);
+        this._updateBottomPageNavigator(nextPageDocument);
+        this.loadingElementUpdater.removeLoadingElements();
+    }
+
     _insertNextPageNumber(nextPageDocument) {
         let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
         let postsContainer = this.elementFinder.getPostsContainer();
@@ -36,11 +44,27 @@ class NextPageAppender {
         postsContainer.appendChild(pageNoElement);
     }
 
+    //todo refactor with above method as they are both similar
+    _insertNextForumPageNumber(nextPageDocument) {
+        let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
+        let pageNoElement = this.elementGenerator.generatePageNoElement(nextPageNo);
+        let threadsContainersContainer = this.elementFinder.getThreadsContainersContainer();
+        let lastElementInThreadsContainersContainer = this.elementFinder.getLastElementInThreadsContainersContainer();
+        threadsContainersContainer.insertBefore(pageNoElement, lastElementInThreadsContainersContainer);
+    }
+
     _appendNewPosts(nextPagePostsArray) {
         let postsContainer = this.elementFinder.getPostsContainer();
         for (let post of nextPagePostsArray) {
             postsContainer.appendChild(post);
         }
+    }
+
+    //todo refactor this with the above
+    _appendNewThreadContainer(threadContainer) {
+        let threadsContainersContainer = this.elementFinder.getThreadsContainersContainer();
+        let lastElementInThreadsContainersContainer = this.elementFinder.getLastElementInThreadsContainersContainer();
+        threadsContainersContainer.insertBefore(threadContainer, lastElementInThreadsContainersContainer);
     }
 
     _updateBottomPageNavigator(nextPageDocument) {

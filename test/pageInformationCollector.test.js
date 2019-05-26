@@ -13,7 +13,7 @@ it('max no of pages', () => {
 })
 
 it('triple digits pageXOfY', () => {
-    document.body.innerHTML = testHtmlGenerator.getPageNavigator(1, 482);
+    document.body.innerHTML = testHtmlGenerator.getThreadPageNavigator(1, 482);
 
     let result = pageInformationCollector.getMaxNoOfPages(document);
 

@@ -27,21 +27,24 @@ class AutomaticPageLoader {
         try {
             if (this._isPageLoadRequired()) {
                 if (this._isNextPageLoadRequired()) {
-                    this._loadNextPage();
+                    if (this.pageInformationCollector.isThreadPage()) {
+                        this._loadNextPage();
+                    } else if (this.pageInformationCollector.isForumHomePage()) {
+                        this._loadNextForumPage();
+                    }
                 }
-                else {
+                else if (this.pageInformationCollector.isThreadPage()) {
                     this._loadPreviousPage();
                 }
             }
         } catch (error) {
             this.isPageLoading = false;
-            console.error("Error loading new page: " + error);
+            console.error("Error loading new page: " + error.stack);
         }
     }
 
     _isPageLoadRequired() {
-        return this.pageInformationCollector.isThreadPage() &&
-            (this._isNextPageLoadRequired() || this._isPreviousPageLoadRequired()) &&
+        return (this._isNextPageLoadRequired() || this._isPreviousPageLoadRequired()) &&
             !this.isPageLoading;
     }
 
@@ -65,7 +68,7 @@ class AutomaticPageLoader {
                 _this.isPageLoading = false;
             }
         }
-        this.loadingElementUpdater.insertLoadingElement();
+        this.loadingElementUpdater.insertThreadPageLoadingElement();
     }
 
     _loadPreviousPage() {
@@ -76,11 +79,26 @@ class AutomaticPageLoader {
         let _this = this;
         httpRequest.onload = function () {
             if (this.status == 200) {
-                _this._prependPreviousPage(httpRequest);
+                _this._prependPreviousThreadPage(httpRequest);
                 _this.isPageLoading = false;
             }
         }
-        this.loadingElementUpdater.prependLoadingElement();
+        this.loadingElementUpdater.prependThreadPageLoadingElement();
+    }
+
+    _loadNextForumPage() {
+        this.isPageLoading = true;
+        let httpRequest = new XMLHttpRequest();
+        httpRequest.open('GET', this.pageInformationCollector.getNextPageUrl(), true);
+        httpRequest.send();
+        let _this = this;
+        httpRequest.onload = function () {
+            if (this.status == 200) {
+                _this._appendNextForumPage(httpRequest);
+                _this.isPageLoading = false;
+            }
+        }
+        this.loadingElementUpdater.insertForumPageLoadingElement();
     }
 
     _appendNextPage(successfulHttpRequest) {
@@ -88,9 +106,14 @@ class AutomaticPageLoader {
         this.nextPageAppender.appendNextPage(nextPageDocument, this.hidePostElements);
     }
 
-    _prependPreviousPage(successfulHttpRequest) {
+    _prependPreviousThreadPage(successfulHttpRequest) {
         let previousPageDocument = this._extractDocument(successfulHttpRequest);
-        this.previousPageAppender.prependPreviousPage(previousPageDocument, this.hidePostElements);
+        this.previousPageAppender.prependPreviousThreadPage(previousPageDocument, this.hidePostElements);
+    }
+
+    _appendNextForumPage(successfulHttpRequest) {
+        let previousPageDocument = this._extractDocument(successfulHttpRequest);
+        this.nextPageAppender.appendNextForumPage(previousPageDocument);
     }
 
     _extractDocument(successfulHttpRequest) {

@@ -10,8 +10,12 @@ class TestPageManipulator {
         window.history.pushState({}, 'Title', '/vbulletin/showthread.php?t=1111&page=' + pageNo);
     }
 
-    loadNonThreadUrl() {
-        window.history.pushState({}, 'Title', 'vbulletin/forumdisplay.php?f=1111');
+    loadForumPageUrl() {
+        window.history.pushState({}, 'Title', '/vbulletin/forumdisplay.php?f=1111');
+    }
+
+    loadNonAutoscrollPage() {
+        window.history.pushState({}, 'Title', '/vbulletin/privat.php');
     }
 
     triggerScrollEvent() {

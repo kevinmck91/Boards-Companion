@@ -10,10 +10,10 @@ let xhrOpenMock;
 beforeEach(() => {
     mockXmlHttpRequest();
     automaticPageLoader = new AutomaticPageLoader();
-    testPageManipulator.loadThreadUrl();
 });
 
 it('test page 2 url loaded', () => {
+    testPageManipulator.loadThreadUrl();
     document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
 
     triggerNextPageLoad();
@@ -55,21 +55,31 @@ it('get next page url from nnth page', () => {
     expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=12");
 })
 
-it('only load on pages that are threads', () => {
-    testPageManipulator.loadNonThreadUrl();
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
-
-    triggerNextPageLoad();
-
-    expect(xhrOpenMock.mock.calls.length).toBe(0);
-})
-
 it('test previous page url loaded', () => {
+    testPageManipulator.loadThreadUrl();
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(5, 5);
 
     triggerPreviousPageLoad();
 
     expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/showthread.php?t=1111&page=4");
+})
+
+it('test next page in forum page loaded', () => {
+    testPageManipulator.loadForumPageUrl();
+    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
+
+    triggerNextPageLoad();
+
+    expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/forumdisplay.php?f=7&order=desc&page=2");
+})
+
+
+it('ensure no autoscrolling on non autoscrolling page', () => {
+    testPageManipulator.loadNonAutoscrollPage();
+
+    triggerNextPageLoad();
+
+    expect(xhrOpenMock.mock.calls.length).toBe(0);
 })
 
 function triggerNextPageLoad() {

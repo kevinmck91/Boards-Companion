@@ -4,34 +4,41 @@ export { TestHtmlGenerator };
 class TestHtmlGenerator {
 
     getUnsignedInUserPage() {
-        return this.wrapPageElements(this.getPageNavigator(1, 2) +
+        return this.wrapPageElements(this.getThreadPageNavigator(1, 2) +
             this.getHeader() +
             this.getWelcomeNotice() +
             this.wrapPosts(this.getUnsignedInUserPost()) +
-            this.wrapFooterElements(this.getPageNavigator(1, 2)));
+            this.wrapThreadFooterElements(this.getThreadPageNavigator(1, 2)));
     }
 
     getSignedInUserPage() {
-        return this.wrapPageElements(this.getPageNavigator(1, 2) +
+        return this.wrapPageElements(this.getThreadPageNavigator(1, 2) +
             this.getHeader() +
             this.getNotice() +
             this.wrapPosts(this.getSignedInUserPost()) +
-            this.wrapFooterElements(this.getPageNavigator(1, 2)));
+            this.wrapThreadFooterElements(this.getThreadPageNavigator(1, 2)));
     }
 
     getNewUserSignedInPage() {
-        return this.wrapPageElements(this.getPageNavigator(1, 2) +
+        return this.wrapPageElements(this.getThreadPageNavigator(1, 2) +
             this.getHeader() +
             this.getNotice() +
             this.wrapNewSignedInUserPosts(this.getSignedInUserPost()) +
-            this.wrapFooterElements(this.getPageNavigator(1, 2)));
+            this.wrapThreadFooterElements(this.getThreadPageNavigator(1, 2)));
     }
 
     getSpecificSignedInUserPage(pageNo, maxNoOfPages) {
-        return this.wrapPageElements(this.getPageNavigator(pageNo, maxNoOfPages) +
+        return this.wrapPageElements(this.getThreadPageNavigator(pageNo, maxNoOfPages) +
             this.getHeader() +
             this.wrapPosts(this.getSignedInUserPost()) +
-            this.wrapFooterElements(this.getPageNavigator(pageNo, maxNoOfPages)));
+            this.wrapThreadFooterElements(this.getThreadPageNavigator(pageNo, maxNoOfPages)));
+    }
+
+    getForumHomePage(pageNo, maxNoOfPages) {
+        return this.wrapPageElements(this.getForumPageNavigator(pageNo, maxNoOfPages)) +
+            this.getHeader() +
+            this.wrapThreadEntries(this.getThreadEntry()) +
+            this.wrapForumFooterNavigator(this.getForumPageNavigator(pageNo, maxNoOfPages));
     }
 
     convertToDocument(html) {
@@ -40,7 +47,10 @@ class TestHtmlGenerator {
     }
 
     wrapPageElements(elements) {
-        return `<div class="wrapper">` + elements + `</div>`;
+        return `
+        <div class="wrapper">
+            `+ elements + `
+        </div>`;
     }
 
     wrapPosts(elements) {
@@ -56,8 +66,40 @@ class TestHtmlGenerator {
         return `<div id="posts">` + elements + `</div>`;
     }
 
-    wrapFooterElements(elements) {
+    wrapThreadFooterElements(elements) {
         return `<div align="centre">` + elements + `</div>`;
+    }
+
+    wrapForumFooterNavigator(navigator) {
+        return `
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>`+ navigator + `</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>`
+    }
+
+    wrapThreadEntries(entries) {
+        return `
+        <form id="inlinemodform">
+            <table id="threadslist">
+                <tbody>
+                </tbody>
+                <tbody id="threadbits_forum_7">
+                    ` + entries + `
+                </tbody>
+            </table>
+        </form>`
     }
 
     getNotice() {
@@ -108,32 +150,62 @@ class TestHtmlGenerator {
         </div>`;
     }
 
-    getPageNavigator(currentPageNo, totalPages) {
+    getThreadPageNavigator(currentPageNo, totalPages) {
         return `<div class="pagenav">
-        <table>
-            <tbody>
-                <tr>
-                    <td class="vbmenu_control">
-                        Page `+ currentPageNo + ` of ` + totalPages + `
-                    </td>
-                     <td class="alt1">
-                        <a href="showthread.php?t=1111&page=`+ (currentPageNo - 1) + `"></a>
-                    </td>
-                    <td class="alt2">
-                    </td>
-                    <td class="alt1">
-                        <a href="showthread.php?t=1111&page=`+ (currentPageNo + 1) + `"></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>`;
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="vbmenu_control">
+                                    Page `+ currentPageNo + ` of ` + totalPages + `
+                                </td>
+                                <td class="alt1">
+                                    <a href="showthread.php?t=1111&page=`+ (currentPageNo - 1) + `"></a>
+                                </td>
+                                <td class="alt2">
+                                </td>
+                                <td class="alt1">
+                                    <a href="showthread.php?t=1111&page=`+ (currentPageNo + 1) + `"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>`;
+    }
+
+    getForumPageNavigator(currentPageNo, totalPages) {
+        return `<div class="pagenav">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="vbmenu_control">
+                                    Page `+ currentPageNo + ` of ` + totalPages + `
+                                </td>
+                                <td class="alt1">
+                                    <a href="forumdisplay.php?f=7&order=desc&page=`+ (currentPageNo - 1) + `"></a>
+                                </td>
+                                <td class="alt2">
+                                </td>
+                                <td class="alt1">
+                                    <a href="forumdisplay.php?f=7&order=desc&page=`+ (currentPageNo + 1) + `"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>`
     }
 
     getHeader() {
-        return `<div class="nav-area"></div>
-            <div id="header"></div>
-            <div id="breadcrumb" style="top:87px;"></div>`;
+        return `
+        <div class="nav-area"></div>
+        <div id="header"></div>
+        <div id="breadcrumb" style="top:87px;"></div>`;
+    }
+
+    getThreadEntry() {
+        return `
+        <tr>
+            <td>title</td>
+        </tr>`
     }
 
     getExistingJavascriptScriptElement() {

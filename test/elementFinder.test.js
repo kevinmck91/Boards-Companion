@@ -43,3 +43,19 @@ it('test get posts container from new signed in user page', () => {
 
     expect(posts).not.toBe(null);
 })
+
+it('test get threads from document', () => {
+    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
+
+    let threadsContainer = elementFinder.getThreadsContainerFromDocument(document);
+
+    expect(threadsContainer).not.toBe(null);
+})
+
+it('test get threads containers container from document', () => {
+    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
+
+    let threadsContainersContainer = elementFinder.getThreadsContainersContainer();
+
+    expect(threadsContainersContainer.outerHTML.indexOf('threadbits')).not.toBe(-1);
+})

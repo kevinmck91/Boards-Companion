@@ -32,6 +32,21 @@ class ElementFinder {
         return this.getPostsContainerFromDocument(document);
     }
 
+    getThreadsContainersContainer() {
+        return document.getElementById('inlinemodform');
+    }
+
+    getLastElementInThreadsContainersContainer() {
+        let threadsContainersContainer = this.getThreadsContainersContainer();
+        let tableElements = threadsContainersContainer.querySelectorAll("form > table");
+        return tableElements[tableElements.length - 1];
+    }
+
+    getLastThreadContainer() {
+        let threadContainers = Array.from(document.querySelectorAll('#threadslist'));
+        return threadContainers[threadContainers.length - 1];
+    }
+
     getPostsFromDocument(htmlDocument) {
         let regularUserPosts = htmlDocument.querySelectorAll('.left-col > div');
         let newSignedInUserPosts = htmlDocument.querySelectorAll('#posts > div');
@@ -39,6 +54,10 @@ class ElementFinder {
             return newSignedInUserPosts;
         else
             return regularUserPosts;
+    }
+
+    getThreadsContainerFromDocument(htmlDocument) {
+        return htmlDocument.getElementById("threadslist");
     }
 
     getAvatarInfoElementsFromPost(post) {
