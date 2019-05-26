@@ -12,4 +12,10 @@ class ForumHomepageUpdater {
         let lastElementInThreadsContainersContainer = this.elementFinder.getLastElementInThreadsContainersContainer();
         threadsContainersContainer.insertBefore(element, lastElementInThreadsContainersContainer);
     }
+
+    prependElement(element) {
+        let threadsContainersContainer = this.elementFinder.getThreadsContainersContainer();
+        let lastElementInThreadsContainersContainer = this.elementFinder.getFirstElementInThreadsContainersContainer();
+        threadsContainersContainer.insertBefore(element, lastElementInThreadsContainersContainer);
+    }
 }

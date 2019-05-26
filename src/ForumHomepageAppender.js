@@ -34,6 +34,6 @@ class ForumHomepageAppender {
 
     _getPageNoElement(nextPageDocument) {
         let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
-        return this.elementGenerator.generatePageNoElement(nextPageNo);
+        return this.elementGenerator.generateBottomPageNoElement(nextPageNo);
     }
 }

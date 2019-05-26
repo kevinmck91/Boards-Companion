@@ -73,6 +73,15 @@ it('test next page in forum page loaded', () => {
     expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/forumdisplay.php?f=7&order=desc&page=2");
 })
 
+it('test previous page in forum page loaded', () => {
+    testPageManipulator.loadForumPageUrl();
+    document.body.innerHTML = testHtmlGenerator.getForumHomePage(2, 2);
+
+    triggerPreviousPageLoad();
+
+    expect(xhrOpenMock.mock.calls[0][1]).toBe("https://www.boards.ie/vbulletin/forumdisplay.php?f=7&order=desc&page=1");
+})
+
 
 it('ensure no autoscrolling on non autoscrolling page', () => {
     testPageManipulator.loadNonAutoscrollPage();

@@ -42,6 +42,12 @@ class ElementFinder {
         return tableElements[tableElements.length - 1];
     }
 
+    getFirstElementInThreadsContainersContainer() {
+        let threadsContainersContainer = this.getThreadsContainersContainer();
+        let tableElements = threadsContainersContainer.querySelectorAll("form > *");
+        return tableElements[0];
+    }
+
     getLastThreadContainer() {
         let threadContainers = Array.from(document.querySelectorAll('#threadslist'));
         return threadContainers[threadContainers.length - 1];

@@ -4,6 +4,7 @@ import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { ThreadPageAppender } from "./ThreadPageAppender.js";
 import { ThreadPagePrepender } from "./ThreadPagePrepender.js";
 import { ForumHomepageAppender } from "./ForumHomepageAppender.js";
+import { ForumHomepagePrepender } from "./ForumHomepagePrepender.js";
 
 class AutomaticPageLoader {
 
@@ -15,6 +16,7 @@ class AutomaticPageLoader {
         this.threadPagePrepender = new ThreadPagePrepender();
         this.forumHomepageAppender = new ForumHomepageAppender();
         this.hidePostElements = true;
+        this.ForumHomepagePrepender = new ForumHomepagePrepender();
     }
 
     autoScrollPages(hidePostElements) {
@@ -37,6 +39,9 @@ class AutomaticPageLoader {
                 }
                 else if (this.pageInformationCollector.isThreadPage()) {
                     this._loadPreviousThreadPage();
+                }
+                else if (this.pageInformationCollector.isForumHomePage()) {
+                    this._loadPreviousForumPage();
                 }
             }
         } catch (error) {
@@ -103,6 +108,21 @@ class AutomaticPageLoader {
         this.loadingElementUpdater.insertForumPageLoadingElement();
     }
 
+    _loadPreviousForumPage() {
+        this.isPageLoading = true;
+        let httpRequest = new XMLHttpRequest();
+        httpRequest.open('GET', this.pageInformationCollector.getPreviousPageUrl(), true);
+        httpRequest.send();
+        let _this = this;
+        httpRequest.onload = function () {
+            if (this.status == 200) {
+                _this._prependPreviousForumPage(httpRequest);
+                _this.isPageLoading = false;
+            }
+        }
+        this.loadingElementUpdater.prependForumPageLoadingElement();
+    }
+
     _appendNextThreadPage(successfulHttpRequest) {
         let nextPageDocument = this._extractDocument(successfulHttpRequest);
         this.threadPageAppender.appendNextPage(nextPageDocument, this.hidePostElements);
@@ -116,6 +136,11 @@ class AutomaticPageLoader {
     _appendNextForumPage(successfulHttpRequest) {
         let previousPageDocument = this._extractDocument(successfulHttpRequest);
         this.forumHomepageAppender.appendNextPage(previousPageDocument);
+    }
+
+    _prependPreviousForumPage(successfulHttpRequest) {
+        let previousPageDocument = this._extractDocument(successfulHttpRequest);
+        this.ForumHomepagePrepender.prependPage(previousPageDocument);
     }
 
     _extractDocument(successfulHttpRequest) {

@@ -1,40 +1,33 @@
-export { ThreadPagePrepender }
+export { ForumHomepagePrepender }
 import { PageInformationCollector } from "./PageInformationCollector.js";
 import { ElementFinder } from "./ElementFinder.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
-import { BoardsScriptInserter } from "./BoardsScriptInserter.js";
-import { PostsFormatter } from "./PostsFormatter.js";
 import { ElementGenerator } from "./ElementGenerator.js";
-import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
-import { ThreadPageUpdater } from "./ThreadPageUpdater.js"
+import { ForumHomepageUpdater } from "./ForumHomepageUpdater.js";
 import { NavigatorUpdater } from "./NavigatorUpdater.js";
 
-class ThreadPagePrepender {
+class ForumHomepagePrepender {
 
     constructor() {
         this.pageInformationCollector = new PageInformationCollector();
         this.elementFinder = new ElementFinder();
         this.loadingElementUpdater = new LoadingElementUpdater();
-        this.boardsScriptInserter = new BoardsScriptInserter();
-        this.postsFormatter = new PostsFormatter();
         this.elementGenerator = new ElementGenerator();
-        this.boardsScriptGenerator = new BoardsScriptGenerator();
         this.originalDocumentHeight = 0;
         this.originalYCoordinate = 0;
         this.previousPageDocument = "";
-        this.threadPageUpdater = new ThreadPageUpdater();
+        this.forumHomepageUpdater = new ForumHomepageUpdater();
         this.navigatorUpdater = new NavigatorUpdater();
     }
 
-    prependPage(previousPageDocument, hidePostElements) {
+    prependPage(previousPageDocument) {
         this.previousPageDocument = previousPageDocument;
         this._setOriginalPosition();
         this._insertPreviousPageNumber();
-        this.threadPageUpdater.prependElements(this._getPreviousPagePosts());
+        let nextPageThreadContainer = this.elementFinder.getThreadsContainerFromDocument(this.previousPageDocument);
+        this.forumHomepageUpdater.prependElement(nextPageThreadContainer);
         this.loadingElementUpdater.removeLoadingElements();
-        this.boardsScriptInserter.insertScript(this.boardsScriptGenerator.GeneratePostPostsInsertScript());
         this.navigatorUpdater.updateTopPageNavigatorFromDocument(this.previousPageDocument);
-        this.postsFormatter.formatPosts(this._getPreviousPagePosts(), hidePostElements);
         this._scrollToOriginalPosition();
     }
 
@@ -43,19 +36,13 @@ class ThreadPagePrepender {
         this.originalYCoordinate = this.pageInformationCollector.getCurrentYCoordinate();
     }
 
-    _insertPreviousPageNumber() {
-        let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
-        let pageNoElement = this.elementGenerator.generateThreadTopPageNoElement(previousPageNo);
-        this.threadPageUpdater.prependElement(pageNoElement)
-    }
-
-    _getPreviousPagePosts() {
-        return this.elementFinder.getPostsFromDocument(this.previousPageDocument);
-    }
-
     _scrollToOriginalPosition() {
         window.scrollTo(0, (this.originalYCoordinate + this.pageInformationCollector.getDocumentHeight() - this.originalDocumentHeight));
     }
 
-
+    _insertPreviousPageNumber() {
+        let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
+        let pageNoElement = this.elementGenerator.generateForumTopPageNoElement(previousPageNo);
+        this.forumHomepageUpdater.prependElement(pageNoElement)
+    }
 }

@@ -7,7 +7,7 @@ let forumHomepageAppender = new ForumHomepageAppender();
 it('append forum page threads', () => {
     document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
 
-    appendNextPageOfForumHomepage(testHtmlGenerator.getForumHomePage(2, 2));
+    appendForumHomepage(testHtmlGenerator.getForumHomePage(2, 2));
 
     expect(document.body.outerHTML.match(/threadslist/g).length).toBe(2);
 })
@@ -15,12 +15,12 @@ it('append forum page threads', () => {
 it('forum page - ensure next page navigator updated', () => {
     document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
 
-    appendNextPageOfForumHomepage(testHtmlGenerator.getForumHomePage(2, 2));
+    appendForumHomepage(testHtmlGenerator.getForumHomePage(2, 2));
 
     expect(document.body.outerHTML.indexOf('2 of 2')).not.toBe(-1);
 })
 
-function appendNextPageOfForumHomepage(pageHtml) {
+function appendForumHomepage(pageHtml) {
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
     forumHomepageAppender.appendNextPage(htmlDocument);
 }

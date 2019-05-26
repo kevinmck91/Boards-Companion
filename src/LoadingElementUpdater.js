@@ -28,6 +28,11 @@ class LoadingElementUpdater {
         this.threadPageUpdater.prependElement(loadingElement);
     }
 
+    prependForumPageLoadingElement() {
+        let loadingElement = this.elementGenerator.generateLoadingElement();
+        this.forumHomepageUpdater.prependElement(loadingElement);
+    }
+
     removeLoadingElements() {
         for (let loadingElement of this.elementFinder.getLoadingElements()) {
             if (loadingElement != null) {

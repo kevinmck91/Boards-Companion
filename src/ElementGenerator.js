@@ -12,7 +12,7 @@ class ElementGenerator {
         return loadingElement;
     }
 
-    generatePageNoElement(pageNo) {
+    generateBottomPageNoElement(pageNo) {
         let pageNoElement = document.createElement('div');
         pageNoElement.innerHTML = "page " + pageNo;
         pageNoElement.style.textAlign = "center";
@@ -21,8 +21,13 @@ class ElementGenerator {
         return pageNoElement;
     }
 
+    generateForumTopPageNoElement(pageNo) {
+        let pageNoElement = this.generateThreadTopPageNoElement(pageNo);
+        pageNoElement.style.paddingTop = "4px";
+        return pageNoElement;
+    }
 
-    generateTopPageNoElement(pageNo) {
+    generateThreadTopPageNoElement(pageNo) {
         let pageNoElement = document.createElement('div');
         pageNoElement.innerHTML = "page " + pageNo;
         pageNoElement.style.textAlign = "center";
