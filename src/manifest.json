@@ -43,6 +43,8 @@
         "NextPageAppender.js",
         "PreviousPageAppender.js",
         "BoardsScriptInserter.js",
-        "PostsFormatter.js"
+        "PostsFormatter.js",
+        "ForumHomepageUpdater.js",
+        "ThreadPageUpdater.js"
     ]
 }

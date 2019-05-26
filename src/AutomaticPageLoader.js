@@ -28,13 +28,13 @@ class AutomaticPageLoader {
             if (this._isPageLoadRequired()) {
                 if (this._isNextPageLoadRequired()) {
                     if (this.pageInformationCollector.isThreadPage()) {
-                        this._loadNextPage();
+                        this._loadNextThreadPage();
                     } else if (this.pageInformationCollector.isForumHomePage()) {
                         this._loadNextForumPage();
                     }
                 }
                 else if (this.pageInformationCollector.isThreadPage()) {
-                    this._loadPreviousPage();
+                    this._loadPreviousThreadPage();
                 }
             }
         } catch (error) {
@@ -56,7 +56,7 @@ class AutomaticPageLoader {
         return this.pageInformationCollector.isTopOfPage() && !this.pageInformationCollector.isFirstPageOfTopNavigator();
     }
 
-    _loadNextPage() {
+    _loadNextThreadPage() {
         this.isPageLoading = true;
         let httpRequest = new XMLHttpRequest();
         httpRequest.open('GET', this.pageInformationCollector.getNextPageUrl(), true);
@@ -64,14 +64,14 @@ class AutomaticPageLoader {
         let _this = this;
         httpRequest.onload = function () {
             if (this.status == 200) {
-                _this._appendNextPage(httpRequest);
+                _this._appendNextThreadPage(httpRequest);
                 _this.isPageLoading = false;
             }
         }
         this.loadingElementUpdater.insertThreadPageLoadingElement();
     }
 
-    _loadPreviousPage() {
+    _loadPreviousThreadPage() {
         this.isPageLoading = true;
         let httpRequest = new XMLHttpRequest();
         httpRequest.open('GET', this.pageInformationCollector.getPreviousPageUrl(), true);
@@ -101,9 +101,9 @@ class AutomaticPageLoader {
         this.loadingElementUpdater.insertForumPageLoadingElement();
     }
 
-    _appendNextPage(successfulHttpRequest) {
+    _appendNextThreadPage(successfulHttpRequest) {
         let nextPageDocument = this._extractDocument(successfulHttpRequest);
-        this.nextPageAppender.appendNextPage(nextPageDocument, this.hidePostElements);
+        this.nextPageAppender.appendNextThreadPage(nextPageDocument, this.hidePostElements);
     }
 
     _prependPreviousThreadPage(successfulHttpRequest) {

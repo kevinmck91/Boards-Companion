@@ -1,32 +1,31 @@
 export { LoadingElementUpdater }
 import { ElementFinder } from "./ElementFinder.js";
 import { ElementGenerator } from "./ElementGenerator.js"
+import { ForumHomepageUpdater } from "./ForumHomepageUpdater.js";
+import { ThreadPageUpdater } from "./ThreadPageUpdater.js";
 
 class LoadingElementUpdater {
 
     constructor() {
         this.elementFinder = new ElementFinder();
         this.elementGenerator = new ElementGenerator();
+        this.forumHomepageUpdater = new ForumHomepageUpdater();
+        this.threadPageUpdater = new ThreadPageUpdater();
     }
 
     insertThreadPageLoadingElement() {
-        let postsContainer = this.elementFinder.getPostsContainer();
         let loadingElement = this.elementGenerator.generateLoadingElement();
-        postsContainer.appendChild(loadingElement);
+        this.threadPageUpdater.appendElement(loadingElement);
     }
 
-    //todo refactor this as is repeated functionality
     insertForumPageLoadingElement() {
         let loadingElement = this.elementGenerator.generateLoadingElement();
-        let threadsContainersContainer = this.elementFinder.getThreadsContainersContainer();
-        let lastElementInThreadsContainersContainer = this.elementFinder.getLastElementInThreadsContainersContainer();
-        threadsContainersContainer.insertBefore(loadingElement, lastElementInThreadsContainersContainer);
+        this.forumHomepageUpdater.appendElement(loadingElement);
     }
 
     prependThreadPageLoadingElement() {
-        let postsContainer = this.elementFinder.getPostsContainer();
         let loadingElement = this.elementGenerator.generateLoadingElement();
-        postsContainer.insertBefore(loadingElement, postsContainer.children[0]);
+        this.threadPageUpdater.prependElement(loadingElement);
     }
 
     removeLoadingElements() {

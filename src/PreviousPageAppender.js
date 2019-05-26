@@ -6,6 +6,7 @@ import { BoardsScriptInserter } from "./BoardsScriptInserter.js";
 import { PostsFormatter } from "./PostsFormatter.js";
 import { ElementGenerator } from "./ElementGenerator.js";
 import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
+import { ThreadPageUpdater } from "./ThreadPageUpdater.js"
 
 class PreviousPageAppender {
 
@@ -20,13 +21,14 @@ class PreviousPageAppender {
         this.originalDocumentHeight = 0;
         this.originalYCoordinate = 0;
         this.previousPageDocument = "";
+        this.threadPageUpdater = new ThreadPageUpdater();
     }
 
     prependPreviousThreadPage(previousPageDocument, hidePostElements) {
         this.previousPageDocument = previousPageDocument;
         this._setOriginalPosition();
-        this._insertPreviousPageNumber();
-        this._prependNewPosts();
+        this._insertPreviousThreadPageNumber();
+        this.threadPageUpdater.prependElements(this._getPreviousPagePosts());
         this.loadingElementUpdater.removeLoadingElements();
         this.boardsScriptInserter.insertScript(this.boardsScriptGenerator.GeneratePostPostsInsertScript());
         this._updateTopPageNavigator();
@@ -39,19 +41,10 @@ class PreviousPageAppender {
         this.originalYCoordinate = this.pageInformationCollector.getCurrentYCoordinate();
     }
 
-    _insertPreviousPageNumber() {
+    _insertPreviousThreadPageNumber() {
         let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
-        let postsContainer = this.elementFinder.getPostsContainer();
         let pageNoElement = this.elementGenerator.generateTopPageNoElement(previousPageNo);
-        postsContainer.insertBefore(pageNoElement, postsContainer.children[0]);
-    }
-
-    _prependNewPosts() {
-        let previousPagePosts = this._getPreviousPagePosts();
-        let postsContainer = this.elementFinder.getPostsContainer();
-        for (let i = previousPagePosts.length - 1; i >= 0; i--) {
-            postsContainer.insertBefore(previousPagePosts[i], postsContainer.children[0]);
-        }
+        this.threadPageUpdater.prependElement(pageNoElement)
     }
 
     _getPreviousPagePosts() {

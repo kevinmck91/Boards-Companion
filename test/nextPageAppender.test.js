@@ -77,7 +77,7 @@ it('forum page - ensure next page navigator updated', () => {
 
 function appendNextPageOfThread(pageHtml) {
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
-    nextPageAppender.appendNextPage(htmlDocument);
+    nextPageAppender.appendNextThreadPage(htmlDocument);
 }
 
 function appendNextPageOfForumHomepage(pageHtml) {
