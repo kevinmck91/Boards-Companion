@@ -12,6 +12,7 @@ let headerTransparencyToggler = new HeaderTransparencyToggler();
 let automaticPageLoader = new AutomaticPageLoader();
 let postsCompressionToggler = new PostsCompressionToggler();
 let pageInternalsUpdater = new PageInternalsUpdater();
+let autoscrollingsSetting = new ConfigurationSettingExecutor(Settings.AutoScrollingEnabled);
 let hidePostElementsSetting = new ConfigurationSettingExecutor(Settings.HidePostElementsEnabled);
 let toggleHeaderTransparencySetting = new ConfigurationSettingExecutor(Settings.ToggleHeaderTransparency);
 
@@ -49,10 +50,12 @@ catch (error) {
 }
 
 try {
-    hidePostElementsSetting.ConditionallyExecute(() => {
-        automaticPageLoader.autoScrollPages(true);
-    }, () => {
-        automaticPageLoader.autoScrollPages(false);
+    autoscrollingsSetting.ConditionallyExecute(() => {
+        hidePostElementsSetting.ConditionallyExecute(() => {
+            automaticPageLoader.autoScrollPages(true);
+        }, () => {
+            automaticPageLoader.autoScrollPages(false);
+        });
     });
 }
 catch (error) {
