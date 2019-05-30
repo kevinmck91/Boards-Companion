@@ -1,16 +1,15 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ThreadPagePrepender } from "../src/ThreadPagePrepender.js";
 import { ElementFinder } from "../src/ElementFinder.js";
-import { BoardsScriptInserter } from "../src/BoardsScriptInserter.js";
+import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let threadPagePrepender = new ThreadPagePrepender();
 let elementFinder = new ElementFinder();
-let boardsScriptInserter = new BoardsScriptInserter();
+let testEnvironmentArranger = new TestEnvironmentArranger();
 
-beforeEach(() => {
-    boardsScriptInserter.insertScript(testHtmlGenerator.getExistingJavascriptScriptElement());
-    window.scrollTo = () => { };
+beforeAll(() => {
+    testEnvironmentArranger.InitializeEnvironment();
 });
 
 it('add previous page successfully', () => {

@@ -24,17 +24,19 @@ class ThreadPagePrepender {
         this.previousPageDocument = "";
         this.threadPageUpdater = new ThreadPageUpdater();
         this.navigatorUpdater = new NavigatorUpdater();
+        this.previousPagePosts = [];
     }
 
     prependPage(previousPageDocument, hidePostElements) {
         this.previousPageDocument = previousPageDocument;
+        this.previousPagePosts = this.elementFinder.getPostsFromDocument(this.previousPageDocument);
         this._setOriginalPosition();
         this._insertPreviousPageNumber();
-        this.threadPageUpdater.prependElements(this._getPreviousPagePosts());
+        this.threadPageUpdater.prependElements(this.previousPagePosts);
         this.loadingElementUpdater.removeLoadingElements();
         this.boardsScriptInserter.insertScript(this.boardsScriptGenerator.GeneratePostPostsInsertScript());
         this.navigatorUpdater.updateTopPageNavigatorFromDocument(this.previousPageDocument);
-        this.postsFormatter.formatPosts(this._getPreviousPagePosts(), hidePostElements);
+        this.postsFormatter.formatPosts(this.previousPagePosts, hidePostElements);
         this._scrollToOriginalPosition();
     }
 
@@ -47,10 +49,6 @@ class ThreadPagePrepender {
         let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
         let pageNoElement = this.elementGenerator.generateThreadTopPageNoElement(previousPageNo);
         this.threadPageUpdater.prependElement(pageNoElement)
-    }
-
-    _getPreviousPagePosts() {
-        return this.elementFinder.getPostsFromDocument(this.previousPageDocument);
     }
 
     _scrollToOriginalPosition() {

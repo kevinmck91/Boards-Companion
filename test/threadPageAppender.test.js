@@ -2,16 +2,16 @@ import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ThreadPageAppender } from "../src/ThreadPageAppender.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
-import { BoardsScriptInserter } from "../src/BoardsScriptInserter.js";
+import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let threadPageAppender = new ThreadPageAppender();
 let elementFinder = new ElementFinder();
 let chromeStorageMocker = new ChromeStorageMocker();
-let boardsScriptInserter = new BoardsScriptInserter();
+let testEnvironmentArranger = new TestEnvironmentArranger();
 
-beforeEach(() => {
-    boardsScriptInserter.insertScript(testHtmlGenerator.getExistingJavascriptScriptElement());
+beforeAll(() => {
+    testEnvironmentArranger.InitializeEnvironment();
     chromeStorageMocker.MockReturnValue(true);
 });
 

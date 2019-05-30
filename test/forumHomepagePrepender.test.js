@@ -1,11 +1,13 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ForumHomepagePrepender } from "../src/ForumHomepagePrepender.js";
+import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let forumHomepagePrepender = new ForumHomepagePrepender();
+let testEnvironmentArranger = new TestEnvironmentArranger();
 
-beforeEach(() => {
-    window.scrollTo = () => { };
+beforeAll(() => {
+    testEnvironmentArranger.InitializeEnvironment();
 });
 
 it('ensure forum homepage elements are prepended in correct order', () => {
