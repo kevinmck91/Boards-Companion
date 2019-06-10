@@ -42,4 +42,11 @@ class ElementGenerator {
         return script;
     }
 
+    generateTagElement() {
+        let tagElement = document.createElement('div');
+        tagElement.innerHTML = "tag";
+        tagElement.className = "tagUser"
+        return tagElement;
+    }
+
 }

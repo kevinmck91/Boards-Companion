@@ -1,8 +1,18 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ElementFinder } from "../src/ElementFinder.js";
+import { TestPageBuilder } from "./TestPageBuilder.js";
+import { PostTaggingActivator } from "../src/PostTaggingActivator.js";
+import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let elementFinder = new ElementFinder();
+let testPageBuilder = new TestPageBuilder();
+let postTaggingActivator = new PostTaggingActivator();
+let testEnvironmentArranger = new TestEnvironmentArranger();
+
+beforeEach(() => {
+    testEnvironmentArranger.InitializeEnvironment();
+});
 
 it('test get posts from document', () => {
     document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
@@ -58,4 +68,40 @@ it('test get threads containers container from document', () => {
     let threadsContainersContainer = elementFinder.getThreadsContainersContainer();
 
     expect(threadsContainersContainer.outerHTML.indexOf('threadbits')).not.toBe(-1);
+})
+
+it('test get user details element', () => {
+    document.body.innerHTML = testPageBuilder.withMultiplePosts(1).buildPage();
+
+    let userDetailsElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getAllPosts()[0]);
+
+    expect(userDetailsElement.className).toBe('alt2');
+})
+
+it('test get all tag elements', () => {
+    document.body.innerHTML = testPageBuilder.withMultiplePosts(2).buildPage();
+
+    postTaggingActivator.activatePostTagging();
+    let tagElements = elementFinder.getAllTagElements();
+
+    expect(tagElements.length).toBe(2);
+})
+
+it('test get username element using tag element', () => {
+    document.body.innerHTML = testPageBuilder.buildPage();
+
+    postTaggingActivator.activatePostTagging();
+    let tagElement = elementFinder.getAllTagElements()[0];
+    let userDetailsElement = elementFinder.getUserDetailsElementFromTagElement(tagElement);
+    let usernameElement = elementFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
+
+    expect(usernameElement.textContent.indexOf('testusername')).not.toBe(-1);
+})
+
+it('test get user posts', () => {
+    document.body.innerHTML = testPageBuilder.withMultiplePosts(3).buildPage();
+
+    let userPosts = elementFinder.getUserPosts('testusername');
+
+    expect(userPosts.length).toBe(3);
 })

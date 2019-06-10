@@ -6,7 +6,7 @@ let chromeStorageMocker = new ChromeStorageMocker();
 
 it('test configuration setting executed', () => {
     let hidePostElementsSetting = new ConfigurationSettingExecutor(Settings.HidePostElementsEnabled);
-    chromeStorageMocker.MockReturnValue(true);
+    chromeStorageMocker.MockGetter(true);
 
     let functionality = jest.fn();
     hidePostElementsSetting.ConditionallyExecute(functionality);

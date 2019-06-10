@@ -6,6 +6,7 @@ import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { PageInternalsUpdater } from "./PageInternalsUpdater.js";
 import { Settings } from "./ConfigurationSettings.js";
 import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
+import { PostTaggingActivator } from "./PostTaggingActivator.js";
 
 let elementVisibilityUpdater = new ElementVisibilityUpdater();
 let headerTransparencyToggler = new HeaderTransparencyToggler();
@@ -15,6 +16,7 @@ let pageInternalsUpdater = new PageInternalsUpdater();
 let autoscrollingsSetting = new ConfigurationSettingExecutor(Settings.AutoScrollingEnabled);
 let hidePostElementsSetting = new ConfigurationSettingExecutor(Settings.HidePostElementsEnabled);
 let toggleHeaderTransparencySetting = new ConfigurationSettingExecutor(Settings.ToggleHeaderTransparency);
+let postTaggingActivator = new PostTaggingActivator();
 
 try {
     pageInternalsUpdater.restoreConsole();
@@ -62,3 +64,9 @@ catch (error) {
     console.error("Unable to activate auto page scrolling: " + error);
 }
 
+try {
+    postTaggingActivator.activatePostTagging();
+}
+catch (error) {
+    console.error("Could not activate post tagging: " + error);
+}

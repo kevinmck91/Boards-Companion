@@ -113,4 +113,31 @@ class ElementFinder {
         return Array.from(document.querySelectorAll('.loading'));
     }
 
+    getUserDetailsElementFromPost(post) {
+        return post.querySelector('[id^="post"] > tbody > [valign="top"] > td');
+    }
+
+    getAllTagElements() {
+        return Array.from(document.querySelectorAll('.tagUser'));
+    }
+
+    getUserDetailsElementFromTagElement(tagElement) {
+        return tagElement.parentElement;
+    }
+
+    getUsernameElementFromUserDetailsElement(userDetailsElement) {
+        return userDetailsElement.querySelector('.bigusername');
+    }
+
+    getUserPosts(username) {
+        let allPosts = this.getAllPosts();
+        let usernamePosts = [];
+        for (let post of allPosts) {
+            let postUsername = post.querySelector('.bigusername').textContent;
+            if (postUsername == username) {
+                usernamePosts.push(post);
+            }
+        }
+        return usernamePosts;
+    }
 }

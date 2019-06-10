@@ -128,13 +128,13 @@ class TestHtmlGenerator {
     getPostContent() {
         return `
         <div id="edit111">
-            <table>
+            <table id="post111">
                 <tr>
                 </tr>
-                <tr>
+                <tr valign="top">
                     <td class="alt2">
-                        <div>
-                            <a>username</a>
+                        <div id="postmenu_110237434">
+                            <a class="bigusername">testusername</a>
                         </div>
                         <div class="smallfont">
                             Registered User

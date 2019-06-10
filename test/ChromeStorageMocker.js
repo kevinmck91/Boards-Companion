@@ -1,15 +1,23 @@
 export { ChromeStorageMocker };
 class ChromeStorageMocker {
-    MockReturnValue(mockValue) {
-        const get = jest.fn().mockImplementation((settingIdentfier, functionality) => { functionality({ settingIdentfier: mockValue }); });
-        const set = jest.fn();
-        global.chrome = {
+
+    constructor() {
+        this.chromeMock = {
             storage: {
                 sync: {
-                    set,
-                    get
+                    set: jest.fn(),
+                    get: jest.fn()
                 }
             }
         }
+    }
+
+    MockAllValues() {
+        global.chrome = this.chromeMock;
+    }
+
+    MockGetter(returnValue) {
+        this.chromeMock.storage.sync.get = jest.fn().mockImplementation((settingIdentfier, functionality) => { functionality(returnValue); });
+        global.chrome = this.chromeMock;
     }
 }

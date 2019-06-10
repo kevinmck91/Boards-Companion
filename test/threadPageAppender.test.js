@@ -12,7 +12,7 @@ let testEnvironmentArranger = new TestEnvironmentArranger();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
-    chromeStorageMocker.MockReturnValue(true);
+    chromeStorageMocker.MockGetter(true);
 });
 
 it('add next page successfully', () => {
