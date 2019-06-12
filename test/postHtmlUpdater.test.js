@@ -9,7 +9,7 @@ let elementFinder = new ElementFinder();
 it('test tag post', () => {
     document.body.innerHTML = testPageBuilder.withMultiplePosts(2).buildPage();
 
-    postHtmlUpdater.addTagElementToAllPosts();
+    postHtmlUpdater.addTagElementToPosts(elementFinder.getAllPosts());
     let usernameElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getAllPosts()[0]);
 
     expect(usernameElement.outerHTML.indexOf('<div class="tagUser">tag</div>')).not.toBe(-1);

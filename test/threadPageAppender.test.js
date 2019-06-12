@@ -3,12 +3,14 @@ import { ThreadPageAppender } from "../src/ThreadPageAppender.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
+import { UserTagger } from "../src/UserTagger.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let threadPageAppender = new ThreadPageAppender();
 let elementFinder = new ElementFinder();
 let chromeStorageMocker = new ChromeStorageMocker();
 let testEnvironmentArranger = new TestEnvironmentArranger();
+let userTagger = new UserTagger();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -57,6 +59,15 @@ it('next page contains custom boards script', () => {
     appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
 
     expect(document.body.innerHTML.indexOf("Boards.load('thread')")).not.toBe(-1);
+})
+
+it('test tagging activated on next page posts', () => {
+    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+
+    userTagger.applyTagging();
+    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+
+    expect(elementFinder.getAllTagElements().length).toBe(2);
 })
 
 function appendNextPage(pageHtml) {

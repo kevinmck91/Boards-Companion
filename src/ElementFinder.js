@@ -54,8 +54,8 @@ class ElementFinder {
     }
 
     getPostsFromDocument(htmlDocument) {
-        let regularUserPosts = htmlDocument.querySelectorAll('.left-col > div');
-        let newSignedInUserPosts = htmlDocument.querySelectorAll('#posts > div');
+        let regularUserPosts = htmlDocument.querySelectorAll('.left-col > div:not(#lastpost)');
+        let newSignedInUserPosts = htmlDocument.querySelectorAll('#posts > div:not(#lastpost)');
         if (regularUserPosts.length == 0)
             return newSignedInUserPosts;
         else
@@ -119,6 +119,15 @@ class ElementFinder {
 
     getAllTagElements() {
         return Array.from(document.querySelectorAll('.tagUser'));
+    }
+
+    getTagElementsFromPosts(posts) {
+        let tagElements = [];
+        for (let post of posts) {
+            let tagElement = post.querySelector('.tagUser');
+            tagElements.push(tagElement);
+        }
+        return tagElements;
     }
 
     getUserDetailsElementFromTagElement(tagElement) {

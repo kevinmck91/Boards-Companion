@@ -1,4 +1,4 @@
-export { PostTaggingActivator }
+export { UserTagger as UserTagger }
 
 import { ElementFinder } from "./ElementFinder.js";
 import { PostHtmlUpdater } from "./PostHtmlUpdater.js";
@@ -8,7 +8,7 @@ import { PostTagger } from "./PostTagger.js";
 import { TaggedUsersUpdater } from "./TaggedUsersUpdater.js";
 import { TaggedUsersRetriever } from "./TaggedUsersRetriever.js";
 
-class PostTaggingActivator {
+class UserTagger {
 
     constructor() {
         this.elementFinder = new ElementFinder();
@@ -20,14 +20,19 @@ class PostTaggingActivator {
         this.taggedUsersRetriever = new TaggedUsersRetriever();
     }
 
-    activatePostTagging() {
-        this.postHtmlUpdater.addTagElementToAllPosts();
-        this._addTagListeners();
-        this._hightlightTaggedUserPosts();
+    applyTagging() {
+        this.applyTaggingToPosts(this.elementFinder.getAllPosts());
     }
 
-    _addTagListeners() {
-        let tagElements = this.elementFinder.getAllTagElements();
+    applyTaggingToPosts(posts) {
+        this.postHtmlUpdater.addTagElementToPosts(posts);
+        this._addTagListeners(posts);
+        this._hightlightTaggedUsers();
+    }
+
+    //todo, needs to highlight user straight away
+    _addTagListeners(posts) {
+        let tagElements = this.elementFinder.getTagElementsFromPosts(posts);
         for (let tagElement of tagElements) {
             let _this = this;
             tagElement.addEventListener('click', function (ev) {
@@ -47,12 +52,12 @@ class PostTaggingActivator {
         return usernameElement.innerText;
     }
 
-    _hightlightTaggedUserPosts() {
+    _hightlightTaggedUsers() {
         let _this = this;
         this.taggedUsersRetriever.getTaggedUsers((users) => {
             let taggedUsers = [];
             taggedUsers.push(users);
-            _this.postTagger.highlightUserPosts(users);
+            _this.postTagger.highlightUsers(users);
         });
     }
 }

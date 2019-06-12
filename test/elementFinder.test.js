@@ -1,13 +1,13 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { TestPageBuilder } from "./TestPageBuilder.js";
-import { PostTaggingActivator } from "../src/PostTaggingActivator.js";
+import { UserTagger } from "../src/UserTagger.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let elementFinder = new ElementFinder();
 let testPageBuilder = new TestPageBuilder();
-let postTaggingActivator = new PostTaggingActivator();
+let userTagger = new UserTagger();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 
 beforeEach(() => {
@@ -81,7 +81,7 @@ it('test get user details element', () => {
 it('test get all tag elements', () => {
     document.body.innerHTML = testPageBuilder.withMultiplePosts(2).buildPage();
 
-    postTaggingActivator.activatePostTagging();
+    userTagger.applyTagging();
     let tagElements = elementFinder.getAllTagElements();
 
     expect(tagElements.length).toBe(2);
@@ -90,7 +90,7 @@ it('test get all tag elements', () => {
 it('test get username element using tag element', () => {
     document.body.innerHTML = testPageBuilder.buildPage();
 
-    postTaggingActivator.activatePostTagging();
+    userTagger.applyTagging();
     let tagElement = elementFinder.getAllTagElements()[0];
     let userDetailsElement = elementFinder.getUserDetailsElementFromTagElement(tagElement);
     let usernameElement = elementFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);

@@ -9,8 +9,7 @@ class PostHtmlUpdater {
         this.elementGenerator = new ElementGenerator();
     }
 
-    addTagElementToAllPosts() {
-        let posts = this.elementFinder.getAllPosts();
+    addTagElementToPosts(posts) {
         for (let post of posts) {
             this._addTagElementToPost(post);
         }

@@ -57,7 +57,7 @@ class TestHtmlGenerator {
         return `
         <div id="posts">
             <div class="left-col">
-                ` + elements + `
+                ` + elements + this.getLastPostElement() + `
             </div>
         </div>`;
     }
@@ -123,6 +123,10 @@ class TestHtmlGenerator {
 
     getUnsignedInUserPost() {
         return `<div>` + this.getPostContent() + `</div>`;
+    }
+
+    getLastPostElement() {
+        return `<div id="lastpost"></div>`
     }
 
     getPostContent() {

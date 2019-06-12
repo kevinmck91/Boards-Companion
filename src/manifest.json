@@ -50,7 +50,7 @@
         "NavigatorUpdater.js",
         "ForumHomepagePrepender.js",
         "PostHtmlUpdater.js",
-        "PostTaggingActivator.js",
+        "UserTagger.js",
         "StorageUpdater.js",
         "StorageRetriever.js",
         "PostTagger.js",

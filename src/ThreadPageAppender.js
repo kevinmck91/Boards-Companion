@@ -8,6 +8,7 @@ import { PageInformationCollector } from "./PageInformationCollector.js";
 import { ElementGenerator } from "./ElementGenerator.js";
 import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
 import { NavigatorUpdater } from "./NavigatorUpdater.js";
+import { UserTagger } from "./UserTagger.js";
 
 class ThreadPageAppender {
 
@@ -21,6 +22,7 @@ class ThreadPageAppender {
         this.elementGenerator = new ElementGenerator();
         this.boardsScriptGenerator = new BoardsScriptGenerator();
         this.navigatorUpdater = new NavigatorUpdater();
+        this.userTagger = new UserTagger();
     }
 
     appendNextPage(nextPageDocument, hidePostElements) {
@@ -31,6 +33,7 @@ class ThreadPageAppender {
         this.loadingElementUpdater.removeLoadingElements();
         this.boardsScriptInserter.insertScript(this.boardsScriptGenerator.GeneratePostPostsInsertScript());
         this.postsFormatter.formatPosts(nextPagePosts, hidePostElements);
+        this.userTagger.applyTaggingToPosts(nextPagePosts);
     }
 
     _insertPageNumber(nextPageDocument) {

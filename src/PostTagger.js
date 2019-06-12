@@ -9,7 +9,7 @@ class PostTagger {
         this.postsFormatter = new PostsFormatter();
     }
 
-    highlightUserPosts(usernames) {
+    highlightUsers(usernames) {
         for (let username of usernames) {
             let userPosts = this.elementFinder.getUserPosts(username);
             this.postsFormatter.highlightPosts(userPosts);
