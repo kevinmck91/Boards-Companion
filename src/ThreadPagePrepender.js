@@ -8,6 +8,7 @@ import { ElementGenerator } from "./ElementGenerator.js";
 import { BoardsScriptGenerator } from "./BoardsScriptGenerator.js";
 import { ThreadPageUpdater } from "./ThreadPageUpdater.js"
 import { NavigatorUpdater } from "./NavigatorUpdater.js";
+import { UserTagger } from "./UserTagger.js";
 
 class ThreadPagePrepender {
 
@@ -25,6 +26,7 @@ class ThreadPagePrepender {
         this.threadPageUpdater = new ThreadPageUpdater();
         this.navigatorUpdater = new NavigatorUpdater();
         this.previousPagePosts = [];
+        this.userTagger = new UserTagger();
     }
 
     prependPage(previousPageDocument, hidePostElements) {
@@ -38,6 +40,7 @@ class ThreadPagePrepender {
         this.navigatorUpdater.updateTopPageNavigatorFromDocument(this.previousPageDocument);
         this.postsFormatter.formatPosts(this.previousPagePosts, hidePostElements);
         this._scrollToOriginalPosition();
+        this.userTagger.applyTaggingToPosts(this.previousPagePosts);
     }
 
     _setOriginalPosition() {

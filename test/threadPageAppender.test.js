@@ -61,7 +61,7 @@ it('next page contains custom boards script', () => {
     expect(document.body.innerHTML.indexOf("Boards.load('thread')")).not.toBe(-1);
 })
 
-it('test tagging activated on next page posts', () => {
+it('test tagging applied to next page posts', () => {
     document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
 
     userTagger.applyTagging();
