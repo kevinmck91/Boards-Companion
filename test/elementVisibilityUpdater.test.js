@@ -1,13 +1,17 @@
 import { ElementVisibilityUpdater } from "../src/ElementVisibilityUpdater.js";
 import { ElementFinder } from "../src/ElementFinder.js";
-import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
+import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 
 let elementVisibilityUpdater = new ElementVisibilityUpdater();
 let elementFinder = new ElementFinder();
-let testHtmlGenerator = new TestHtmlGenerator();
+let testThreadPageBuilder = null;
+
+beforeEach(() => {
+    testThreadPageBuilder = new TestThreadPageBuilder();
+});
 
 it('Welcome notice hidden', () => {
-    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.hasWelcomeNotice().isSignedOut().buildPage();
 
     elementVisibilityUpdater.hideWelcomeNotice();
 
@@ -15,7 +19,7 @@ it('Welcome notice hidden', () => {
 })
 
 it('normal notice not hidden', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.hasNormalNotice().buildPage();
 
     elementVisibilityUpdater.hideWelcomeNotice();
 
@@ -23,13 +27,13 @@ it('normal notice not hidden', () => {
 })
 
 it('page without notice runs without error', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     elementVisibilityUpdater.hideWelcomeNotice();
 })
 
 it('Avatar Info Hidden', () => {
-    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     elementVisibilityUpdater.hideEachPostsElements();
 
@@ -37,7 +41,7 @@ it('Avatar Info Hidden', () => {
 })
 
 it('Signed in user runs without exception', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     elementVisibilityUpdater.hideWelcomeNotice();
 })

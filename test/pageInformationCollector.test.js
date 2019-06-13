@@ -1,19 +1,23 @@
-import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { PageInformationCollector } from "../src/PageInformationCollector.js";
 import { TestPageManipulator } from "./TestPageManipulator.js";
+import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 
-let testHtmlGenerator = new TestHtmlGenerator();
 let pageInformationCollector = new PageInformationCollector();
 let testPageManipulator = new TestPageManipulator();
+let testThreadPageBuilder = null;
+
+beforeEach(() => {
+    testThreadPageBuilder = new TestThreadPageBuilder();
+})
 
 it('max no of pages', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     expect(pageInformationCollector.getMaxNoOfPages()).toBe(2);
 })
 
 it('triple digits pageXOfY', () => {
-    document.body.innerHTML = testHtmlGenerator.getThreadPageNavigator(1, 482);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 482).buildPage();
 
     let result = pageInformationCollector.getMaxNoOfPages(document);
 
@@ -22,7 +26,7 @@ it('triple digits pageXOfY', () => {
 
 it('get next page url from navigator', () => {
     testPageManipulator.loadThreadUrl();
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(2, 4);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(2, 4).buildPage();
 
     let result = pageInformationCollector.getNextPageUrl();
 

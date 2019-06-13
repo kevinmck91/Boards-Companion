@@ -1,21 +1,22 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ElementFinder } from "../src/ElementFinder.js";
-import { TestPageBuilder } from "./TestPageBuilder.js";
+import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 import { UserTagger } from "../src/UserTagger.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let elementFinder = new ElementFinder();
-let testPageBuilder = new TestPageBuilder();
 let userTagger = new UserTagger();
 let testEnvironmentArranger = new TestEnvironmentArranger();
+let testThreadPageBuilder = null;
 
 beforeEach(() => {
     testEnvironmentArranger.InitializeEnvironment();
+    testThreadPageBuilder = new TestThreadPageBuilder();
 });
 
 it('test get posts from document', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     let posts = elementFinder.getPostsFromDocument(document);
 
@@ -23,7 +24,7 @@ it('test get posts from document', () => {
 })
 
 it('test get posts from unsigned in user page', () => {
-    document.body.innerHTML = testHtmlGenerator.getUnsignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.isSignedOut().buildPage();
 
     let posts = elementFinder.getPostsFromDocument(document);
 
@@ -31,7 +32,7 @@ it('test get posts from unsigned in user page', () => {
 })
 
 it('test get avatar info elements', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPost();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     let avatarInfoElements = elementFinder.getAvatarInfoElementsFromPost(elementFinder.getAllPosts()[0]);
 
@@ -39,7 +40,7 @@ it('test get avatar info elements', () => {
 })
 
 it('test get posts from new signed in user page', () => {
-    document.body.innerHTML = testHtmlGenerator.getNewUserSignedInPage();
+    document.body.innerHTML = testThreadPageBuilder.isNewUser().buildPage();
 
     let posts = elementFinder.getPostsFromDocument(document);
 
@@ -47,7 +48,7 @@ it('test get posts from new signed in user page', () => {
 })
 
 it('test get posts container from new signed in user page', () => {
-    document.body.innerHTML = testHtmlGenerator.getNewUserSignedInPage();
+    document.body.innerHTML = testThreadPageBuilder.isNewUser().buildPage();
 
     let posts = elementFinder.getPostsContainerFromDocument(document);
 
@@ -71,7 +72,7 @@ it('test get threads containers container from document', () => {
 })
 
 it('test get user details element', () => {
-    document.body.innerHTML = testPageBuilder.withMultiplePosts(1).buildPage();
+    document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(1).buildPage();
 
     let userDetailsElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getAllPosts()[0]);
 
@@ -79,7 +80,7 @@ it('test get user details element', () => {
 })
 
 it('test get all tag elements', () => {
-    document.body.innerHTML = testPageBuilder.withMultiplePosts(2).buildPage();
+    document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(2).buildPage();
 
     userTagger.applyTagging();
     let tagElements = elementFinder.getAllTagElements();
@@ -88,7 +89,7 @@ it('test get all tag elements', () => {
 })
 
 it('test get username element using tag element', () => {
-    document.body.innerHTML = testPageBuilder.buildPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     userTagger.applyTagging();
     let tagElement = elementFinder.getAllTagElements()[0];
@@ -99,7 +100,7 @@ it('test get username element using tag element', () => {
 })
 
 it('test get user posts', () => {
-    document.body.innerHTML = testPageBuilder.withMultiplePosts(3).buildPage();
+    document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(3).buildPage();
 
     let userPosts = elementFinder.getUserPosts('testusername');
 

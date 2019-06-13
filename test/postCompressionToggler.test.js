@@ -3,20 +3,25 @@ import { ElementFinder } from "../src/ElementFinder.js";
 import { PostsCompressionToggler } from "../src/PostsCompressionToggler.js";
 import { ThreadPagePrepender } from "../src/ThreadPagePrepender.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
+import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let postsCompressionToggler = new PostsCompressionToggler();
 let elementFinder = new ElementFinder();
 let threadPagePrepender = new ThreadPagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
-
+let testThreadPageBuilder = null;
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
 });
 
+beforeEach(() => {
+    testThreadPageBuilder = new TestThreadPageBuilder();
+})
+
 it('test post gets compressed when clicked', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     postsCompressionToggler.applyCompressionToggling();
     let post = elementFinder.getAllPosts()[0];
@@ -26,7 +31,7 @@ it('test post gets compressed when clicked', () => {
 })
 
 it('test post gets uncompressed when clicked twice', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     postsCompressionToggler.applyCompressionToggling();
     let post = elementFinder.getAllPosts()[0];
@@ -37,7 +42,7 @@ it('test post gets uncompressed when clicked twice', () => {
 })
 
 it('test click event not triggered on any element within footer element of post', () => {
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     postsCompressionToggler.applyCompressionToggling();
     let post = elementFinder.getAllPosts()[0];
@@ -48,8 +53,8 @@ it('test click event not triggered on any element within footer element of post'
 })
 
 it('test compression toggling applied to prepended page', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
-    let pageHtml = testHtmlGenerator.getSpecificSignedInUserPage(2, 2);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
+    let pageHtml = testThreadPageBuilder.specificPage(2, 2).buildPage()
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
 
     threadPagePrepender.prependPage(htmlDocument, true);

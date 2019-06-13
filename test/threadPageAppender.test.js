@@ -4,6 +4,7 @@ import { ElementFinder } from "../src/ElementFinder.js";
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 import { UserTagger } from "../src/UserTagger.js";
+import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let threadPageAppender = new ThreadPageAppender();
@@ -11,41 +12,45 @@ let elementFinder = new ElementFinder();
 let chromeStorageMocker = new ChromeStorageMocker();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
+let testThreadPageBuilder = null;
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
     chromeStorageMocker.MockGetter(true);
 });
 
-it('add next page successfully', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+beforeEach(() => {
+    testThreadPageBuilder = new TestThreadPageBuilder();
+});
 
-    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+it('add next page successfully', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+
+    appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
     expect(elementFinder.getAllPosts().length).toBe(2);
 })
 
-
 it('insert correct page no', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
 
-    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
     expect(document.body.outerHTML.indexOf("page 2")).not.toBe(-1);
 })
 
 it('update navigator', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
 
-    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
     expect(document.body.outerHTML.indexOf("Page 2 of 2")).not.toBe(-1);
 })
 
 it('next page posts have compression toggling', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
 
-    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
     let post = elementFinder.getAllPosts()[1];
     post.click();
 
@@ -54,18 +59,18 @@ it('next page posts have compression toggling', () => {
 })
 
 it('next page contains custom boards script', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
 
-    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
     expect(document.body.innerHTML.indexOf("Boards.load('thread')")).not.toBe(-1);
 })
 
 it('test tagging applied to next page posts', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
 
     userTagger.applyTagging();
-    appendNextPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
     expect(elementFinder.getAllTagElements().length).toBe(2);
 })

@@ -3,31 +3,36 @@ import { ThreadPagePrepender } from "../src/ThreadPagePrepender.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 import { UserTagger } from "../src/UserTagger.js";
+import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let threadPagePrepender = new ThreadPagePrepender();
 let elementFinder = new ElementFinder();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
+let testThreadPageBuilder = null;
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
 });
 
-it('add previous page successfully', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+beforeEach(() => {
+    testThreadPageBuilder = new TestThreadPageBuilder();
+})
 
-    prependPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+it('add previous page successfully', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+
+    prependPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
     expect(elementFinder.getAllPosts().length).toBe(2);
 })
 
-
 it('test tagging applied to previous page posts', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 2);
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     userTagger.applyTagging();
-    prependPage(testHtmlGenerator.getSpecificSignedInUserPage(2, 2));
+    prependPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
     expect(elementFinder.getAllTagElements().length).toBe(2);
 })

@@ -1,20 +1,23 @@
 import { AutomaticPageLoader } from "../src/AutomaticPageLoader.js";
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { TestPageManipulator } from "./TestPageManipulator.js";
+import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 
 let automaticPageLoader;
 let testHtmlGenerator = new TestHtmlGenerator();
 let testPageManipulator = new TestPageManipulator();
+let testThreadPageBuilder = null;
 
 let xhrOpenMock;
 beforeEach(() => {
     mockXmlHttpRequest();
     automaticPageLoader = new AutomaticPageLoader();
+    testThreadPageBuilder = new TestThreadPageBuilder();
 });
 
 it('test page 2 url loaded', () => {
     testPageManipulator.loadThreadUrl();
-    document.body.innerHTML = testHtmlGenerator.getSignedInUserPage();
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     triggerNextPageLoad();
 
@@ -23,7 +26,7 @@ it('test page 2 url loaded', () => {
 
 it('test starting on page 2', () => {
     testPageManipulator.loadNthThreadUrl(2);
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(2, 3);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(2, 3).buildPage();
 
     triggerNextPageLoad();
 
@@ -31,7 +34,7 @@ it('test starting on page 2', () => {
 })
 
 it('test next page isnt loaded when on last page', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(2, 2);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(2, 2).buildPage();
 
     triggerNextPageLoad();
 
@@ -39,7 +42,7 @@ it('test next page isnt loaded when on last page', () => {
 })
 
 it('test previous page isnt loaded when on first page', () => {
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(1, 1);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 1).buildPage();
 
     triggerNextPageLoad();
 
@@ -48,7 +51,7 @@ it('test previous page isnt loaded when on first page', () => {
 
 it('get next page url from nnth page', () => {
     testPageManipulator.loadNthThreadUrl(2);
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(11, 20);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(11, 20).buildPage();
 
     triggerNextPageLoad();
 
@@ -57,7 +60,7 @@ it('get next page url from nnth page', () => {
 
 it('test previous page url loaded', () => {
     testPageManipulator.loadThreadUrl();
-    document.body.innerHTML = testHtmlGenerator.getSpecificSignedInUserPage(5, 5);
+    document.body.innerHTML = testThreadPageBuilder.specificPage(5, 5).buildPage();
 
     triggerPreviousPageLoad();
 

@@ -3,38 +3,7 @@ export { TestHtmlGenerator };
 
 class TestHtmlGenerator {
 
-    getUnsignedInUserPage() {
-        return this.wrapPageElements(this.getThreadPageNavigator(1, 2) +
-            this.getHeader() +
-            this.getWelcomeNotice() +
-            this.wrapPosts(this.getUnsignedInUserPost()) +
-            this.wrapThreadFooterElements(this.getThreadPageNavigator(1, 2)));
-    }
-
-    getSignedInUserPage() {
-        return this.wrapPageElements(this.getThreadPageNavigator(1, 2) +
-            this.getHeader() +
-            this.getNotice() +
-            this.wrapPosts(this.getSignedInUserPost()) +
-            this.wrapThreadFooterElements(this.getThreadPageNavigator(1, 2)));
-    }
-
-    getNewUserSignedInPage() {
-        return this.wrapPageElements(this.getThreadPageNavigator(1, 2) +
-            this.getHeader() +
-            this.getNotice() +
-            this.wrapNewSignedInUserPosts(this.getSignedInUserPost()) +
-            this.wrapThreadFooterElements(this.getThreadPageNavigator(1, 2)));
-    }
-
-    getSpecificSignedInUserPage(pageNo, maxNoOfPages) {
-        return this.wrapPageElements(this.getThreadPageNavigator(pageNo, maxNoOfPages) +
-            this.getHeader() +
-            this.wrapPosts(this.getSignedInUserPost()) +
-            this.wrapThreadFooterElements(this.getThreadPageNavigator(pageNo, maxNoOfPages)));
-    }
-
-    getForumHomePage(pageNo, maxNoOfPages) {
+    getForumHomePage(pageNo, maxNoOfPages) { //todo make forum builder page
         return this.wrapPageElements(this.getForumPageNavigator(pageNo, maxNoOfPages)) +
             this.getHeader() +
             this.wrapThreadEntries(this.getThreadEntry()) +
@@ -53,11 +22,11 @@ class TestHtmlGenerator {
         </div>`;
     }
 
-    wrapPosts(elements) {
+    wrapPosts(posts) {
         return `
         <div id="posts">
             <div class="left-col">
-                ` + elements + this.getLastPostElement() + `
+                ` + posts + this.getLastPostElement() + `
             </div>
         </div>`;
     }
@@ -102,7 +71,14 @@ class TestHtmlGenerator {
         </form>`
     }
 
-    getNotice() {
+    wrapNotices(noticeElements) {
+        return `
+        <form id="notices">
+            `+ noticeElements + `
+        </form>`;
+    }
+
+    getNormalNotice() {
         return `
         <form id="notices">
             <div>Catch up with all the community</div>
