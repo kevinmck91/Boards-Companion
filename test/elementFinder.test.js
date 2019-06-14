@@ -1,18 +1,19 @@
-import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 import { UserTagger } from "../src/UserTagger.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
+import { TestForumPageBuilder } from "./TestForumPageBuilder.js";
 
-let testHtmlGenerator = new TestHtmlGenerator();
 let elementFinder = new ElementFinder();
 let userTagger = new UserTagger();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let testThreadPageBuilder = null;
+let testForumPageBuilder = new TestForumPageBuilder();
 
 beforeEach(() => {
     testEnvironmentArranger.InitializeEnvironment();
     testThreadPageBuilder = new TestThreadPageBuilder();
+    testForumPageBuilder = new TestForumPageBuilder();
 });
 
 it('test get posts from document', () => {
@@ -56,7 +57,7 @@ it('test get posts container from new signed in user page', () => {
 })
 
 it('test get threads from document', () => {
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
+    document.body.innerHTML = testForumPageBuilder.buildPage();
 
     let threadsContainer = elementFinder.getThreadsContainerFromDocument(document);
 
@@ -64,7 +65,7 @@ it('test get threads from document', () => {
 })
 
 it('test get threads containers container from document', () => {
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
+    document.body.innerHTML = testForumPageBuilder.buildPage();
 
     let threadsContainersContainer = elementFinder.getThreadsContainersContainer();
 

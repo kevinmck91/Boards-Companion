@@ -3,13 +3,6 @@ export { TestHtmlGenerator };
 
 class TestHtmlGenerator {
 
-    getForumHomePage(pageNo, maxNoOfPages) { //todo make forum builder page
-        return this.wrapPageElements(this.getForumPageNavigator(pageNo, maxNoOfPages)) +
-            this.getHeader() +
-            this.wrapThreadEntries(this.getThreadEntry()) +
-            this.wrapForumFooterNavigator(this.getForumPageNavigator(pageNo, maxNoOfPages));
-    }
-
     convertToDocument(html) {
         let parser = new DOMParser();
         return parser.parseFromString(html, "text/html");

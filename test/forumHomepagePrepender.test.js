@@ -1,19 +1,25 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ForumHomepagePrepender } from "../src/ForumHomepagePrepender.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
+import { TestForumPageBuilder } from "./TestForumPageBuilder.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let forumHomepagePrepender = new ForumHomepagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
+let testForumPageBuilder = null;
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
 });
 
-it('ensure forum homepage elements are prepended in correct order', () => {
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(2, 2);
+beforeEach(() => {
+    testForumPageBuilder = new TestForumPageBuilder();
+})
 
-    prependForumHomepage(testHtmlGenerator.getForumHomePage(1, 2));
+it('ensure forum homepage elements are prepended in correct order', () => {
+    document.body.innerHTML = testForumPageBuilder.specificPage(2, 2).buildPage();
+
+    prependForumHomepage(testForumPageBuilder.buildPage());
 
     let pageNoElement = document.body.querySelectorAll("form > *")[1];
     expect(pageNoElement.outerHTML.indexOf('<div')).not.toBe(-1);

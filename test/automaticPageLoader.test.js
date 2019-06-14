@@ -1,18 +1,19 @@
 import { AutomaticPageLoader } from "../src/AutomaticPageLoader.js";
-import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { TestPageManipulator } from "./TestPageManipulator.js";
 import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
+import { TestForumPageBuilder } from "./TestForumPageBuilder.js";
 
 let automaticPageLoader;
-let testHtmlGenerator = new TestHtmlGenerator();
 let testPageManipulator = new TestPageManipulator();
 let testThreadPageBuilder = null;
+let testForumPageBuilder = null;
 
 let xhrOpenMock;
 beforeEach(() => {
     mockXmlHttpRequest();
     automaticPageLoader = new AutomaticPageLoader();
     testThreadPageBuilder = new TestThreadPageBuilder();
+    testForumPageBuilder = new TestForumPageBuilder();
 });
 
 it('test page 2 url loaded', () => {
@@ -69,7 +70,7 @@ it('test previous page url loaded', () => {
 
 it('test next page in forum page loaded', () => {
     testPageManipulator.loadForumPageUrl();
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
+    document.body.innerHTML = testForumPageBuilder.buildPage();
 
     triggerNextPageLoad();
 
@@ -78,7 +79,7 @@ it('test next page in forum page loaded', () => {
 
 it('test previous page in forum page loaded', () => {
     testPageManipulator.loadForumPageUrl();
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(2, 2);
+    document.body.innerHTML = testForumPageBuilder.specificPage(2, 2).buildPage();
 
     triggerPreviousPageLoad();
 
