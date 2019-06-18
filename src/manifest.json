@@ -19,7 +19,7 @@
             ],
             "js": [
                 "content.js",
-                "all.js"
+                "fontawesome/all.js"
             ]
         }
     ],
