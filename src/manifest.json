@@ -18,7 +18,8 @@
                 "*://www.boards.ie/*"
             ],
             "js": [
-                "content.js"
+                "content.js",
+                "all.js"
             ]
         }
     ],

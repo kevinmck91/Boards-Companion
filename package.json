@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "jest",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "postinstall": "cp -R node_modules/@fortawesome/fontawesome-free/js/all.js ./src/fontawesome"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
+    "@fortawesome/fontawesome-free": "^5.9.0",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0"
   }

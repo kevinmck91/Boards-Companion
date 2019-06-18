@@ -8,7 +8,7 @@ class BoardsScriptGenerator {
     }
 
     GeneratePostPostsInsertScript() {
-        return this.elementGenerator.GenerateScriptElement(this._enableMultiQuotes() + this._enableQuickReply());
+        return this.elementGenerator.generateScriptElement(this._enableMultiQuotes() + this._enableQuickReply());
     }
 
     _enableMultiQuotes() {

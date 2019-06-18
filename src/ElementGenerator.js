@@ -35,7 +35,7 @@ class ElementGenerator {
         return pageNoElement;
     }
 
-    GenerateScriptElement(contents) {
+    generateScriptElement(contents) {
         let script = document.createElement("script");
         script.type = "text/javascript";
         script.innerHTML = contents;
@@ -44,9 +44,20 @@ class ElementGenerator {
 
     generateTagElement() {
         let tagElement = document.createElement('div');
-        tagElement.innerHTML = "tag";
         tagElement.className = "tagUser"
+        tagElement.style.cursor = "pointer";
+        tagElement.style.color = '#3d5686';
+        tagElement.style.display = 'inline-block';
+
+        let tagIconElement = this._generateTagIconElement();
+        tagElement.appendChild(tagIconElement);
         return tagElement;
+    }
+
+    _generateTagIconElement() {
+        let tagIconElement = document.createElement('i');
+        tagIconElement.className = "fas fa-tag"
+        return tagIconElement;
     }
 
 }

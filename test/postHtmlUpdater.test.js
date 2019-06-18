@@ -14,7 +14,7 @@ it('test tag post', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(2).buildPage();
 
     postHtmlUpdater.addTagElementToPosts(elementFinder.getAllPosts());
-    let usernameElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getAllPosts()[0]);
+    let usernameElement = elementFinder.getUsernameElementFromPost(elementFinder.getAllPosts()[0]);
 
-    expect(usernameElement.outerHTML.indexOf('<div class="tagUser">tag</div>')).not.toBe(-1);
+    expect(usernameElement.querySelector(".tagUser")).not.toBe(null);
 })

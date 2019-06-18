@@ -117,6 +117,10 @@ class ElementFinder {
         return post.querySelector('[id^="post"] > tbody > [valign="top"] > td');
     }
 
+    getUsernameElementFromPost(post) {
+        return post.querySelector('[id^="postmenu"]');
+    }
+
     getAllTagElements() {
         return Array.from(document.querySelectorAll('.tagUser'));
     }
