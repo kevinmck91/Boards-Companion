@@ -4,7 +4,7 @@ import { HeaderTransparencyToggler } from "./HeaderTransparencyToggler.js";
 import { AutomaticPageLoader } from "./AutomaticPageLoader.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { PageInternalsUpdater } from "./PageInternalsUpdater.js";
-import { Settings } from "./ConfigurationSettings.js";
+import { StorageKeys } from "./ApplicationStorageKeys.js";
 import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
 import { UserTagger } from "./UserTagger.js";
 
@@ -13,9 +13,9 @@ let headerTransparencyToggler = new HeaderTransparencyToggler();
 let automaticPageLoader = new AutomaticPageLoader();
 let postsCompressionToggler = new PostsCompressionToggler();
 let pageInternalsUpdater = new PageInternalsUpdater();
-let autoscrollingsSetting = new ConfigurationSettingExecutor(Settings.AutoScrollingEnabled);
-let hidePostElementsSetting = new ConfigurationSettingExecutor(Settings.HidePostElementsEnabled);
-let toggleHeaderTransparencySetting = new ConfigurationSettingExecutor(Settings.ToggleHeaderTransparency);
+let autoscrollingsSetting = new ConfigurationSettingExecutor(StorageKeys.AutoScrollingEnabled);
+let hidePostElementsSetting = new ConfigurationSettingExecutor(StorageKeys.HidePostElementsEnabled);
+let toggleHeaderTransparencySetting = new ConfigurationSettingExecutor(StorageKeys.ToggleHeaderTransparency);
 let userTagger = new UserTagger();
 
 try {

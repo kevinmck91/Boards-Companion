@@ -1,11 +1,11 @@
 import { ConfigurationSettingExecutor } from "../src/ConfigurationSettingExecutor.js";
-import { Settings } from "../src/ConfigurationSettings.js";
+import { StorageKeys } from "../src/ApplicationStorageKeys.js";
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
 
 let chromeStorageMocker = new ChromeStorageMocker();
 
 it('test configuration setting executed', () => {
-    let hidePostElementsSetting = new ConfigurationSettingExecutor(Settings.HidePostElementsEnabled);
+    let hidePostElementsSetting = new ConfigurationSettingExecutor(StorageKeys.HidePostElementsEnabled);
     chromeStorageMocker.MockGetter(true);
 
     let functionality = jest.fn();

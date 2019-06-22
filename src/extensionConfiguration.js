@@ -1,6 +1,6 @@
-import { Settings } from "./ConfigurationSettings.js";
+import { StorageKeys } from "./ApplicationStorageKeys.js";
 
-let configurationSettingIdentifiers = [Settings.AutoScrollingEnabled, Settings.HidePostElementsEnabled, Settings.ToggleHeaderTransparency];
+let configurationSettingIdentifiers = [StorageKeys.AutoScrollingEnabled, StorageKeys.HidePostElementsEnabled, StorageKeys.ToggleHeaderTransparency];
 updateCheckboxValuesFromStorage();
 enableSaving();
 

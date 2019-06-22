@@ -41,7 +41,6 @@
         "PageInternalsUpdater.js",
         "PostsCompressionToggler.js",
         "BoardsScriptGenerator.js",
-        "ConfigurationSettings.js",
         "ConfigurationSettingExecutor.js",
         "LoadingElementUpdater.js",
         "BoardsScriptInserter.js",
