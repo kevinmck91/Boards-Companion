@@ -4,10 +4,10 @@ import { ElementFinder } from "./ElementFinder.js";
 import { PostHtmlUpdater } from "./PostHtmlUpdater.js";
 import { StorageUpdater } from "./StorageUpdater.js";
 import { StorageRetriever } from "./StorageRetriever.js";
-import { PostTagger } from "./PostTagger.js";
 import { TaggedUsersUpdater } from "./TaggedUsersUpdater.js";
 import { TaggedUsersRetriever } from "./TaggedUsersRetriever.js";
 import { ElementGenerator } from "./ElementGenerator.js";
+import { PostsFormatter } from "./PostsFormatter.js";
 
 class UserTagger {
 
@@ -16,10 +16,10 @@ class UserTagger {
         this.postHtmlUpdater = new PostHtmlUpdater();
         this.storageUpdater = new StorageUpdater();
         this.storageRetriever = new StorageRetriever();
-        this.postTagger = new PostTagger();
         this.taggedUsersUpdater = new TaggedUsersUpdater();
         this.taggedUsersRetriever = new TaggedUsersRetriever();
         this.elementGenerator = new ElementGenerator();
+        this.postsFormatter = new PostsFormatter();
     }
 
     applyTagging() {
@@ -54,6 +54,7 @@ class UserTagger {
             ev.preventDefault();
             let username = _this._getUsernameFromModal();
             _this.taggedUsersUpdater.addUser(username);
+            _this._highlightUser(username);
             _this._removeModalElement();
         });
     }
@@ -80,10 +81,24 @@ class UserTagger {
 
     _hightlightTaggedUsers() {
         let _this = this;
-        this.taggedUsersRetriever.getTaggedUsers((users) => {
+        this.taggedUsersRetriever.getTaggedUsers((usernames) => {
             let taggedUsers = [];
-            taggedUsers.push(users);
-            _this.postTagger.highlightUsers(users);
+            taggedUsers.push(usernames);
+            _this._highlightUsers(usernames);
         });
     }
+
+    _highlightUser(username) {
+        let usernameArray = [];
+        usernameArray.push(username);
+        this._highlightUsers(usernameArray);
+    }
+
+    _highlightUsers(usernames) {
+        for (let username of usernames) {
+            let userPosts = this.elementFinder.getUserPosts(username);
+            this.postsFormatter.highlightPosts(userPosts);
+        }
+    }
+
 }
