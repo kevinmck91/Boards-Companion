@@ -16,8 +16,8 @@ class PostHtmlUpdater {
     }
 
     _addTagElementToPost(post) {
-        let usernameElement = this.elementFinder.getUsernameElementFromPost(post);
+        let userDetailsElement = this.elementFinder.getUserDetailsElementFromPost(post);
         let tagElement = this.elementGenerator.generateTagElement();
-        usernameElement.appendChild(tagElement);
+        userDetailsElement.appendChild(tagElement);
     }
 }

@@ -44,14 +44,22 @@ class ElementGenerator {
 
     generateTagElement() {
         let tagElement = document.createElement('div');
-        tagElement.className = "tagUser"
-        tagElement.style.cursor = "pointer";
-        tagElement.style.color = '#3d5686';
-        tagElement.style.display = 'inline-block';
-
+        tagElement.className = "tag-user"
         let tagIconElement = this._generateTagIconElement();
         tagElement.appendChild(tagIconElement);
         return tagElement;
+    }
+
+    generateModalElement(username) {
+        let modalElement = document.createElement('form');
+        modalElement.className = "modal"
+        modalElement.innerHTML =
+            `
+            <h1>Tag User:</h1>
+                <input type="hidden" id="username" value="`+ username + `"></input>
+            <button type="submit" value="save">save</button>
+            `;
+        return modalElement;
     }
 
     _generateTagIconElement() {

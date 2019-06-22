@@ -20,6 +20,9 @@
             "js": [
                 "content.js",
                 "fontawesome/all.js"
+            ],
+            "css": [
+                "css/modal.css"
             ]
         }
     ],

@@ -122,13 +122,13 @@ class ElementFinder {
     }
 
     getAllTagElements() {
-        return Array.from(document.querySelectorAll('.tagUser'));
+        return Array.from(document.querySelectorAll('.tag-user'));
     }
 
     getTagElementsFromPosts(posts) {
         let tagElements = [];
         for (let post of posts) {
-            let tagElement = post.querySelector('.tagUser');
+            let tagElement = post.querySelector('.tag-user');
             tagElements.push(tagElement);
         }
         return tagElements;
@@ -152,5 +152,9 @@ class ElementFinder {
             }
         }
         return usernamePosts;
+    }
+
+    getModalElement() {
+        return document.querySelector('.modal');
     }
 }

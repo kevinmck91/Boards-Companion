@@ -3,12 +3,14 @@ import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
 import { UserTagger } from "../src/UserTagger.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 import { TestForumPageBuilder } from "./TestForumPageBuilder.js";
+import { ElementGenerator } from "../src/ElementGenerator.js";
 
 let elementFinder = new ElementFinder();
 let userTagger = new UserTagger();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let testThreadPageBuilder = null;
 let testForumPageBuilder = new TestForumPageBuilder();
+let elementGenerator = new ElementGenerator();
 
 beforeEach(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -106,4 +108,13 @@ it('test get user posts', () => {
     let userPosts = elementFinder.getUserPosts('testusername');
 
     expect(userPosts.length).toBe(3);
+})
+
+it('test get modal element', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+
+    document.body.appendChild(elementGenerator.generateModalElement());
+
+    let modalElement = elementFinder.getModalElement();
+    expect(modalElement).not.toBe(null);
 })

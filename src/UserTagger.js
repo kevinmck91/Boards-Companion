@@ -7,6 +7,7 @@ import { StorageRetriever } from "./StorageRetriever.js";
 import { PostTagger } from "./PostTagger.js";
 import { TaggedUsersUpdater } from "./TaggedUsersUpdater.js";
 import { TaggedUsersRetriever } from "./TaggedUsersRetriever.js";
+import { ElementGenerator } from "./ElementGenerator.js";
 
 class UserTagger {
 
@@ -18,6 +19,7 @@ class UserTagger {
         this.postTagger = new PostTagger();
         this.taggedUsersUpdater = new TaggedUsersUpdater();
         this.taggedUsersRetriever = new TaggedUsersRetriever();
+        this.elementGenerator = new ElementGenerator();
     }
 
     applyTagging() {
@@ -36,14 +38,38 @@ class UserTagger {
         for (let tagElement of tagElements) {
             let _this = this;
             tagElement.addEventListener('click', function (ev) {
-                _this._tagUser(tagElement);
+                _this._addTaggerModal(tagElement);
             });
         }
     }
 
-    _tagUser(tagElement) {
+    _addTaggerModal(tagElement) {
         let username = this._getUserName(tagElement);
-        this.taggedUsersUpdater.addUser(username);
+        this._addModalElement(username);
+
+        let modalElement = this.elementFinder.getModalElement();
+        let modalSubmitButton = modalElement.querySelector('[type="submit"]');
+        let _this = this;
+        modalSubmitButton.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            let username = _this._getUsernameFromModal();
+            _this.taggedUsersUpdater.addUser(username);
+            _this._removeModalElement();
+        });
+    }
+
+    _getUsernameFromModal() {
+        return this.elementFinder.getModalElement().querySelector('#username').value;
+    }
+
+    _addModalElement(username) {
+        let modalElement = this.elementGenerator.generateModalElement(username);
+        document.body.appendChild(modalElement);
+    }
+
+    _removeModalElement() {
+        let modalElement = this.elementFinder.getModalElement();
+        document.body.removeChild(modalElement);
     }
 
     _getUserName(tagElement) {
