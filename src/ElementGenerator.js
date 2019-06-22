@@ -57,9 +57,19 @@ class ElementGenerator {
             `
             <h1>Tag User:</h1>
                 <input type="hidden" id="username" value="`+ username + `"></input>
+                `+ this._generateColourDropDown() + `
             <button type="submit" value="save">save</button>
             `;
         return modalElement;
+    }
+
+    _generateColourDropDown() {
+        return ` <select id="tag-colour-dropdown">
+                    <option value="red">red</option>
+                    <option value="green">green</option>
+                    <option value="yellow">yellow</option>
+                    <option value="blue">blue</option>
+                </select> `;
     }
 
     _generateTagIconElement() {

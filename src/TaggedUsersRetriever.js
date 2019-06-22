@@ -7,17 +7,24 @@ class TaggedUsersRetriever {
         this.storageRetriever = new StorageRetriever();
     }
 
-    getTaggedUsers(functionalityToApply) {
+    getTaggedUsersDetails(functionalityToApply) {
         let _this = this;
-        this.storageRetriever.getItem('taggedUsers', (usernames) => {
-            if (usernames != undefined) {
-                functionalityToApply(_this._convertUsernamesToArray(usernames));
+        this.storageRetriever.getItem('taggedUsers', (userDetailsString) => {
+            if (userDetailsString != undefined) {
+                functionalityToApply(_this._convertToUserDetailsArray(userDetailsString));
             }
         });
     }
 
-    _convertUsernamesToArray(usernames) {
-        return usernames.split(';');
+    _convertToUserDetailsArray(usernames) {
+        let userDetailsElements = usernames.split(';')
+        let userDetailsList = [];
+        for (let i = 0; i < userDetailsElements.length; i += 2) {
+            let username = userDetailsElements[i];
+            let colour = userDetailsElements[i + 1];
+            userDetailsList.push({ username: username, colour: colour });
+        }
+        return userDetailsList;
     }
 
 }

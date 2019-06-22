@@ -8,6 +8,7 @@ import { TaggedUsersUpdater } from "./TaggedUsersUpdater.js";
 import { TaggedUsersRetriever } from "./TaggedUsersRetriever.js";
 import { ElementGenerator } from "./ElementGenerator.js";
 import { PostsFormatter } from "./PostsFormatter.js";
+import { ModalDetailsFinder } from "./ModalDetailsFinder.js";
 
 class UserTagger {
 
@@ -20,6 +21,7 @@ class UserTagger {
         this.taggedUsersRetriever = new TaggedUsersRetriever();
         this.elementGenerator = new ElementGenerator();
         this.postsFormatter = new PostsFormatter();
+        this.modalDetailsFinder = new ModalDetailsFinder();
     }
 
     applyTagging() {
@@ -32,7 +34,6 @@ class UserTagger {
         this._hightlightTaggedUsers();
     }
 
-    //todo, needs to highlight user straight away
     _addTagListeners(posts) {
         let tagElements = this.elementFinder.getTagElementsFromPosts(posts);
         for (let tagElement of tagElements) {
@@ -46,21 +47,16 @@ class UserTagger {
     _addTaggerModal(tagElement) {
         let username = this._getUserName(tagElement);
         this._addModalElement(username);
-
-        let modalElement = this.elementFinder.getModalElement();
-        let modalSubmitButton = modalElement.querySelector('[type="submit"]');
+        let modalSubmitButton = this.modalDetailsFinder.getSubmitButton();
         let _this = this;
         modalSubmitButton.addEventListener('click', (ev) => {
             ev.preventDefault();
-            let username = _this._getUsernameFromModal();
-            _this.taggedUsersUpdater.addUser(username);
-            _this._highlightUser(username);
+            let username = _this.modalDetailsFinder.getUsername();
+            let colour = _this.modalDetailsFinder.getSelectedColour();
+            _this.taggedUsersUpdater.addUser(username, colour);
+            _this.postsFormatter.highlightUserPosts(username, colour);
             _this._removeModalElement();
         });
-    }
-
-    _getUsernameFromModal() {
-        return this.elementFinder.getModalElement().querySelector('#username').value;
     }
 
     _addModalElement(username) {
@@ -81,24 +77,16 @@ class UserTagger {
 
     _hightlightTaggedUsers() {
         let _this = this;
-        this.taggedUsersRetriever.getTaggedUsers((usernames) => {
+        this.taggedUsersRetriever.getTaggedUsersDetails((userDetailsList) => {
             let taggedUsers = [];
-            taggedUsers.push(usernames);
-            _this._highlightUsers(usernames);
+            taggedUsers.push(userDetailsList);
+            _this._highlightUsers(userDetailsList);
         });
     }
 
-    _highlightUser(username) {
-        let usernameArray = [];
-        usernameArray.push(username);
-        this._highlightUsers(usernameArray);
-    }
-
-    _highlightUsers(usernames) {
-        for (let username of usernames) {
-            let userPosts = this.elementFinder.getUserPosts(username);
-            this.postsFormatter.highlightPosts(userPosts);
+    _highlightUsers(userDetailsList) {
+        for (let userDetail of userDetailsList) {
+            this.postsFormatter.highlightUserPosts(userDetail.username, userDetail.colour);
         }
     }
-
 }

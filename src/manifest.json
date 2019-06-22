@@ -58,6 +58,7 @@
         "StorageUpdater.js",
         "StorageRetriever.js",
         "TaggedUsersUpdater.js",
-        "TaggedUsersRetriever.js"
+        "TaggedUsersRetriever.js",
+        "ModalDetailsFinder.js"
     ]
 }

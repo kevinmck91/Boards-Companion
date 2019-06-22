@@ -18,10 +18,15 @@ class PostsFormatter { //todo, change to postformatter
         }
     }
 
-    highlightPosts(posts) {
+    highlightUserPosts(username, colour) {
+        let userPosts = this.elementFinder.getUserPosts(username);
+        this.highlightPosts(userPosts, colour);
+    }
+
+    highlightPosts(posts, colour) {
         for (let post of posts) {
             let userDetailsElement = this.elementFinder.getUserDetailsElementFromPost(post);
-            userDetailsElement.style.backgroundColor = 'red';
+            userDetailsElement.style.backgroundColor = colour;
         }
     }
 }

@@ -9,19 +9,19 @@ class TaggedUsersUpdater {
         this.storageRetriever = new StorageRetriever();
     }
 
-    addUser(username) {
+    addUser(username, colour) {
         let _this = this;
         this.storageRetriever.getItem("taggedUsers", function (existingUsernames) {
-            let newUsernames = _this._appendUsername(username, existingUsernames);
-            _this.storageUpdater.addItemToStorage("taggedUsers", newUsernames);
+            let newUserDetailsEntry = _this._appendUsername(username, colour, existingUsernames);
+            _this.storageUpdater.addItemToStorage("taggedUsers", newUserDetailsEntry);
         });
     }
 
-    _appendUsername(username, existingUsernames) {
-        if (existingUsernames == undefined) {
-            return username;
+    _appendUsername(username, colour, existingUserDetailsEntry) {
+        if (existingUserDetailsEntry == undefined) {
+            return username + ";" + colour;
         } else {
-            return existingUsernames += ";" + username;
+            return existingUserDetailsEntry += ";" + username + ";" + colour;
         }
     }
 
