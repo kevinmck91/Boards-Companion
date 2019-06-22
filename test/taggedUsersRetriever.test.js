@@ -1,5 +1,6 @@
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
 import { TaggedUsersRetriever } from "../src/TaggedUsersRetriever.js";
+import { StorageKeys } from "../src/ApplicationStorageKeys.js";
 
 let taggedUsersRetriever = new TaggedUsersRetriever();
 let chromeStorageMocker = null;
@@ -9,7 +10,7 @@ beforeEach(() => {
 });
 
 it('test get tagged user name', () => {
-    chromeStorageMocker.MockGetter({ "taggedUsers": "existinguser;red;testuser;green" })
+    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: "existinguser;red;testuser;green" })
 
     taggedUsersRetriever.getTaggedUsersDetails((users) => {
         expect(users[1].username).toBe("testuser");

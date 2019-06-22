@@ -1,5 +1,6 @@
 export { TaggedUsersRetriever }
 import { StorageRetriever } from "./StorageRetriever.js";
+import { StorageKeys } from "./ApplicationStorageKeys.js"
 
 class TaggedUsersRetriever {
 
@@ -9,7 +10,7 @@ class TaggedUsersRetriever {
 
     getTaggedUsersDetails(functionalityToApply) {
         let _this = this;
-        this.storageRetriever.getItem('taggedUsers', (userDetailsString) => {
+        this.storageRetriever.getItem(StorageKeys.TaggedUsersDetails, (userDetailsString) => {
             if (userDetailsString != undefined) {
                 functionalityToApply(_this._convertToUserDetailsArray(userDetailsString));
             }

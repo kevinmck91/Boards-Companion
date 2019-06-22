@@ -1,8 +1,8 @@
 export { TaggedUsersUpdater }
 import { StorageUpdater } from "./StorageUpdater.js";
 import { StorageRetriever } from "./StorageRetriever.js";
+import { StorageKeys } from "./ApplicationStorageKeys.js";
 
-//todo create class that contains taggedUser key
 class TaggedUsersUpdater {
     constructor() {
         this.storageUpdater = new StorageUpdater();
@@ -11,9 +11,9 @@ class TaggedUsersUpdater {
 
     addUser(username, colour) {
         let _this = this;
-        this.storageRetriever.getItem("taggedUsers", function (existingUsernames) {
+        this.storageRetriever.getItem(StorageKeys.TaggedUsersDetails, function (existingUsernames) {
             let newUserDetailsEntry = _this._appendUsername(username, colour, existingUsernames);
-            _this.storageUpdater.addItemToStorage("taggedUsers", newUserDetailsEntry);
+            _this.storageUpdater.addItemToStorage(StorageKeys.TaggedUsersDetails, newUserDetailsEntry);
         });
     }
 
