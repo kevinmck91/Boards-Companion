@@ -82,21 +82,21 @@ it('test get user details element', () => {
     expect(userDetailsElement.className).toBe('alt2');
 })
 
-it('test get all tag elements', () => {
+it('test get all tag icon elements', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(2).buildPage();
 
     userTagger.applyTagging();
-    let tagElements = elementFinder.getAllTagElements();
+    let tagIconElements = elementFinder.getAllTagIconElements();
 
-    expect(tagElements.length).toBe(2);
+    expect(tagIconElements.length).toBe(2);
 })
 
-it('test get username element using tag element', () => {
+it('test get username element using tag icon element', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     userTagger.applyTagging();
-    let tagElement = elementFinder.getAllTagElements()[0];
-    let userDetailsElement = elementFinder.getUserDetailsElementFromTagElement(tagElement);
+    let tagIconElement = elementFinder.getAllTagIconElements()[0];
+    let userDetailsElement = elementFinder.getUserDetailsElementFromTagElement(tagIconElement);
     let usernameElement = elementFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
 
     expect(usernameElement.textContent.indexOf('testusername')).not.toBe(-1);

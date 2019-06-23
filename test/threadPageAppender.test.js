@@ -72,7 +72,7 @@ it('test tagging applied to next page posts', () => {
     userTagger.applyTagging();
     appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
-    expect(elementFinder.getAllTagElements().length).toBe(2);
+    expect(elementFinder.getAllTagIconElements().length).toBe(2);
 })
 
 function appendNextPage(pageHtml) {

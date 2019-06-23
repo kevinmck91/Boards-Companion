@@ -4,6 +4,7 @@ import { PostsCompressionToggler } from "../src/PostsCompressionToggler.js";
 import { ThreadPagePrepender } from "../src/ThreadPagePrepender.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
+import { UserTagger } from "../src/UserTagger.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let postsCompressionToggler = new PostsCompressionToggler();
@@ -11,6 +12,7 @@ let elementFinder = new ElementFinder();
 let threadPagePrepender = new ThreadPagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let testThreadPageBuilder = null;
+let userTagger = new UserTagger();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -62,6 +64,18 @@ it('test compression toggling applied to prepended page', () => {
     post.click();
 
     expect(isPostUncompressed(post)).toBe(true)
+})
+
+it('test compression toggling not applied to tag element', () => {
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
+
+    userTagger.applyTagging();
+    postsCompressionToggler.applyCompressionToggling();
+    let post = elementFinder.getAllPosts()[0];
+    let tagElement = elementFinder.getTagIconElementFromPost(post);
+    tagElement.click();
+
+    expect(isPostCompressed(post)).toBe(false);
 })
 
 function isPostUncompressed(post) {

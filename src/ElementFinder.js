@@ -121,21 +121,21 @@ class ElementFinder {
         return post.querySelector('[id^="postmenu"]');
     }
 
-    getAllTagElements() {
-        return Array.from(document.querySelectorAll('.tag-user'));
+    getAllTagIconElements() {
+        return Array.from(document.querySelectorAll('.tag-icon'));
     }
 
-    getTagElementsFromPosts(posts) {
-        let tagElements = [];
+    getTagIconElementsFromPosts(posts) {
+        let tagIconElements = [];
         for (let post of posts) {
-            let tagElement = this.getTagElementFromPost(post);
-            tagElements.push(tagElement);
+            let tagIconElement = this.getTagIconElementFromPost(post);
+            tagIconElements.push(tagIconElement);
         }
-        return tagElements;
+        return tagIconElements;
     }
 
-    getTagElementFromPost(post) {
-        return post.querySelector('.tag-user');
+    getTagIconElementFromPost(post) {
+        return post.querySelector('.tag-icon');
     }
 
     getUserDetailsElementFromTagElement(tagElement) {

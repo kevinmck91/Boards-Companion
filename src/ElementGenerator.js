@@ -43,11 +43,11 @@ class ElementGenerator {
     }
 
     generateTagIconElement() {
-        let tagElement = document.createElement('div');
-        tagElement.className = "tag-user"
+        let tagIconElement = document.createElement('div');
+        tagIconElement.className = "tag-icon";
         let tagIconElementContent = this._generateTagIconContent();
-        tagElement.appendChild(tagIconElementContent);
-        return tagElement;
+        tagIconElement.appendChild(tagIconElementContent);
+        return tagIconElement;
     }
 
     generateUserTagElement(taggedUserDetails) {

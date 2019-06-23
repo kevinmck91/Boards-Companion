@@ -16,5 +16,5 @@ it('test tag post', () => {
     postHtmlUpdater.addTagIconElementToPosts(elementFinder.getAllPosts());
     let userDetailsElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getAllPosts()[0]);
 
-    expect(userDetailsElement.querySelector(".tag-user")).not.toBe(null);
+    expect(userDetailsElement.querySelector(".tag-icon")).not.toBe(null);
 })

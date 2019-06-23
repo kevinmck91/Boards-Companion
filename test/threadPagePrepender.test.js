@@ -34,7 +34,7 @@ it('test tagging applied to previous page posts', () => {
     userTagger.applyTagging();
     prependPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
-    expect(elementFinder.getAllTagElements().length).toBe(2);
+    expect(elementFinder.getAllTagIconElements().length).toBe(2);
 })
 
 function prependPage(pageHtml) {

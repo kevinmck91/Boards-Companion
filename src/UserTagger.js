@@ -26,11 +26,11 @@ class UserTagger {
     }
 
     _addTagListeners(posts) {
-        let tagElements = this.elementFinder.getTagElementsFromPosts(posts);
-        for (let tagElement of tagElements) {
+        let tagIconElements = this.elementFinder.getTagIconElementsFromPosts(posts);
+        for (let tagIconElement of tagIconElements) {
             let _this = this;
-            tagElement.addEventListener('click', function (ev) {
-                let username = _this._getUserName(tagElement);
+            tagIconElement.addEventListener('click', function (ev) {
+                let username = _this._getUserName(tagIconElement);
                 _this.taggerModalUpdater.activateModal(username)
             });
         }
