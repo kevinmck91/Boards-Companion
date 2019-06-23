@@ -19,4 +19,15 @@ class ModalDetailsFinder {
         return this.elementFinder.getModalElement().querySelector('[type="submit"]');
     }
 
+    getTagText() {
+        return this.elementFinder.getModalElement().querySelector('#tag-text').value;
+    }
+
+    getUserDetails() {
+        let username = this.getUsername();
+        let colour = this.getSelectedColour();
+        let text = this.getTagText();
+        return { username: username, colour: colour, text: text };
+    }
+
 }

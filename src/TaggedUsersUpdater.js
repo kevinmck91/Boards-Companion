@@ -9,19 +9,19 @@ class TaggedUsersUpdater {
         this.storageRetriever = new StorageRetriever();
     }
 
-    addUser(username, colour) {
+    addUser(taggedUserDetails) {
         let _this = this;
         this.storageRetriever.getItem(StorageKeys.TaggedUsersDetails, function (existingUsernames) {
-            let newUserDetailsEntry = _this._appendUsername(username, colour, existingUsernames);
+            let newUserDetailsEntry = _this._appendUsername(taggedUserDetails, existingUsernames);
             _this.storageUpdater.addItemToStorage(StorageKeys.TaggedUsersDetails, newUserDetailsEntry);
         });
     }
 
-    _appendUsername(username, colour, existingUserDetailsEntry) {
+    _appendUsername(taggedUserDetails, existingUserDetailsEntry) {
         if (existingUserDetailsEntry == undefined) {
-            return username + ";" + colour;
+            return taggedUserDetails.username + ";" + taggedUserDetails.colour + ";" + taggedUserDetails.text;
         } else {
-            return existingUserDetailsEntry += ";" + username + ";" + colour;
+            return existingUserDetailsEntry += ";" + taggedUserDetails.username + ";" + taggedUserDetails.colour + ";" + taggedUserDetails.text;
         }
     }
 

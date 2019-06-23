@@ -3,7 +3,7 @@ import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { ElementFinder } from "./ElementFinder.js";
 
-class PostsFormatter { //todo, change to postformatter
+class PostsFormatter {
 
     constructor() {
         this.elementVisibilityUpdater = new ElementVisibilityUpdater();
@@ -18,15 +18,19 @@ class PostsFormatter { //todo, change to postformatter
         }
     }
 
-    highlightUserPosts(username, colour) {
-        let userPosts = this.elementFinder.getUserPosts(username);
-        this.highlightPosts(userPosts, colour);
+    tagUsersPosts(taggedUserDetails) {
+        let userPosts = this.elementFinder.getUserPosts(taggedUserDetails.username);
+        this._tagPosts(userPosts, taggedUserDetails);
     }
 
-    highlightPosts(posts, colour) {
+    _tagPosts(posts, taggedUserDetails) {
         for (let post of posts) {
             let userDetailsElement = this.elementFinder.getUserDetailsElementFromPost(post);
-            userDetailsElement.style.backgroundColor = colour;
+            userDetailsElement.style.backgroundColor = taggedUserDetails.colour;
+            let usernameElement = this.elementFinder.getUsernameElementFromPost(post);
+            let textElement = document.createElement('div');
+            textElement.innerHTML = taggedUserDetails.text;
+            usernameElement.appendChild(textElement);
         }
     }
 }

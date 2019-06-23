@@ -58,6 +58,7 @@ class ElementGenerator {
             <h1>Tag User:</h1>
                 <input type="hidden" id="username" value="`+ username + `"></input>
                 `+ this._generateColourDropDown() + `
+                <input type ="text" id="tag-text"></input>
             <button type="submit" value="save">save</button>
             `;
         return modalElement;

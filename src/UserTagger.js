@@ -51,10 +51,9 @@ class UserTagger {
         let _this = this;
         modalSubmitButton.addEventListener('click', (ev) => {
             ev.preventDefault();
-            let username = _this.modalDetailsFinder.getUsername();
-            let colour = _this.modalDetailsFinder.getSelectedColour();
-            _this.taggedUsersUpdater.addUser(username, colour);
-            _this.postsFormatter.highlightUserPosts(username, colour);
+            let userDetails = _this.modalDetailsFinder.getUserDetails();
+            _this.taggedUsersUpdater.addUser(userDetails);
+            _this.postsFormatter.tagUsersPosts(userDetails);
             _this._removeModalElement();
         });
     }
@@ -77,16 +76,14 @@ class UserTagger {
 
     _hightlightTaggedUsers() {
         let _this = this;
-        this.taggedUsersRetriever.getTaggedUsersDetails((userDetailsList) => {
-            let taggedUsers = [];
-            taggedUsers.push(userDetailsList);
+        this.taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
             _this._highlightUsers(userDetailsList);
         });
     }
 
     _highlightUsers(userDetailsList) {
-        for (let userDetail of userDetailsList) {
-            this.postsFormatter.highlightUserPosts(userDetail.username, userDetail.colour);
+        for (let userDetails of userDetailsList) {
+            this.postsFormatter.tagUsersPosts(userDetails);
         }
     }
 }

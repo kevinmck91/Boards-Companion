@@ -10,18 +10,26 @@ beforeEach(() => {
 });
 
 it('test get tagged user name', () => {
-    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: "existinguser;red;testuser;green" })
+    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: "existinguser;red;testtext;testuser;green;testtext" })
 
-    taggedUsersRetriever.getTaggedUsersDetails((users) => {
-        expect(users[1].username).toBe("testuser");
+    taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
+        expect(userDetailsList[1].username).toBe("testuser");
     });
 })
 
 it('test getting tagged users when no users tagged', () => {
     chromeStorageMocker.MockGetter(undefined)
 
-    taggedUsersRetriever.getTaggedUsersDetails((users) => {
-        expect(users[1]).toBe("testuser");
+    taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
+        expect(userDetailsList[1]).toBe("testuser");
     })
 
+})
+
+it('test get tagged user text', () => {
+    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: "existinguser;red;testtext1;testuser;green;testtext2" })
+
+    taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
+        expect(userDetailsList[1].text).toBe("testtext2");
+    });
 })

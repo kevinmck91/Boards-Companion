@@ -12,15 +12,15 @@ beforeEach(() => {
 it('test add new user', () => {
     chromeStorageMocker.MockGetter(undefined);
 
-    taggedUsersUpdater.addUser('testuser', 'red');
+    taggedUsersUpdater.addUser({ username: 'testuser', colour: 'red', text: 'testtext' });
 
-    expect(chromeStorageMocker.chromeMock.storage.sync.set.mock.calls[0][0][StorageKeys.TaggedUsersDetails]).toBe("testuser;red");
+    expect(chromeStorageMocker.chromeMock.storage.sync.set.mock.calls[0][0][StorageKeys.TaggedUsersDetails]).toBe("testuser;red;testtext");
 })
 
 it('test add new user with existing users', () => {
     chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: "existinguser;red" });
 
-    taggedUsersUpdater.addUser("testuser", 'green');
+    taggedUsersUpdater.addUser({ username: "testuser", colour: 'green', text: 'testtext' });
 
-    expect(chromeStorageMocker.chromeMock.storage.sync.set.mock.calls[0][0][StorageKeys.TaggedUsersDetails]).toBe("existinguser;red;testuser;green");
+    expect(chromeStorageMocker.chromeMock.storage.sync.set.mock.calls[0][0][StorageKeys.TaggedUsersDetails]).toBe("existinguser;red;testuser;green;testtext");
 })
