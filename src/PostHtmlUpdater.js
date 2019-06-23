@@ -9,15 +9,15 @@ class PostHtmlUpdater {
         this.elementGenerator = new ElementGenerator();
     }
 
-    addTagElementToPosts(posts) {
+    addTagIconElementToPosts(posts) {
         for (let post of posts) {
-            this._addTagElementToPost(post);
+            this._addTagIconElementToPost(post);
         }
     }
 
-    _addTagElementToPost(post) {
+    _addTagIconElementToPost(post) {
         let userDetailsElement = this.elementFinder.getUserDetailsElementFromPost(post);
-        let tagElement = this.elementGenerator.generateTagElement();
+        let tagElement = this.elementGenerator.generateTagIconElement();
         userDetailsElement.appendChild(tagElement);
     }
 }

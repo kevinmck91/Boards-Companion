@@ -128,10 +128,14 @@ class ElementFinder {
     getTagElementsFromPosts(posts) {
         let tagElements = [];
         for (let post of posts) {
-            let tagElement = post.querySelector('.tag-user');
+            let tagElement = this.getTagElementFromPost(post);
             tagElements.push(tagElement);
         }
         return tagElements;
+    }
+
+    getTagElementFromPost(post) {
+        return post.querySelector('.tag-user');
     }
 
     getUserDetailsElementFromTagElement(tagElement) {

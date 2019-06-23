@@ -42,11 +42,11 @@ class ElementGenerator {
         return script;
     }
 
-    generateTagElement() {
+    generateTagIconElement() {
         let tagElement = document.createElement('div');
         tagElement.className = "tag-user"
-        let tagIconElement = this._generateTagIconElement();
-        tagElement.appendChild(tagIconElement);
+        let tagIconElementContent = this._generateTagIconContent();
+        tagElement.appendChild(tagIconElementContent);
         return tagElement;
     }
 
@@ -68,6 +68,7 @@ class ElementGenerator {
                 `+ this._generateColourDropDown() + `
                 <input type ="text" id="tag-text"></input>
             <button type="submit" value="save">save</button>
+            <button type="submit" value="cancel">cancel</button>
             `;
         return modalElement;
     }
@@ -81,7 +82,7 @@ class ElementGenerator {
                 </select> `;
     }
 
-    _generateTagIconElement() {
+    _generateTagIconContent() {
         let tagIconElement = document.createElement('i');
         tagIconElement.className = "fas fa-tag"
         return tagIconElement;

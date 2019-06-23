@@ -19,6 +19,10 @@ class ModalDetailsFinder {
         return this.elementFinder.getModalElement().querySelector('[type="submit"]');
     }
 
+    getCancelButton() {
+        return this.elementFinder.getModalElement().querySelector('[type="submit"][value="cancel"]');
+    }
+
     getTagText() {
         return this.elementFinder.getModalElement().querySelector('#tag-text').value;
     }

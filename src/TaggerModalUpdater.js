@@ -18,6 +18,7 @@ class TaggerModalUpdater {
     addTaggerModal(tagElement) {
         this._addModalElement(tagElement);
         let modalSubmitButton = this.modalDetailsFinder.getSubmitButton();
+        let modalCancelButton = this.modalDetailsFinder.getCancelButton();
         let _this = this;
         modalSubmitButton.addEventListener('click', (ev) => {
             ev.preventDefault();
@@ -26,17 +27,23 @@ class TaggerModalUpdater {
             _this.postsFormatter.tagUsersPosts(userDetails);
             _this._removeModalElement();
         });
+        modalCancelButton.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            _this._removeModalElement();
+        })
     }
 
     _addModalElement(tagElement) {
         let username = this._getUserName(tagElement);
         let modalElement = this.elementGenerator.generateModalElement(username);
         document.body.appendChild(modalElement);
+        document.body.style.overflow = 'hidden';
     }
 
     _removeModalElement() {
         let modalElement = this.elementFinder.getModalElement();
         document.body.removeChild(modalElement);
+        document.body.style.overflow = 'visible';
     }
 
     _getUserName(tagElement) {

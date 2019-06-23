@@ -13,7 +13,7 @@ beforeEach(() => {
 it('test tag post', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(2).buildPage();
 
-    postHtmlUpdater.addTagElementToPosts(elementFinder.getAllPosts());
+    postHtmlUpdater.addTagIconElementToPosts(elementFinder.getAllPosts());
     let userDetailsElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getAllPosts()[0]);
 
     expect(userDetailsElement.querySelector(".tag-user")).not.toBe(null);

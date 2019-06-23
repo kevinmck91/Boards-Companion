@@ -19,7 +19,7 @@ class UserTagger {
     }
 
     applyTaggingToPosts(posts) {
-        this.postHtmlUpdater.addTagElementToPosts(posts);
+        this.postHtmlUpdater.addTagIconElementToPosts(posts);
         this._addTagListeners(posts);
         this.userTagApplier.tagTaggedUserPosts(posts);
     }
