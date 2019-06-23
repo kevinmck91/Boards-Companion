@@ -59,6 +59,8 @@
         "TaggedUsersUpdater.js",
         "TaggedUsersRetriever.js",
         "ModalDetailsFinder.js",
-        "ApplicationStorageKeys.js"
+        "ApplicationStorageKeys.js",
+        "TaggerModalUpdater.js",
+        "UserTagApplier.js"
     ]
 }
