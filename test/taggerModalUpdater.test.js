@@ -31,6 +31,6 @@ it('ensure modal element only initialized once', () => {
     userTagger.applyTagging();
     userTagger.applyTagging();
 
-    expect(document.body.outerHTML.match(/modal/g).length).toBe(1);
+    expect(document.body.outerHTML.match(/class="modal"/g).length).toBe(1);
 
 })

@@ -59,6 +59,7 @@ class TaggerModalUpdater {
     _deactivateModal() {
         this._hideModal();
         this._unfreezeScrollBar();
+        this._resetModal();
     }
 
     _freezeScrollBar() {
@@ -74,6 +75,8 @@ class TaggerModalUpdater {
     _updateModal(username) {
         let modalUsernameElement = this.elementFinder.getTaggerModalUsernameElement();
         modalUsernameElement.value = username;
+        let modalTitle = this.elementFinder.getTaggerModalTitleElement();
+        modalTitle.innerText = modalTitle.innerText += username;
     }
 
     _showModal() {
@@ -84,5 +87,11 @@ class TaggerModalUpdater {
     _hideModal() {
         let modalElement = this.elementFinder.getTaggerModalElement();
         modalElement.style.display = 'none';
+    }
+
+    _resetModal() {
+        let modalElement = this.elementFinder.getTaggerModalElement();
+        document.body.removeChild(modalElement);
+        this.ensureModalInitialized();
     }
 }

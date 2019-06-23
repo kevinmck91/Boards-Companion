@@ -63,12 +63,20 @@ class ElementGenerator {
         modalElement.className = "modal"
         modalElement.innerHTML =
             `
-            <h1>Tag User:</h1>
+            <h2>Tag User - </h2>
                 <input type="hidden" id="username" value=""></input>
-                `+ this._generateColourDropDown() + `
-                <input type ="text" id="tag-text"></input>
-            <button type="submit" value="save">save</button>
-            <button type="submit" value="cancel">cancel</button>
+                <div class="modal-field">
+                    <label>Colour</label>
+                    `+ this._generateColourDropDown() + `
+                </div>
+                <div class="modal-field">
+                    <label>Text</label>
+                    <input type ="text" id="tag-text"></input>
+                </div>
+                 <div class="modal-field">
+                    <button type="submit" value="save">save</button>
+                    <button type="submit" value="cancel">cancel</button>
+                </div>
             `;
         return modalElement;
     }
