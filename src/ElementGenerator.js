@@ -50,6 +50,14 @@ class ElementGenerator {
         return tagElement;
     }
 
+    generateUserTagElement(taggedUserDetails) {
+        let userTag = document.createElement('div');
+        userTag.innerHTML = taggedUserDetails.text;
+        userTag.style.backgroundColor = taggedUserDetails.colour;
+        userTag.className = 'user-tag';
+        return userTag;
+    }
+
     generateModalElement(username) {
         let modalElement = document.createElement('form');
         modalElement.className = "modal"

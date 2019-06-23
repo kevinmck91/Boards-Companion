@@ -2,6 +2,7 @@ export { PostsFormatter }
 import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { ElementFinder } from "./ElementFinder.js";
+import { ElementGenerator } from "./ElementGenerator.js";
 
 class PostsFormatter {
 
@@ -9,6 +10,7 @@ class PostsFormatter {
         this.elementVisibilityUpdater = new ElementVisibilityUpdater();
         this.postsCompressionToggler = new PostsCompressionToggler();
         this.elementFinder = new ElementFinder();
+        this.elementGenerator = new ElementGenerator();
     }
 
     formatPosts(nextPagePosts, hidePostElements) {
@@ -30,12 +32,9 @@ class PostsFormatter {
 
     _tagPosts(posts, taggedUserDetails) {
         for (let post of posts) {
-            let userDetailsElement = this.elementFinder.getUserDetailsElementFromPost(post);
-            userDetailsElement.style.backgroundColor = taggedUserDetails.colour;
             let usernameElement = this.elementFinder.getUsernameElementFromPost(post);
-            let textElement = document.createElement('div');
-            textElement.innerHTML = taggedUserDetails.text;
-            usernameElement.appendChild(textElement);
+            let userTagElement = this.elementGenerator.generateUserTagElement(taggedUserDetails);
+            usernameElement.appendChild(userTagElement);
         }
     }
 }

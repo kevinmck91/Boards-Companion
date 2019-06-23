@@ -12,6 +12,6 @@ it('test highlight users posts', () => {
     postsFormatter.tagUsersPosts({ username: "testusername", colour: "red" });
 
     let firstPost = elementFinder.getAllPosts()[0];
-    let userDetailsElement = elementFinder.getUserDetailsElementFromPost(firstPost);
-    expect(userDetailsElement.style.backgroundColor).toBe('red');
+    let userTagElement = elementFinder.getUserTagElementFromPost(firstPost);
+    expect(userTagElement.style.backgroundColor).toBe('red');
 })

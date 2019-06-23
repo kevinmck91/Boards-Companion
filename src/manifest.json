@@ -22,7 +22,7 @@
                 "fontawesome/all.js"
             ],
             "css": [
-                "css/modal.css"
+                "css/userTagging.css"
             ]
         }
     ],

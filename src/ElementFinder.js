@@ -161,4 +161,8 @@ class ElementFinder {
     getModalElement() {
         return document.querySelector('.modal');
     }
+
+    getUserTagElementFromPost(post) {
+        return post.querySelector('.user-tag');
+    }
 }
