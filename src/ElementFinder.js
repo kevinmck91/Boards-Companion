@@ -162,11 +162,23 @@ class ElementFinder {
         return usernamePosts;
     }
 
-    getModalElement() {
+    getTaggerModalElement() {
         return document.querySelector('.modal');
     }
 
     getUserTagElementFromPost(post) {
         return post.querySelector('.user-tag');
+    }
+
+    getTaggerModalUsernameElement() {
+        return this.getTaggerModalElement().querySelector('#username');
+    }
+
+    getTaggerModalSubmitButton() {
+        return this.getTaggerModalElement().querySelector('[type="submit"]');
+    }
+
+    getTaggerModalCancelButton() {
+        return this.getTaggerModalElement().querySelector('[type="submit"][value="cancel"]');
     }
 }

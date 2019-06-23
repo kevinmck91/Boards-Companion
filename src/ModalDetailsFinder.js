@@ -2,12 +2,13 @@ export { ModalDetailsFinder }
 import { ElementFinder } from "./ElementFinder.js";
 
 class ModalDetailsFinder {
+
     constructor() {
         this.elementFinder = new ElementFinder();
     }
 
     getUsername() {
-        return this.elementFinder.getModalElement().querySelector('#username').value;
+        return this.elementFinder.getTaggerModalUsernameElement().value;
     }
 
     getSelectedColour() {
@@ -15,16 +16,8 @@ class ModalDetailsFinder {
         return tagColourDropdown.options[tagColourDropdown.selectedIndex].value
     }
 
-    getSubmitButton() {
-        return this.elementFinder.getModalElement().querySelector('[type="submit"]');
-    }
-
-    getCancelButton() {
-        return this.elementFinder.getModalElement().querySelector('[type="submit"][value="cancel"]');
-    }
-
     getTagText() {
-        return this.elementFinder.getModalElement().querySelector('#tag-text').value;
+        return this.elementFinder.getTaggerModalElement().querySelector('#tag-text').value;
     }
 
     getUserDetails() {

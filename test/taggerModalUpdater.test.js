@@ -1,36 +1,36 @@
 import { ModalDetailsFinder } from "../src/ModalDetailsFinder.js";
 import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
-import { ElementGenerator } from "../src/ElementGenerator.js";
 import { TaggerModalUpdater } from "../src/TaggerModalUpdater.js";
 import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
-import { ElementFinder } from "../src/ElementFinder.js";
+import { UserTagger } from "../src/UserTagger.js";
 
 let modalDetailsFinder = new ModalDetailsFinder();
 let testThreadPageBuilder = null;
-let elementGenerator = new ElementGenerator();
 let taggerModalUpdater = new TaggerModalUpdater();
 let testEnvironmentArranger = new TestEnvironmentArranger();
-let elementFinder = new ElementFinder();
+let userTagger = new UserTagger();
 
 beforeEach(() => {
     testThreadPageBuilder = new TestThreadPageBuilder();
     testEnvironmentArranger.InitializeEnvironment();
 })
 
-it('test find default selected colour', () => {
+it('test activate modal element', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    document.body.appendChild(elementGenerator.generateModalElement("testuser"));
+    userTagger.applyTagging();
+    taggerModalUpdater.activateModal('testuser');
 
-    let selectedColour = modalDetailsFinder.getSelectedColour();
-    expect(selectedColour).toBe('red');
+    let userDetails = modalDetailsFinder.getUserDetails();
+    expect(userDetails.username).toBe('testuser');
 })
 
-it('test find cancel button', () => {
+it('ensure modal element only initialized once', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    taggerModalUpdater.ensureModalInitialized();
+    userTagger.applyTagging();
+    userTagger.applyTagging();
 
-    let cancelButton = elementFinder.getTaggerModalCancelButton();
-    expect(cancelButton.value).toBe('cancel');
+    expect(document.body.outerHTML.match(/modal/g).length).toBe(1);
+
 })

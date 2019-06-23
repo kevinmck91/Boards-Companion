@@ -15,40 +15,74 @@ class TaggerModalUpdater {
         this.postsFormatter = new PostsFormatter();
     }
 
-    addTaggerModal(tagElement) {
-        this._addModalElement(tagElement);
-        let modalSubmitButton = this.modalDetailsFinder.getSubmitButton();
-        let modalCancelButton = this.modalDetailsFinder.getCancelButton();
+    ensureModalInitialized() {
+        if (this._isModalInitialized()) {
+            return;
+        }
+        this._addModalElement();
+        let modalSubmitButton = this.elementFinder.getTaggerModalSubmitButton();
+        let modalCancelButton = this.elementFinder.getTaggerModalCancelButton();
         let _this = this;
         modalSubmitButton.addEventListener('click', (ev) => {
             ev.preventDefault();
             let userDetails = _this.modalDetailsFinder.getUserDetails();
             _this.taggedUsersUpdater.addUser(userDetails);
             _this.postsFormatter.tagUsersPosts(userDetails);
-            _this._removeModalElement();
+            _this._deactivateModal();
         });
         modalCancelButton.addEventListener('click', (ev) => {
             ev.preventDefault();
-            _this._removeModalElement();
+            _this._deactivateModal();
         })
     }
 
-    _addModalElement(tagElement) {
-        let username = this._getUserName(tagElement);
-        let modalElement = this.elementGenerator.generateModalElement(username);
+    activateModal(username) {
+        this._freezeScrollBar();
+        this._updateModal(username);
+        this._showModal();
+    }
+
+    _isModalInitialized() {
+        let modalElement = this.elementFinder.getTaggerModalElement();
+        if (modalElement == undefined)
+            return false;
+        else
+            return true;
+    }
+
+    _addModalElement() {
+        let modalElement = this.elementGenerator.generateModalElement();
         document.body.appendChild(modalElement);
+        this._hideModal();
+    }
+
+    _deactivateModal() {
+        this._hideModal();
+        this._unfreezeScrollBar();
+    }
+
+    _freezeScrollBar() {
         document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = '15px';
     }
 
-    _removeModalElement() {
-        let modalElement = this.elementFinder.getModalElement();
-        document.body.removeChild(modalElement);
-        document.body.style.overflow = 'visible';
+    _unfreezeScrollBar() {
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
     }
 
-    _getUserName(tagElement) {
-        let userDetailsElement = this.elementFinder.getUserDetailsElementFromTagElement(tagElement);
-        let usernameElement = this.elementFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
-        return usernameElement.innerText;
+    _updateModal(username) {
+        let modalUsernameElement = this.elementFinder.getTaggerModalUsernameElement();
+        modalUsernameElement.value = username;
+    }
+
+    _showModal() {
+        let modalElement = this.elementFinder.getTaggerModalElement();
+        modalElement.style.display = '';
+    }
+
+    _hideModal() {
+        let modalElement = this.elementFinder.getTaggerModalElement();
+        modalElement.style.display = 'none';
     }
 }

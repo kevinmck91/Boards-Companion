@@ -58,13 +58,13 @@ class ElementGenerator {
         return userTag;
     }
 
-    generateModalElement(username) {
+    generateModalElement() {
         let modalElement = document.createElement('form');
         modalElement.className = "modal"
         modalElement.innerHTML =
             `
             <h1>Tag User:</h1>
-                <input type="hidden" id="username" value="`+ username + `"></input>
+                <input type="hidden" id="username" value=""></input>
                 `+ this._generateColourDropDown() + `
                 <input type ="text" id="tag-text"></input>
             <button type="submit" value="save">save</button>

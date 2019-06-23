@@ -115,6 +115,6 @@ it('test get modal element', () => {
 
     document.body.appendChild(elementGenerator.generateModalElement());
 
-    let modalElement = elementFinder.getModalElement();
+    let modalElement = elementFinder.getTaggerModalElement();
     expect(modalElement).not.toBe(null);
 })

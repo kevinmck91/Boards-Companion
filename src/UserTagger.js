@@ -19,6 +19,7 @@ class UserTagger {
     }
 
     applyTaggingToPosts(posts) {
+        this.taggerModalUpdater.ensureModalInitialized();
         this.postHtmlUpdater.addTagIconElementToPosts(posts);
         this._addTagListeners(posts);
         this.userTagApplier.tagTaggedUserPosts(posts);
@@ -29,9 +30,15 @@ class UserTagger {
         for (let tagElement of tagElements) {
             let _this = this;
             tagElement.addEventListener('click', function (ev) {
-                _this.taggerModalUpdater.addTaggerModal(tagElement)
+                let username = _this._getUserName(tagElement);
+                _this.taggerModalUpdater.activateModal(username)
             });
         }
     }
 
+    _getUserName(tagElement) {
+        let userDetailsElement = this.elementFinder.getUserDetailsElementFromTagElement(tagElement);
+        let usernameElement = this.elementFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
+        return usernameElement.innerText;
+    }
 }
