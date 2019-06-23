@@ -39,5 +39,5 @@ it('test tagging applied to previous page posts', () => {
 
 function prependPage(pageHtml) {
     let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
-    threadPagePrepender.prependPage(htmlDocument);
+    threadPagePrepender.prependPage(htmlDocument, true);
 }

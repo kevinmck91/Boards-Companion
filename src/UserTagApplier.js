@@ -9,11 +9,11 @@ class UserTagApplier {
         this.postsFormatter = new PostsFormatter();
     }
 
-    tagTaggedUserPosts() {
+    tagTaggedUserPosts(posts) {
         let _this = this;
         this.taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
             for (let userDetails of userDetailsList) {
-                _this.postsFormatter.tagUsersPosts(userDetails);
+                _this.postsFormatter.tagUsersPostsWithinPosts(posts, userDetails);
             }
         });
     }

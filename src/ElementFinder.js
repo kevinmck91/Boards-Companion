@@ -144,8 +144,12 @@ class ElementFinder {
 
     getUserPosts(username) {
         let allPosts = this.getAllPosts();
+        return this.getUserPostsFromPosts(username, allPosts);
+    }
+
+    getUserPostsFromPosts(username, posts) {
         let usernamePosts = [];
-        for (let post of allPosts) {
+        for (let post of posts) {
             let postUsername = post.querySelector('.bigusername').textContent;
             if (postUsername == username) {
                 usernamePosts.push(post);

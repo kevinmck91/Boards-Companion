@@ -21,7 +21,7 @@ class UserTagger {
     applyTaggingToPosts(posts) {
         this.postHtmlUpdater.addTagElementToPosts(posts);
         this._addTagListeners(posts);
-        this.userTagApplier.tagTaggedUserPosts();
+        this.userTagApplier.tagTaggedUserPosts(posts);
     }
 
     _addTagListeners(posts) {

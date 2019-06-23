@@ -23,6 +23,11 @@ class PostsFormatter {
         this._tagPosts(userPosts, taggedUserDetails);
     }
 
+    tagUsersPostsWithinPosts(posts, taggedUserDetails) {
+        let userPosts = this.elementFinder.getUserPostsFromPosts(taggedUserDetails.username, posts)
+        this._tagPosts(userPosts, taggedUserDetails);
+    }
+
     _tagPosts(posts, taggedUserDetails) {
         for (let post of posts) {
             let userDetailsElement = this.elementFinder.getUserDetailsElementFromPost(post);
