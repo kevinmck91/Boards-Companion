@@ -3,26 +3,28 @@
     color: #3d5686;
 }
 
-.modal {
+.modal-container {
     position: fixed;
-    bottom: 50%;
-    left: 50%;
+    top: 50%;
+    height: 300px;
+    margin-top: -150px;
+    right: 50%;
+    width: 250px;
+    margin-right: -125px;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border-radius: 4px;
     border: 1px solid;
     padding: 15px;
-    transform: translate(-50%, -50%);
 }
 
 .modal-field {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.modal-field label {
-    width: 65px;
-    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .user-tag {
