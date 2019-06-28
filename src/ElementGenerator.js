@@ -78,9 +78,22 @@ class ElementGenerator {
                         <button type="submit" value="save">save</button>
                         <button type="submit" value="cancel">cancel</button>
                     </div>
+                    <div class="modal-field">
+                        <a id="show-tagged-users">Show all tagged users</a>
+                    </div>
+                    <div class="modal-field">
+                        <div id="user-list">
+                        </div>
+                    </div>
                 </div>
             `;
         return modalElement;
+    }
+
+    generateTaggedUserElement(taggedUserDetails) {
+        let element = document.createElement('div');
+        element.innerHTML = taggedUserDetails.username;
+        return element;
     }
 
     _generateColourDropDown() {

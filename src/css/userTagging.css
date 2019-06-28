@@ -27,6 +27,10 @@
     margin-bottom: 5px;
 }
 
+.modal-field a {
+    cursor: pointer;
+}
+
 .user-tag {
     display: inline-block;
     border-radius: 3px;

@@ -163,7 +163,7 @@ class ElementFinder {
     }
 
     getTaggerModalElement() {
-        return document.querySelector('.modal');
+        return document.querySelector('.modal-container');
     }
 
     getUserTagElementFromPost(post) {
@@ -184,5 +184,13 @@ class ElementFinder {
 
     getTaggerModalCancelButton() {
         return this.getTaggerModalElement().querySelector('[type="submit"][value="cancel"]');
+    }
+
+    getTaggerModalShowUsersElement() {
+        return this.getTaggerModalElement().querySelector('#show-tagged-users');
+    }
+
+    getTaggerModalUserListElement() {
+        return this.getTaggerModalElement().querySelector('#user-list');
     }
 }

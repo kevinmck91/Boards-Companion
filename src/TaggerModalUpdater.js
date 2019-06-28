@@ -4,6 +4,7 @@ import { ElementGenerator } from "./ElementGenerator.js"
 import { ModalDetailsFinder } from "./ModalDetailsFinder.js";
 import { TaggedUsersUpdater } from "./TaggedUsersUpdater.js";
 import { PostsFormatter } from "./PostsFormatter.js";
+import { TaggedUsersRetriever } from "./TaggedUsersRetriever.js";
 
 class TaggerModalUpdater {
 
@@ -13,6 +14,7 @@ class TaggerModalUpdater {
         this.modalDetailsFinder = new ModalDetailsFinder();
         this.taggedUsersUpdater = new TaggedUsersUpdater();
         this.postsFormatter = new PostsFormatter();
+        this.taggedUsersRetriever = new TaggedUsersRetriever();
     }
 
     ensureModalInitialized() {
@@ -20,9 +22,8 @@ class TaggerModalUpdater {
             return;
         }
         this._addModalElement();
-        let modalSubmitButton = this.elementFinder.getTaggerModalSubmitButton();
-        let modalCancelButton = this.elementFinder.getTaggerModalCancelButton();
         let _this = this;
+        let modalSubmitButton = this.elementFinder.getTaggerModalSubmitButton();
         modalSubmitButton.addEventListener('click', (ev) => {
             ev.preventDefault();
             let userDetails = _this.modalDetailsFinder.getUserDetails();
@@ -30,9 +31,15 @@ class TaggerModalUpdater {
             _this.postsFormatter.tagUsersPosts(userDetails);
             _this._deactivateModal();
         });
+        let modalCancelButton = this.elementFinder.getTaggerModalCancelButton();
         modalCancelButton.addEventListener('click', (ev) => {
             ev.preventDefault();
             _this._deactivateModal();
+        })
+        let modalShowTaggedUsersElement = this.elementFinder.getTaggerModalShowUsersElement();
+        modalShowTaggedUsersElement.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            _this._displayAllTaggedUsers();
         })
     }
 
@@ -93,5 +100,20 @@ class TaggerModalUpdater {
         let modalElement = this.elementFinder.getTaggerModalElement();
         document.body.removeChild(modalElement);
         this.ensureModalInitialized();
+    }
+
+    _displayAllTaggedUsers() {
+        let _this = this;
+        this.taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
+            _this._displayTaggedUsers(userDetailsList);
+        })
+    }
+
+    _displayTaggedUsers(userDetailsList) {
+        let userListElement = this.elementFinder.getTaggerModalUserListElement();
+        for (let userDetails of userDetailsList) {
+            let usernameElement = this.elementGenerator.generateTaggedUserElement(userDetails);
+            userListElement.appendChild(usernameElement);
+        }
     }
 }
