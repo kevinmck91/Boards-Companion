@@ -23,8 +23,24 @@
 }
 
 .modal-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+/* overriding boards css */
+
+.modal-field select {
+    z-index: auto;
+}
+
+.modal-submit {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .modal-field a {

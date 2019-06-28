@@ -72,9 +72,9 @@ class ElementGenerator {
                     </div>
                     <div class="modal-field">
                         <label>Text</label>
-                        <input type ="text" id="tag-text"></input>
+                        <input type ="text" id="tag-text" size="17"></input>
                     </div>
-                    <div class="modal-field">
+                    <div class="modal-submit">
                         <button type="submit" value="save">save</button>
                         <button type="submit" value="cancel">cancel</button>
                     </div>
