@@ -13,11 +13,12 @@ let taggerModalUpdater = new TaggerModalUpdater();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
 let elementFinder = new ElementFinder();
-let chromeStorageMocker = new ChromeStorageMocker();
+let chromeStorageMocker = null;
 
 beforeEach(() => {
     testThreadPageBuilder = new TestThreadPageBuilder();
     testEnvironmentArranger.InitializeEnvironment();
+    chromeStorageMocker = new ChromeStorageMocker();
 })
 
 it('test activate modal element', () => {
@@ -42,7 +43,7 @@ it('ensure modal element only initialized once', () => {
 
 it('test show all tagged users', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: 'testtaggeduser;red;testtext;' });
+    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: 'testtaggeduser;red;testtext' });
 
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser');
@@ -51,4 +52,31 @@ it('test show all tagged users', () => {
 
     let taggerModal = elementFinder.getTaggerModalElement();
     expect(taggerModal.outerHTML.indexOf('testtaggeduser')).not.toBe(-1);
+})
+
+it('test click untag user element', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: 'testtaggeduser;red;testtext' });
+
+    userTagger.applyTagging();
+    taggerModalUpdater.activateModal('testuser');
+    let showTaggedUsersElement = elementFinder.getTaggerModalShowUsersElement();
+    showTaggedUsersElement.click();
+    let deleteUserElement = elementFinder.getTaggerModalDeleteUserElements()[0];
+    deleteUserElement.click();
+
+    expect(chromeStorageMocker.chromeMock.storage.sync.set.mock.calls[0][0][StorageKeys.TaggedUsersDetails]).toBe("");
+})
+
+it('test when empty string returned from chrome storage', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: '' });
+
+    userTagger.applyTagging();
+    taggerModalUpdater.activateModal('testuser');
+    let showTaggedUsersElement = elementFinder.getTaggerModalShowUsersElement();
+    showTaggedUsersElement.click();
+
+    let taggerModal = elementFinder.getTaggerModalElement();
+    expect(taggerModal.outerHTML.match(/user-list-entry/g)).toBe(null);
 })

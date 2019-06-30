@@ -1,5 +1,4 @@
 .tag-icon {
-    cursor: pointer;
     color: #3d5686;
 }
 
@@ -54,4 +53,13 @@
     border-width: 1px;
     border-style: solid;
     padding: 1px;
+}
+
+.user-list-entry {
+    display: flex;
+    justify-content: space-between;
+}
+
+.clickable {
+    cursor: pointer;
 }

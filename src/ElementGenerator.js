@@ -43,9 +43,9 @@ class ElementGenerator {
     }
 
     generateTagIconElement() {
-        let tagIconElement = document.createElement('div');
-        tagIconElement.className = "tag-icon";
-        let tagIconElementContent = this._generateTagIconContent();
+        let tagIconElement = document.createElement('span');
+        tagIconElement.className = "tag-icon clickable";
+        let tagIconElementContent = this._generateFontAwesomeIcon("fas fa-tag");
         tagIconElement.appendChild(tagIconElementContent);
         return tagIconElement;
     }
@@ -81,19 +81,34 @@ class ElementGenerator {
                     <div class="modal-field">
                         <a id="show-tagged-users">Show all tagged users</a>
                     </div>
-                    <div class="modal-field">
-                        <div id="user-list">
-                        </div>
+                    <div id="user-list">
                     </div>
                 </div>
             `;
         return modalElement;
     }
 
-    generateTaggedUserElement(taggedUserDetails) {
+    generateUserListEntry(taggedUserDetails) {
+        let userlistEntry = document.createElement('div');
+        userlistEntry.className = 'user-list-entry';
+        let usernameElement = this._generateTaggedUsernameElement(taggedUserDetails.username);
+        userlistEntry.appendChild(usernameElement);
+        userlistEntry.appendChild(this._generateDeleteUserElement());
+        return userlistEntry;
+    }
+
+    _generateTaggedUsernameElement(username) {
         let element = document.createElement('div');
-        element.innerHTML = taggedUserDetails.username;
+        element.innerHTML = username;
         return element;
+    }
+
+    _generateDeleteUserElement() {
+        let deleteUserElement = document.createElement('div');
+        deleteUserElement.className = 'delete-user clickable';
+        let fontAwesomeIcon = this._generateFontAwesomeIcon("fas fa-times");
+        deleteUserElement.appendChild(fontAwesomeIcon);
+        return deleteUserElement;
     }
 
     _generateColourDropDown() {
@@ -105,9 +120,9 @@ class ElementGenerator {
                 </select> `;
     }
 
-    _generateTagIconContent() {
+    _generateFontAwesomeIcon(iconClass) {
         let tagIconElement = document.createElement('i');
-        tagIconElement.className = "fas fa-tag"
+        tagIconElement.className = iconClass;
         return tagIconElement;
     }
 

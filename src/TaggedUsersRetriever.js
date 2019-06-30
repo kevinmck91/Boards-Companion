@@ -11,7 +11,7 @@ class TaggedUsersRetriever {
     getTaggedUsers(functionalityToApply) {
         let _this = this;
         this.storageRetriever.getItem(StorageKeys.TaggedUsersDetails, (userDetailsString) => {
-            if (userDetailsString != undefined) {
+            if (userDetailsString) {
                 functionalityToApply(_this._convertToUserDetailsList(userDetailsString));
             }
         });

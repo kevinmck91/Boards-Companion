@@ -112,8 +112,26 @@ class TaggerModalUpdater {
     _displayTaggedUsers(userDetailsList) {
         let userListElement = this.elementFinder.getTaggerModalUserListElement();
         for (let userDetails of userDetailsList) {
-            let usernameElement = this.elementGenerator.generateTaggedUserElement(userDetails);
-            userListElement.appendChild(usernameElement);
+            let userListEntry = this.elementGenerator.generateUserListEntry(userDetails);
+            userListElement.appendChild(userListEntry);
         }
+        this._activateDeleteUserElements();
+    }
+
+    _activateDeleteUserElements() {
+        let deleteUserElements = this.elementFinder.getTaggerModalDeleteUserElements();
+        let _this = this;
+        for (let deleteUserElement of deleteUserElements) {
+            deleteUserElement.addEventListener('click', (ev) => {
+                ev.preventDefault();
+                _this._unTagUser(deleteUserElement);
+            });
+        }
+    }
+
+    _unTagUser(deleteUserElement) {
+        let username = deleteUserElement.previousSibling.textContent;
+        this.taggedUsersUpdater.unTagUser(username);
+        deleteUserElement.parentElement.style.display = 'none';
     }
 }

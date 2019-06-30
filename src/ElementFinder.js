@@ -193,4 +193,8 @@ class ElementFinder {
     getTaggerModalUserListElement() {
         return this.getTaggerModalElement().querySelector('#user-list');
     }
+
+    getTaggerModalDeleteUserElements() {
+        return this.getTaggerModalElement().querySelectorAll('.delete-user');
+    }
 }
