@@ -27,7 +27,7 @@ class TaggerModalUpdater {
         modalSubmitButton.addEventListener('click', (ev) => {
             ev.preventDefault();
             let userDetails = _this.modalDetailsFinder.getUserDetails();
-            _this.taggedUsersUpdater.addUser(userDetails);
+            _this.taggedUsersUpdater.tagUser(userDetails);
             _this.postsFormatter.tagUsersPosts(userDetails);
             _this._deactivateModal();
         });

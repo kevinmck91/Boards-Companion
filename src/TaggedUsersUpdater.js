@@ -9,7 +9,7 @@ class TaggedUsersUpdater {
         this.storageRetriever = new StorageRetriever();
     }
 
-    addUser(taggedUserDetails) {
+    tagUser(taggedUserDetails) {
         let _this = this;
         this.storageRetriever.getItem(StorageKeys.TaggedUsersDetails, function (existingUsernames) {
             let newUserDetailsEntry = _this._appendUsername(taggedUserDetails, existingUsernames);
@@ -26,15 +26,14 @@ class TaggedUsersUpdater {
     }
 
     _appendUsername(taggedUserDetails, existingUserDetailsEntry) {
-        if (existingUserDetailsEntry == undefined) {
-            return taggedUserDetails.username + ";" + taggedUserDetails.colour + ";" + taggedUserDetails.text;
-        } else {
+        if (existingUserDetailsEntry) {
             return existingUserDetailsEntry += ";" + taggedUserDetails.username + ";" + taggedUserDetails.colour + ";" + taggedUserDetails.text;
+        } else {
+            return taggedUserDetails.username + ";" + taggedUserDetails.colour + ";" + taggedUserDetails.text;
         }
     }
 
     _removeUsername(username, existingUserDetailsEntry) {
-        //let regex = new RegExp(username + ";.*?;.*?(;|$)|;" + username + ";.*?;[^;]+$", "g");
         let mainRegex = new RegExp(username + ";.*?;.*?(;|$)", "g");
         let result = existingUserDetailsEntry.replace(mainRegex, "");
         let trimRegex = new RegExp("^;+|;+$", "g");
