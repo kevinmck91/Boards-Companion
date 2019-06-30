@@ -54,6 +54,20 @@ it('test show all tagged users', () => {
     expect(taggerModal.outerHTML.indexOf('testtaggeduser')).not.toBe(-1);
 })
 
+it('test show all tagged users clicked twice', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: 'testtaggeduser;red;testtext' });
+
+    userTagger.applyTagging();
+    taggerModalUpdater.activateModal('testuser');
+    let showTaggedUsersElement = elementFinder.getTaggerModalShowUsersElement();
+    showTaggedUsersElement.click();
+    showTaggedUsersElement.click();
+
+    let taggerModal = elementFinder.getTaggerModalElement();
+    expect(taggerModal.outerHTML.match(/testtaggeduser/g).length).toBe(1);
+})
+
 it('test click untag user element', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
     chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: 'testtaggeduser;red;testtext' });

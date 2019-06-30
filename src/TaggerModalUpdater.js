@@ -37,9 +37,10 @@ class TaggerModalUpdater {
             _this._deactivateModal();
         })
         let modalShowTaggedUsersElement = this.elementFinder.getTaggerModalShowUsersElement();
-        modalShowTaggedUsersElement.addEventListener('click', (ev) => {
+        modalShowTaggedUsersElement.addEventListener('click', function handler(ev) {
             ev.preventDefault();
             _this._displayAllTaggedUsers();
+            this.removeEventListener('click', handler);
         })
     }
 
