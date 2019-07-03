@@ -66,6 +66,7 @@ class ElementGenerator {
             <div class="modal">
                 <h2>Tag User - </h2>
                     <input type="hidden" id="username" value=""></input>
+                    <input type="hidden" id="user-id" value=""></input>
                     <div class="modal-field">
                         <label>Colour</label>
                         `+ this._generateColourDropDown() + `

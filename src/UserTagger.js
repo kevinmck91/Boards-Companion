@@ -31,7 +31,8 @@ class UserTagger {
             let _this = this;
             tagIconElement.addEventListener('click', function (ev) {
                 let username = _this._getUserName(tagIconElement);
-                _this.taggerModalUpdater.activateModal(username)
+                let userId = _this._getUserId(tagIconElement);
+                _this.taggerModalUpdater.activateModal(username, userId)
             });
         }
     }
@@ -40,5 +41,17 @@ class UserTagger {
         let userDetailsElement = this.elementFinder.getUserDetailsElementFromTagElement(tagElement);
         let usernameElement = this.elementFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
         return usernameElement.innerText;
+    }
+
+    _getUserId(tagElement) {
+        let userDetailsElement = this.elementFinder.getUserDetailsElementFromTagElement(tagElement);
+        let usernameElement = this.elementFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
+        return this._getUserIdFromUsernameElement(usernameElement);
+    }
+
+    _getUserIdFromUsernameElement(usernameElement) {
+        let usernameLink = usernameElement.href;
+        let userId = usernameLink.match(/(?<=u\=)\d+/);
+        return userId;
     }
 }

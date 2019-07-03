@@ -5,12 +5,14 @@ import { TestEnvironmentArranger } from "./TestEnvironmentArranger.js";
 import { ElementFinder } from "../src/ElementFinder.js";
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
 import { StorageKeys } from "../src/ApplicationStorageKeys.js";
+import { ModalDetailsFinder } from "../src/ModalDetailsFinder.js";
 
 let userTagger = new UserTagger();
 let testThreadPageBuilder = null;
 let testHtmlGenerator = new TestHtmlGenerator();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let elementFinder = new ElementFinder();
+let modalDetailsFinder = new ModalDetailsFinder();
 let chromeStorageMocker = null;
 
 beforeAll(() => {
@@ -31,4 +33,15 @@ it('only apply tagging to candidate posts', () => {
     userTagger.applyTaggingToPosts(candidatePosts);
 
     expect(elementFinder.getAllPosts()[0].innerHTML.indexOf("testtext")).toBe(-1);
+})
+
+it('test user id within modal user details', () => {
+    document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
+
+    userTagger.applyTagging();
+    let tagIcon = elementFinder.getAllTagIconElements()[0];
+    tagIcon.click();
+
+    let modalUserDetails = modalDetailsFinder.getUserDetails();
+    expect(modalUserDetails.userId).toBe('1234');
 })

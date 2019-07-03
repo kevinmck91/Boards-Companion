@@ -107,7 +107,7 @@ class TestHtmlGenerator {
                 <tr valign="top">
                     <td class="alt2">
                         <div id="postmenu_110237434">
-                            <a class="bigusername">testusername</a>
+                            <a class="bigusername" href="member.php?u=1234">testusername</a>
                         </div>
                         <div class="smallfont">
                             Registered User

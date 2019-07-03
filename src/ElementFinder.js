@@ -174,6 +174,10 @@ class ElementFinder {
         return this.getTaggerModalElement().querySelector('#username');
     }
 
+    getTaggerModalUserIdElement() {
+        return this.getTaggerModalElement().querySelector('#user-id');
+    }
+
     getTaggerModalTitleElement() {
         return this.getTaggerModalElement().querySelector('h2');
     }

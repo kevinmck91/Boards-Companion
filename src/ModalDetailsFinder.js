@@ -11,6 +11,10 @@ class ModalDetailsFinder {
         return this.elementFinder.getTaggerModalUsernameElement().value;
     }
 
+    getUserId() {
+        return this.elementFinder.getTaggerModalUserIdElement().value;
+    }
+
     getSelectedColour() {
         let tagColourDropdown = document.body.querySelector('#tag-colour-dropdown');
         return tagColourDropdown.options[tagColourDropdown.selectedIndex].value
@@ -24,7 +28,8 @@ class ModalDetailsFinder {
         let username = this.getUsername();
         let colour = this.getSelectedColour();
         let text = this.getTagText();
-        return { username: username, colour: colour, text: text };
+        let userId = this.getUserId();
+        return { username: username, colour: colour, text: text, userId: userId };
     }
 
 }

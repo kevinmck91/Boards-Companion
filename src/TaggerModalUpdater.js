@@ -44,9 +44,9 @@ class TaggerModalUpdater {
         })
     }
 
-    activateModal(username) {
+    activateModal(username, userId) {
         this._freezeScrollBar();
-        this._updateModal(username);
+        this._updateModal(username, userId);
         this._showModal();
     }
 
@@ -80,9 +80,11 @@ class TaggerModalUpdater {
         document.body.style.paddingRight = '';
     }
 
-    _updateModal(username) {
+    _updateModal(username, userId) {
         let modalUsernameElement = this.elementFinder.getTaggerModalUsernameElement();
         modalUsernameElement.value = username;
+        let modalUserIdElement = this.elementFinder.getTaggerModalUserIdElement();
+        modalUserIdElement.value = userId;
         let modalTitle = this.elementFinder.getTaggerModalTitleElement();
         modalTitle.innerText = modalTitle.innerText += username;
     }
