@@ -1,5 +1,5 @@
 export const StorageKeys = {
-    TaggedUsersDetails: "taggedUsersDetails",
+    TagDetails: "tagDetails",
     HidePostElementsEnabled: "hidePostElementsEnabled",
     AutoScrollingEnabled: "autoscrollingEnabled",
     ToggleHeaderTransparency: "toggleHeaderTransparency"

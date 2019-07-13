@@ -43,7 +43,7 @@ it('ensure modal element only initialized once', () => {
 
 it('test show all tagged users', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: 'testtaggeduser;red;testtext' });
+    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: 'testtaggeduser;red;testtext' });
 
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser');
@@ -56,7 +56,7 @@ it('test show all tagged users', () => {
 
 it('test show all tagged users clicked twice', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: 'testtaggeduser;red;testtext' });
+    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: 'testtaggeduser;red;testtext' });
 
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser');
@@ -70,7 +70,7 @@ it('test show all tagged users clicked twice', () => {
 
 it('test click untag user element', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: 'testtaggeduser;red;testtext' });
+    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: 'testtaggeduser;red;testtext' });
 
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser');
@@ -79,12 +79,12 @@ it('test click untag user element', () => {
     let deleteUserElement = elementFinder.getTaggerModalDeleteUserElements()[0];
     deleteUserElement.click();
 
-    expect(chromeStorageMocker.chromeMock.storage.sync.set.mock.calls[0][0][StorageKeys.TaggedUsersDetails]).toBe("");
+    expect(chromeStorageMocker.chromeMock.storage.sync.set.mock.calls[0][0][StorageKeys.TagDetails]).toBe("");
 })
 
 it('test when empty string returned from chrome storage', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: '' });
+    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: '' });
 
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser');

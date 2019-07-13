@@ -10,7 +10,7 @@ class TaggedUsersRetriever {
 
     getTaggedUsers(functionalityToApply) {
         let _this = this;
-        this.storageRetriever.getItem(StorageKeys.TaggedUsersDetails, (userDetailsString) => {
+        this.storageRetriever.getItem(StorageKeys.TagDetails, (userDetailsString) => {
             if (userDetailsString) {
                 functionalityToApply(_this._convertToUserDetailsList(userDetailsString));
             }
@@ -18,7 +18,7 @@ class TaggedUsersRetriever {
     }
 
     _convertToUserDetailsList(userDetailsString) {
-        let userDetailsElements = userDetailsString.split(';')
+        let userDetailsElements = userDetailsString.split(';');
         let userDetailsList = [];
         for (let i = 0; i < userDetailsElements.length; i += 3) {
             let username = userDetailsElements[i];

@@ -11,17 +11,14 @@ class TaggedUsersUpdater {
 
     tagUser(taggedUserDetails) {
         let _this = this;
-        this.storageRetriever.getItem(StorageKeys.TaggedUsersDetails, function (existingUsernames) {
-            let newUserDetailsEntry = _this._appendUsername(taggedUserDetails, existingUsernames);
-            _this.storageUpdater.addItemToStorage(StorageKeys.TaggedUsersDetails, newUserDetailsEntry);
-        });
+        this.storageUpdater.addItemToStorage((taggedUserDetails.userId + '.' + StorageKeys.TagDetails), taggedUserDetails);
     }
 
     unTagUser(username) {
         let _this = this;
-        this.storageRetriever.getItem(StorageKeys.TaggedUsersDetails, function (existingUsernames) {
+        this.storageRetriever.getItem(StorageKeys.TagDetails, function (existingUsernames) {
             let newUserDetailsEntry = _this._removeUsername(username, existingUsernames);
-            _this.storageUpdater.addItemToStorage(StorageKeys.TaggedUsersDetails, newUserDetailsEntry);
+            _this.storageUpdater.addItemToStorage(StorageKeys.TagDetails, newUserDetailsEntry);
         });
     }
 

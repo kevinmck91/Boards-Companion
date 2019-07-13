@@ -10,7 +10,7 @@ beforeEach(() => {
 });
 
 it('test get tagged user name', () => {
-    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: "existinguser;red;testtext;testuser;green;testtext" })
+    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: "existinguser;red;testtext;testuser;green;testtext" })
 
     taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
         expect(userDetailsList[1].username).toBe("testuser");
@@ -27,7 +27,7 @@ it('test getting tagged users when no users tagged', () => {
 })
 
 it('test get tagged user text', () => {
-    chromeStorageMocker.MockGetter({ [StorageKeys.TaggedUsersDetails]: "existinguser;red;testtext1;testuser;green;testtext2" })
+    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: "existinguser;red;testtext1;testuser;green;testtext2" })
 
     taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
         expect(userDetailsList[1].text).toBe("testtext2");
