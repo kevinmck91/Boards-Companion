@@ -9,24 +9,30 @@ class TaggedUsersRetriever {
     }
 
     getTaggedUsers(functionalityToApply) {
-        let _this = this;
-        this.storageRetriever.getItem(StorageKeys.TagDetails, (userDetailsString) => {
-            if (userDetailsString) {
-                functionalityToApply(_this._convertToUserDetailsList(userDetailsString));
-            }
+        this.storageRetriever.getAllData((data) => {
+            let tagDetailList = this._extractTagDetailList(data);
+            functionalityToApply(tagDetailList);
         });
     }
 
-    _convertToUserDetailsList(userDetailsString) {
-        let userDetailsElements = userDetailsString.split(';');
-        let userDetailsList = [];
-        for (let i = 0; i < userDetailsElements.length; i += 3) {
-            let username = userDetailsElements[i];
-            let colour = userDetailsElements[i + 1];
-            let text = userDetailsElements[i + 2];
-            userDetailsList.push({ username: username, colour: colour, text: text });
+    getTaggedUser(userId, functionalityToApply) {
+        this.getTaggedUsers((tagDetailList) => {
+            let tagDetail = tagDetailList.find((element) => {
+                return element.userId = userId;
+            });
+            functionalityToApply(tagDetail);
+        })
+    }
+
+    _extractTagDetailList(data) {
+        let tagDetailList = [];
+        let objectKeys = Object.keys(data);
+        for (let objectKey of objectKeys) {
+            if (objectKey.indexOf("." + StorageKeys.TagDetail) != -1) {
+                tagDetailList.push(data[objectKey]);
+            }
         }
-        return userDetailsList;
+        return tagDetailList;
     }
 
 }

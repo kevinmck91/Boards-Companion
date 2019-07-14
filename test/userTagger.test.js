@@ -26,7 +26,7 @@ beforeEach(() => {
 
 it('only apply tagging to candidate posts', () => {
     document.body.innerHTML = testThreadPageBuilder.specificPage(2, 2).buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: "testusername;green;testtext" })
+    chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'green', text: 'testtext', userId: '123456' } });
 
     let candidateDocument = testHtmlGenerator.convertToDocument(testThreadPageBuilder.specificPage(1, 2).buildPage());
     let candidatePosts = elementFinder.getPostsFromDocument(candidateDocument);

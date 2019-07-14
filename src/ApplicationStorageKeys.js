@@ -1,8 +1,11 @@
 export const StorageKeys = {
-    TagDetails: "tagDetails",
+    TagDetail: "tagDetail",
     HidePostElementsEnabled: "hidePostElementsEnabled",
     AutoScrollingEnabled: "autoscrollingEnabled",
-    ToggleHeaderTransparency: "toggleHeaderTransparency"
+    ToggleHeaderTransparency: "toggleHeaderTransparency",
+    generateTagDetailKey(userId) {
+        return userId + '.' + this.TagDetail;
+    }
 };
 
 export { ApplicationStorageKeys }

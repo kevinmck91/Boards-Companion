@@ -107,8 +107,8 @@ class TaggerModalUpdater {
 
     _displayAllTaggedUsers() {
         let _this = this;
-        this.taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
-            _this._displayTaggedUsers(userDetailsList);
+        this.taggedUsersRetriever.getTaggedUsers((taggedUserDetailList) => {
+            _this._displayTaggedUsers(taggedUserDetailList);
         })
     }
 
@@ -133,8 +133,8 @@ class TaggerModalUpdater {
     }
 
     _unTagUser(deleteUserElement) {
-        let username = deleteUserElement.previousSibling.textContent;
-        this.taggedUsersUpdater.unTagUser(username);
+        let userId = deleteUserElement.previousSibling.dataset.userid;
+        this.taggedUsersUpdater.unTagUser(userId);
         deleteUserElement.parentElement.style.display = 'none';
     }
 }

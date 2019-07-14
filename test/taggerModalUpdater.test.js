@@ -43,10 +43,10 @@ it('ensure modal element only initialized once', () => {
 
 it('test show all tagged users', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: 'testtaggeduser;red;testtext' });
+    chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
 
     userTagger.applyTagging();
-    taggerModalUpdater.activateModal('testuser');
+    taggerModalUpdater.activateModal('testuser', '123456');
     let showTaggedUsersElement = elementFinder.getTaggerModalShowUsersElement();
     showTaggedUsersElement.click();
 
@@ -56,10 +56,10 @@ it('test show all tagged users', () => {
 
 it('test show all tagged users clicked twice', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: 'testtaggeduser;red;testtext' });
+    chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
 
     userTagger.applyTagging();
-    taggerModalUpdater.activateModal('testuser');
+    taggerModalUpdater.activateModal('testuser', '123456');
     let showTaggedUsersElement = elementFinder.getTaggerModalShowUsersElement();
     showTaggedUsersElement.click();
     showTaggedUsersElement.click();
@@ -70,24 +70,24 @@ it('test show all tagged users clicked twice', () => {
 
 it('test click untag user element', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: 'testtaggeduser;red;testtext' });
+    chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
 
     userTagger.applyTagging();
-    taggerModalUpdater.activateModal('testuser');
+    taggerModalUpdater.activateModal('testuser', '123456');
     let showTaggedUsersElement = elementFinder.getTaggerModalShowUsersElement();
     showTaggedUsersElement.click();
     let deleteUserElement = elementFinder.getTaggerModalDeleteUserElements()[0];
     deleteUserElement.click();
 
-    expect(chromeStorageMocker.chromeMock.storage.sync.set.mock.calls[0][0][StorageKeys.TagDetails]).toBe("");
+    expect(chromeStorageMocker.chromeMock.storage.sync.remove.mock.calls[0][0]).toBe(StorageKeys.generateTagDetailKey('123456'));
 })
 
-it('test when empty string returned from chrome storage', () => {
+it('test when empty object returned from chrome storage', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: '' });
+    chromeStorageMocker.MockGetter({});
 
     userTagger.applyTagging();
-    taggerModalUpdater.activateModal('testuser');
+    taggerModalUpdater.activateModal('testuser', '123456');
     let showTaggedUsersElement = elementFinder.getTaggerModalShowUsersElement();
     showTaggedUsersElement.click();
 

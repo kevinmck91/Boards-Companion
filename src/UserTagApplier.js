@@ -11,9 +11,9 @@ class UserTagApplier {
 
     tagTaggedUserPosts(posts) {
         let _this = this;
-        this.taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
-            for (let userDetails of userDetailsList) {
-                _this.postsFormatter.tagUsersPostsWithinPosts(posts, userDetails);
+        this.taggedUsersRetriever.getTaggedUsers((taggedUserDetailList) => {
+            for (let taggedUserDetail of taggedUserDetailList) {
+                _this.postsFormatter.tagUsersPostsWithinPosts(posts, taggedUserDetail)
             }
         });
     }

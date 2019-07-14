@@ -9,11 +9,12 @@ beforeEach(() => {
     chromeStorageMocker = new ChromeStorageMocker();
 });
 
-it('test get tagged user name', () => {
-    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: "existinguser;red;testtext;testuser;green;testtext" })
+it('test get tagged user name', done => {
+    chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'existinguser', colour: 'red', text: 'testtext', userId: '123456' } });
 
-    taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
-        expect(userDetailsList[1].username).toBe("testuser");
+    taggedUsersRetriever.getTaggedUser('123456', (taggedUserDetail) => {
+        expect(taggedUserDetail.username).toBe('existinguser');
+        done();
     });
 })
 
@@ -27,9 +28,19 @@ it('test getting tagged users when no users tagged', () => {
 })
 
 it('test get tagged user text', () => {
-    chromeStorageMocker.MockGetter({ [StorageKeys.TagDetails]: "existinguser;red;testtext1;testuser;green;testtext2" })
+    chromeStorageMocker.MockGetter(
+        {
+            [StorageKeys.generateTagDetailKey('123456')]:
+            {
+                username: 'existinguser', colour: 'green', text: 'testtext1', userId: '123456'
+            },
+            [StorageKeys.generateTagDetailKey('78910')]:
+            {
+                username: 'existinguser2', colour: 'green', text: 'testtext2', userId: '123456'
+            }
+        });
 
-    taggedUsersRetriever.getTaggedUsers((userDetailsList) => {
-        expect(userDetailsList[1].text).toBe("testtext2");
+    taggedUsersRetriever.getTaggedUsers((taggedUserDetailList) => {
+        expect(taggedUserDetailList[1].text).toBe("testtext2");
     });
 })

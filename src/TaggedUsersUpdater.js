@@ -9,33 +9,11 @@ class TaggedUsersUpdater {
         this.storageRetriever = new StorageRetriever();
     }
 
-    tagUser(taggedUserDetails) {
-        let _this = this;
-        this.storageUpdater.addItemToStorage((taggedUserDetails.userId + '.' + StorageKeys.TagDetails), taggedUserDetails);
+    tagUser(taggedUserDetail) {
+        this.storageUpdater.addItemToStorage((taggedUserDetail.userId + '.' + StorageKeys.TagDetail), taggedUserDetail);
     }
 
-    unTagUser(username) {
-        let _this = this;
-        this.storageRetriever.getItem(StorageKeys.TagDetails, function (existingUsernames) {
-            let newUserDetailsEntry = _this._removeUsername(username, existingUsernames);
-            _this.storageUpdater.addItemToStorage(StorageKeys.TagDetails, newUserDetailsEntry);
-        });
+    unTagUser(userId) {
+        this.storageUpdater.removeItemFromStorage(StorageKeys.generateTagDetailKey(userId));
     }
-
-    _appendUsername(taggedUserDetails, existingUserDetailsEntry) {
-        if (existingUserDetailsEntry) {
-            return existingUserDetailsEntry += ";" + taggedUserDetails.username + ";" + taggedUserDetails.colour + ";" + taggedUserDetails.text;
-        } else {
-            return taggedUserDetails.username + ";" + taggedUserDetails.colour + ";" + taggedUserDetails.text;
-        }
-    }
-
-    _removeUsername(username, existingUserDetailsEntry) {
-        let mainRegex = new RegExp(username + ";.*?;.*?(;|$)", "g");
-        let result = existingUserDetailsEntry.replace(mainRegex, "");
-        let trimRegex = new RegExp("^;+|;+$", "g");
-        result = result.replace(trimRegex, "");
-        return result;
-    }
-
 }

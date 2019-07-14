@@ -92,15 +92,16 @@ class ElementGenerator {
     generateUserListEntry(taggedUserDetails) {
         let userlistEntry = document.createElement('div');
         userlistEntry.className = 'user-list-entry';
-        let usernameElement = this._generateTaggedUsernameElement(taggedUserDetails.username);
+        let usernameElement = this._generateTaggedUsernameElement(taggedUserDetails.username, taggedUserDetails.userId);
         userlistEntry.appendChild(usernameElement);
         userlistEntry.appendChild(this._generateDeleteUserElement());
         return userlistEntry;
     }
 
-    _generateTaggedUsernameElement(username) {
+    _generateTaggedUsernameElement(username, userId) {
         let element = document.createElement('div');
         element.innerHTML = username;
+        element.setAttribute('data-userid', userId);
         return element;
     }
 

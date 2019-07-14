@@ -6,4 +6,8 @@ class StorageUpdater {
         chrome.storage.sync.set({ [key]: value });
     }
 
+    removeItemFromStorage(key) {
+        chrome.storage.sync.remove(key, () => { });
+    }
+
 }

@@ -2,12 +2,12 @@ export { StorageRetriever }
 
 class StorageRetriever {
 
-    getItem(key, functionality) {
-        chrome.storage.sync.get([key], (items) => {
+    getAllData(functionality) {
+        chrome.storage.sync.get(null, (items) => {
             if (items == undefined) {
-                functionality(undefined);
+                return;
             } else {
-                functionality(items[key]);
+                functionality(items);
             }
         });
     }
