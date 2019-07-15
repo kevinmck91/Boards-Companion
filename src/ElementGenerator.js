@@ -18,12 +18,14 @@ class ElementGenerator {
         pageNoElement.style.textAlign = "center";
         pageNoElement.style.paddingBottom = "5px";
         pageNoElement.style.paddingTop = "12px";
+        pageNoElement.className = 'page-number';
         return pageNoElement;
     }
 
     generateForumTopPageNoElement(pageNo) {
         let pageNoElement = this.generateThreadTopPageNoElement(pageNo);
         pageNoElement.style.paddingTop = "4px";
+        pageNoElement.className = 'page-number';
         return pageNoElement;
     }
 
@@ -32,6 +34,7 @@ class ElementGenerator {
         pageNoElement.innerHTML = "page " + pageNo;
         pageNoElement.style.textAlign = "center";
         pageNoElement.style.paddingBottom = "20px";
+        pageNoElement.className = 'page-number';
         return pageNoElement;
     }
 

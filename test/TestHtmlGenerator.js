@@ -92,13 +92,24 @@ class TestHtmlGenerator {
     wrapThreadEntries(entries) {
         return `
         <form id="inlinemodform">
-            <table id="threadslist">
-                <tbody>
-                </tbody>
-                <tbody id="threadbits_forum_7">
-                    ` + entries + `
-                </tbody>
-            </table>
+            <div class="threadlist-wrapper">
+                <div class="left-col">
+                    <table id="threadslist">
+                        <tbody>
+                        </tbody>
+                        <tbody id="threadbits_forum_7">
+                            ` + entries + `
+                        </tbody>
+                    </table>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>New Thread</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </form>`
     }
 

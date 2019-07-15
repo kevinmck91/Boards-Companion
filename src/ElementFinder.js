@@ -32,25 +32,8 @@ class ElementFinder {
         return this.getPostsContainerFromDocument(document);
     }
 
-    getThreadsContainersContainer() {
-        return document.getElementById('inlinemodform');
-    }
-
-    getLastElementInThreadsContainersContainer() {
-        let threadsContainersContainer = this.getThreadsContainersContainer();
-        let tableElements = threadsContainersContainer.querySelectorAll("form > table");
-        return tableElements[tableElements.length - 1];
-    }
-
-    getFirstElementInThreadsContainersContainer() {
-        let threadsContainersContainer = this.getThreadsContainersContainer();
-        let tableElements = threadsContainersContainer.querySelectorAll("form > *");
-        return tableElements[0];
-    }
-
-    getLastThreadContainer() {
-        let threadContainers = Array.from(document.querySelectorAll('#threadslist'));
-        return threadContainers[threadContainers.length - 1];
+    getForumHomepageContentElements() {
+        return document.body.querySelectorAll('.page-number, #threadslist');
     }
 
     getPostsFromDocument(htmlDocument) {
@@ -64,6 +47,10 @@ class ElementFinder {
 
     getThreadsContainerFromDocument(htmlDocument) {
         return htmlDocument.getElementById("threadslist");
+    }
+
+    getAllThreadsContainers() {
+        return document.body.querySelectorAll('.left-col > #threadslist');
     }
 
     getAvatarInfoElementsFromPost(post) {

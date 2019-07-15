@@ -51,11 +51,3 @@ it('test get threads from document', () => {
 
     expect(threadsContainer).not.toBe(null);
 })
-
-it('test get threads containers container from document', () => {
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(1, 2);
-
-    let threadsContainersContainer = elementFinder.getThreadsContainersContainer();
-
-    expect(threadsContainersContainer.outerHTML.indexOf('threadbits')).not.toBe(-1);
-})
