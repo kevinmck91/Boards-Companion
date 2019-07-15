@@ -33,8 +33,17 @@ class PostsFormatter {
     _tagPosts(posts, taggedUserDetails) {
         for (let post of posts) {
             let usernameElement = this.elementFinder.getUsernameElementFromPost(post);
+            this._ensureExistingTagsRemoved(post);
             let userTagElement = this.elementGenerator.generateUserTagElement(taggedUserDetails);
             usernameElement.appendChild(userTagElement);
+        }
+    }
+
+    _ensureExistingTagsRemoved(post) {
+        let usernameElement = this.elementFinder.getUsernameElementFromPost(post);
+        let existingTagElement = this.elementFinder.getUserTagElementFromPost(post);
+        if (existingTagElement != null) {
+            usernameElement.removeChild(existingTagElement);
         }
     }
 }

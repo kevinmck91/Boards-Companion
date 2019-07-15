@@ -15,3 +15,14 @@ it('test highlight users posts', () => {
     let userTagElement = elementFinder.getUserTagElementFromPost(firstPost);
     expect(userTagElement.style.backgroundColor).toBe('red');
 })
+
+it('test old tag element is removed when new tag added', () => {
+    document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(3).buildPage();
+
+    postsFormatter.tagUsersPosts({ username: "testusername", colour: "red" });
+    postsFormatter.tagUsersPosts({ username: "testusername", colour: "green" });
+
+    let firstPost = elementFinder.getAllPosts()[0];
+    let userTagElement = elementFinder.getUserTagElementFromPost(firstPost);
+    expect(userTagElement.style.backgroundColor).toBe('green');
+})
