@@ -66,14 +66,6 @@ it('test get threads from document', () => {
     expect(threadsContainer).not.toBe(null);
 })
 
-it('test get threads containers container from document', () => {
-    document.body.innerHTML = testForumPageBuilder.buildPage();
-
-    let threadsContainersContainer = elementFinder.getThreadsContainersContainer();
-
-    expect(threadsContainersContainer.outerHTML.indexOf('threadbits')).not.toBe(-1);
-})
-
 it('test get user details element', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(1).buildPage();
 

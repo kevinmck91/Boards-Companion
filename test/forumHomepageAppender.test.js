@@ -1,10 +1,12 @@
 import { TestHtmlGenerator } from "./TestHtmlGenerator.js";
 import { ForumHomepageAppender } from "../src/ForumHomepageAppender.js";
 import { TestForumPageBuilder } from "./TestForumPageBuilder.js";
+import { ElementFinder } from "../src/ElementFinder.js";
 
 let testHtmlGenerator = new TestHtmlGenerator();
 let forumHomepageAppender = new ForumHomepageAppender();
 let testForumPageBuilder = null;
+let elementFinder = new ElementFinder();
 
 beforeEach(() => {
     testForumPageBuilder = new TestForumPageBuilder();
@@ -15,7 +17,7 @@ it('append forum page threads', () => {
 
     appendForumHomepage(testForumPageBuilder.specificPage(2, 2).buildPage());
 
-    expect(document.body.outerHTML.match(/threadslist/g).length).toBe(2);
+    expect(elementFinder.getAllThreadsContainers().length).toBe(2);
 })
 
 it('forum page - ensure next page navigator updated', () => {
