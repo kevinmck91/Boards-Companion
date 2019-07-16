@@ -28,9 +28,9 @@ it('ensure forum homepage elements are prepended in correct order', () => {
 })
 
 it('ensure forum homepage elements are prepended correctly', () => {
-    document.body.innerHTML = testHtmlGenerator.getForumHomePage(2, 2);
+    document.body.innerHTML = testForumPageBuilder.specificPage(2, 2).buildPage();
 
-    prependForumHomepage(testHtmlGenerator.getForumHomePage(1, 2));
+    prependForumHomepage(testForumPageBuilder.buildPage());
 
     expect(elementFinder.getAllThreadsContainers().length).toBe(2);
 })
