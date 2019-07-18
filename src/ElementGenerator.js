@@ -67,26 +67,28 @@ class ElementGenerator {
         modalElement.innerHTML =
             `
             <div class="modal">
-                <h2>Tag User - </h2>
-                    <input type="hidden" id="username" value=""></input>
-                    <input type="hidden" id="user-id" value=""></input>
-                    <div class="modal-field">
-                        <label>Colour</label>
-                        `+ this._generateColourDropDown() + `
-                    </div>
-                    <div class="modal-field">
-                        <label>Text</label>
-                        <input type ="text" id="tag-text" size="17"></input>
-                    </div>
-                    <div class="modal-submit">
-                        <button type="submit" value="save">save</button>
-                        <button type="submit" value="cancel">cancel</button>
-                    </div>
-                    <div class="modal-field">
-                        <a id="show-tagged-users">Show all tagged users</a>
-                    </div>
-                    <div id="user-list">
-                    </div>
+                <div class="modal-header">
+                    <h2>Tag User - </h2>
+                    `+ this._generateCloseModalElement().outerHTML + `
+                 </div>
+                <input type="hidden" id="username" value=""></input>
+                <input type="hidden" id="user-id" value=""></input>
+                <div class="modal-field">
+                    <label>Colour</label>
+                    `+ this._generateColourDropDownHtml() + `
+                </div>
+                <div class="modal-field">
+                    <label>Text</label>
+                    <input type ="text" id="tag-text" size="17"></input>
+                </div>
+                <div class="modal-submit">
+                    <button type="submit" value="save">Save</button>
+                </div>
+                <div class="modal-field">
+                    <a id="show-tagged-users">Show all tagged users</a>
+                </div>
+                <div id="user-list">
+                </div>
                 </div>
             `;
         return modalElement;
@@ -111,18 +113,26 @@ class ElementGenerator {
     _generateDeleteUserElement() {
         let deleteUserElement = document.createElement('div');
         deleteUserElement.className = 'delete-user clickable';
-        let fontAwesomeIcon = this._generateFontAwesomeIcon("fas fa-times");
+        let fontAwesomeIcon = this._generateFontAwesomeIcon("fas fa-trash-alt");
         deleteUserElement.appendChild(fontAwesomeIcon);
         return deleteUserElement;
     }
 
-    _generateColourDropDown() {
+    _generateColourDropDownHtml() {
         return ` <select id="tag-colour-dropdown">
-                    <option value="red">red</option>
                     <option value="green">green</option>
+                    <option value="red">red</option>
                     <option value="yellow">yellow</option>
-                    <option value="blue">blue</option>
                 </select> `;
+    }
+
+    _generateCloseModalElement() {
+        let closeElement = document.createElement('span');
+        closeElement.className = 'clickable';
+        closeElement.id = 'close-modal';
+        let elementIcon = this._generateFontAwesomeIcon("fas fa-times fa-lg");
+        closeElement.appendChild(elementIcon);
+        return closeElement;
     }
 
     _generateFontAwesomeIcon(iconClass) {

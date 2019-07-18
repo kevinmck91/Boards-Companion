@@ -170,11 +170,11 @@ class ElementFinder {
     }
 
     getTaggerModalSubmitButton() {
-        return this.getTaggerModalElement().querySelector('[type="submit"]');
+        return this.getTaggerModalElement().querySelector('[type="submit"][value="save"]');
     }
 
     getTaggerModalCancelButton() {
-        return this.getTaggerModalElement().querySelector('[type="submit"][value="cancel"]');
+        return this.getTaggerModalElement().querySelector('#close-modal');
     }
 
     getTaggerModalShowUsersElement() {
