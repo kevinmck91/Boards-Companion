@@ -1,6 +1,6 @@
 import { ElementVisibilityUpdater } from "../src/ElementVisibilityUpdater.js";
-import { ElementFinder } from "../src/ElementFinder.js";
-import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
+import { ElementFinder } from "../src/finders/ElementFinder.js";
+import { TestThreadPageBuilder } from "./test-environment/page-builders/TestThreadPageBuilder.js";
 
 let elementVisibilityUpdater = new ElementVisibilityUpdater();
 let elementFinder = new ElementFinder();

@@ -1,6 +1,6 @@
 import { ConfigurationSettingExecutor } from "../src/ConfigurationSettingExecutor.js";
-import { StorageKeys } from "../src/ApplicationStorageKeys.js";
-import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
+import { StorageKeys } from "../src/storage/ApplicationStorageKeys.js";
+import { ChromeStorageMocker } from "./test-environment/ChromeStorageMocker.js";
 
 let chromeStorageMocker = new ChromeStorageMocker();
 

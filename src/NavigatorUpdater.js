@@ -1,6 +1,6 @@
 export { NavigatorUpdater }
-import { ElementFinder } from "./ElementFinder.js";
-import { ThreadPageUpdater } from "./ThreadPageUpdater.js";
+import { ElementFinder } from "./finders/ElementFinder.js";
+import { ThreadPageUpdater } from "./page-updater/ThreadPageUpdater.js";
 
 class NavigatorUpdater {
 

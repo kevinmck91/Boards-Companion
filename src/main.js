@@ -1,12 +1,12 @@
 "use strict";
 import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { HeaderTransparencyToggler } from "./HeaderTransparencyToggler.js";
-import { AutomaticPageLoader } from "./AutomaticPageLoader.js";
-import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
-import { PageInternalsUpdater } from "./PageInternalsUpdater.js";
-import { StorageKeys } from "./ApplicationStorageKeys.js";
+import { AutomaticPageLoader } from "./automatic-pageloading/AutomaticPageLoader.js";
+import { PostsCompressionToggler } from "./post-manipulation/PostsCompressionToggler.js";
+import { PageInternalsUpdater } from "./page/PageInternalsUpdater.js";
+import { StorageKeys } from "./storage/ApplicationStorageKeys.js";
 import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
-import { UserTagger } from "./UserTagger.js";
+import { UserTagger } from "./user-tagging/UserTagger.js";
 
 let elementVisibilityUpdater = new ElementVisibilityUpdater();
 let headerTransparencyToggler = new HeaderTransparencyToggler();

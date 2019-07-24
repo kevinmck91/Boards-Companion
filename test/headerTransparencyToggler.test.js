@@ -1,9 +1,9 @@
 "use strict";
 import { HeaderTransparencyToggler } from "../src/HeaderTransparencyToggler.js";
-import { ElementFinder } from "../src/ElementFinder.js";
-import { TestPageManipulator } from "./TestPageManipulator.js";
-import { PageInformationCollector } from "../src/PageInformationCollector.js";
-import { TestThreadPageBuilder } from "./TestThreadPageBuilder.js";
+import { ElementFinder } from "../src/finders/ElementFinder.js";
+import { TestPageManipulator } from "./test-environment/TestPageManipulator.js";
+import { PageInformationCollector } from "../src/page/PageInformationCollector.js";
+import { TestThreadPageBuilder } from "./test-environment/page-builders/TestThreadPageBuilder.js";
 
 let headerTransparencyToggler = new HeaderTransparencyToggler();
 let elementFinder = new ElementFinder();

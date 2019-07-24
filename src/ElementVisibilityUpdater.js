@@ -1,6 +1,6 @@
 "use strict";
 export { ElementVisibilityUpdater };
-import { ElementFinder } from "./ElementFinder.js";
+import { ElementFinder } from "./finders/ElementFinder.js";
 
 class ElementVisibilityUpdater {
 
