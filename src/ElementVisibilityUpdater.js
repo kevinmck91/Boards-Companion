@@ -1,11 +1,13 @@
 "use strict";
 export { ElementVisibilityUpdater };
 import { ElementFinder } from "./finders/ElementFinder.js";
+import { AvatarDetailsFinder } from "./finders/AvatarDetailsFinder.js";
 
 class ElementVisibilityUpdater {
 
     constructor() {
         this.elementFinder = new ElementFinder();
+        this.avatarDetailsFinder = new AvatarDetailsFinder();
     }
 
     hideEachPostsElements() {
@@ -30,7 +32,11 @@ class ElementVisibilityUpdater {
     }
 
     hideElement(element) {
-        element.style.display = 'none';
+        try {
+            element.style.display = 'none';
+        } catch (error) {
+            console.error("Failed to hide element: " + error, error.stack);
+        }
     }
 
     hideElements(elementArray) {
@@ -69,18 +75,25 @@ class ElementVisibilityUpdater {
         element.style.display = '';
     }
 
+    removeWhitespaceElements(element) {
+        element.innerHTML = element.innerHTML.replace(/\&nbsp;/g, '');
+        element.innerHTML = element.innerHTML.replace(/<br>/g, '');
+    }
+
     _hideEachPostsAvatarInfo() {
         for (let post of this.elementFinder.getAllPosts()) {
-            this.hideElements(this.elementFinder.getAvatarInfoElementsFromPost(post));
+            this._hidePostAvatarInfo(post);
         }
     }
 
     _hidePostAvatarInfo(post) {
-        this.hideElements(this.elementFinder.getAvatarInfoElementsFromPost(post));
+        let avatarInfoElement = this.avatarDetailsFinder.getAvatarInfoElement(post);
+        this.removeWhitespaceElements(avatarInfoElement);
+        this.hideElements(this.avatarDetailsFinder.getHideableElements(post));
     }
 
     _showPostAvatarInfo(post) {
-        this.showElements(this.elementFinder.getAvatarInfoElementsFromPost(post));
+        this.showElements(this.avatarDetailsFinder.getHideableElements(post));
     }
 
     _hideEachPostsFooter() {

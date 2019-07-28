@@ -61,6 +61,7 @@
         "finders/ModalDetailsFinder.js",
         "storage/ApplicationStorageKeys.js",
         "user-tagging/TaggerModalUpdater.js",
-        "user-tagging/UserTagApplier.js"
+        "user-tagging/UserTagApplier.js",
+        "finders/AvatarDetailsFinder.js"
     ]
 }
