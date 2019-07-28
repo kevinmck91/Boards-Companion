@@ -14,6 +14,7 @@ class AvatarDetailsFinder {
         if (avatarPictureElement != null)
             hideableElements.push(avatarPictureElement);
         hideableElements.push(this.getStarsElement(post));
+        hideableElements.push(...(this.getLineBreakElements(post)));
         return hideableElements;
     }
 
@@ -38,10 +39,14 @@ class AvatarDetailsFinder {
     }
 
     getJoinDateElement(post) {
-        return post.querySelector(".alt2 .smallfont:last-of-type div:nth-child(1)");
+        return post.querySelector(".alt2 .smallfont:last-of-type div:nth-child(2)");
     }
 
     getPostCountElement(post) {
         return post.querySelector(".alt2 .smallfont:last-of-type div:nth-last-of-type(3)");
+    }
+
+    getLineBreakElements(post) {
+        return post.querySelectorAll(".alt2 .smallfont br");
     }
 }

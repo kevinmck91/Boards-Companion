@@ -129,6 +129,7 @@ class TestHtmlGenerator {
                             Registered User
                         </div>
                         <div class="smallfont">
+                            <br>
                             <img src="stars">
                         </div>
                         <div class="smallfont">

@@ -48,9 +48,14 @@ it('test get registered user element ', () => {
     expect(registeredUserElement.outerHTML.indexOf("Registered User")).not.toBe(-1);
 })
 
-
 it('test get stars element ', () => {
     let registeredUserElement = avatarDetailsFinder.getStarsElement(elementFinder.getAllPosts()[0]);
 
     expect(registeredUserElement.outerHTML.indexOf("stars")).not.toBe(-1);
+})
+
+it('test get linebreak element ', () => {
+    let lineBreakElement = avatarDetailsFinder.getLineBreakElements(elementFinder.getAllPosts()[0]);
+
+    expect(lineBreakElement.length).toBe(2);
 })

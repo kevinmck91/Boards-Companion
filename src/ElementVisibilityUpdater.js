@@ -77,7 +77,6 @@ class ElementVisibilityUpdater {
 
     removeWhitespaceElements(element) {
         element.innerHTML = element.innerHTML.replace(/\&nbsp;/g, '');
-        element.innerHTML = element.innerHTML.replace(/<br>/g, '');
     }
 
     _hideEachPostsAvatarInfo() {
