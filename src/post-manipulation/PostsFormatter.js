@@ -1,5 +1,5 @@
 export { PostsFormatter }
-import { ElementVisibilityUpdater } from "../ElementVisibilityUpdater.js";
+import { PostElementsVisibilityUpdater } from "../element-visibility/PostElementsVisibilityUpdater.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { ElementFinder } from "../finders/ElementFinder.js";
 import { ElementGenerator } from "../ElementGenerator.js";
@@ -7,15 +7,15 @@ import { ElementGenerator } from "../ElementGenerator.js";
 class PostsFormatter {
 
     constructor() {
-        this.elementVisibilityUpdater = new ElementVisibilityUpdater();
         this.postsCompressionToggler = new PostsCompressionToggler();
         this.elementFinder = new ElementFinder();
         this.elementGenerator = new ElementGenerator();
+        this.postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
     }
 
     formatPosts(nextPagePosts, hidePostElements) {
         if (hidePostElements) {
-            this.elementVisibilityUpdater.hideEachPostsElements();
+            this.postElementsVisibilityUpdater.hideEachPostsElements();
             this.postsCompressionToggler.applyCompressionTogglingToPosts(nextPagePosts);
         }
     }

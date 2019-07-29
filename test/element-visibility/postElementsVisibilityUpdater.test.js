@@ -1,43 +1,21 @@
-import { ElementVisibilityUpdater } from "../src/ElementVisibilityUpdater.js";
-import { ElementFinder } from "../src/finders/ElementFinder.js";
-import { AvatarDetailsFinder } from "../src/finders/AvatarDetailsFinder.js";
-import { TestThreadPageBuilder } from "./test-environment/page-builders/TestThreadPageBuilder.js";
+import { ElementFinder } from "../../src/finders/ElementFinder.js";
+import { AvatarDetailsFinder } from "../../src/finders/AvatarDetailsFinder.js";
+import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { PostElementsVisibilityUpdater } from "../../src/element-visibility/PostElementsVisibilityUpdater.js";
 
-let elementVisibilityUpdater = new ElementVisibilityUpdater();
 let elementFinder = new ElementFinder();
 let testThreadPageBuilder = null;
 let avatarDetailsFinder = new AvatarDetailsFinder();
+let postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
 
 beforeEach(() => {
     testThreadPageBuilder = new TestThreadPageBuilder();
 });
 
-it('Welcome notice hidden', () => {
-    document.body.innerHTML = testThreadPageBuilder.hasWelcomeNotice().isSignedOut().buildPage();
-
-    elementVisibilityUpdater.hideWelcomeNotice();
-
-    expect(elementFinder.searchForWelcomeNotice().style.display).toBe('none');
-})
-
-it('normal notice not hidden', () => {
-    document.body.innerHTML = testThreadPageBuilder.hasNormalNotice().buildPage();
-
-    elementVisibilityUpdater.hideWelcomeNotice();
-
-    expect(elementFinder.getNotice().style.display).toBe('');
-})
-
-it('page without notice runs without error', () => {
-    document.body.innerHTML = testThreadPageBuilder.buildPage();
-
-    elementVisibilityUpdater.hideWelcomeNotice();
-})
-
 it('Registered user element hidden', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
 
     expect(elementFinder.getAvatarInfoElementsFromPost(elementFinder.getAllPosts()[0])[0].style.display).toBe('none');
 })
@@ -45,7 +23,7 @@ it('Registered user element hidden', () => {
 it('Join date element displayed', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
 
     expect(avatarDetailsFinder.getJoinDateElement(elementFinder.getAllPosts()[0]).style.display).toBe('');
 })
@@ -53,7 +31,7 @@ it('Join date element displayed', () => {
 it('Avatar links elements hidden', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
     let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
 
     expect(linksSectionElements[0].style.display).toBe('none');
@@ -63,7 +41,7 @@ it('Avatar links elements hidden', () => {
 it('Stars element hidden', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
 
     let starsElement = avatarDetailsFinder.getStarsElement(elementFinder.getAllPosts()[0]);
     expect(starsElement.style.display).toBe('none');
@@ -73,21 +51,15 @@ it('Stars element hidden', () => {
 it('&nbsp; removed from avatar info', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
 
     expect(elementFinder.getAllPosts()[0].outerHTML.indexOf('&nbsp;')).toBe(-1);
-})
-
-it('Signed in user runs without exception', () => {
-    document.body.innerHTML = testThreadPageBuilder.buildPage();
-
-    elementVisibilityUpdater.hideWelcomeNotice();
 })
 
 it('links element not visible when no avatar', () => {
     document.body.innerHTML = testThreadPageBuilder.withNoUserAvatarPics().buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
 
     let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
     expect(linksSectionElements[1].style.display).toBe("none");
@@ -96,7 +68,7 @@ it('links element not visible when no avatar', () => {
 it('post count visible when no avatar', () => {
     document.body.innerHTML = testThreadPageBuilder.withNoUserAvatarPics().buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
 
     let postCountElement = avatarDetailsFinder.getPostCountElement(elementFinder.getAllPosts()[0]);
 
@@ -107,7 +79,7 @@ it('post count visible when no avatar', () => {
 it('avatar hidden', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
 
     let avatarPictureElement = avatarDetailsFinder.getAvatarPictureElement(elementFinder.getAllPosts()[0]);
     expect(avatarPictureElement.style.display).toBe("none");

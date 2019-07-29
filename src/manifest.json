@@ -31,8 +31,10 @@
     ],
     "web_accessible_resources": [
         "main.js",
-        "ElementDisplayUpdater.js",
-        "ElementVisibilityUpdater.js",
+        "element-visibility/ElementVisibilityUpdater.js",
+        "element-visibility/PostElementsVisibilityUpdater.js",
+        "element-visibility/WelcomeNoticeVisibilityUpdater.js",
+        "ElementRemover.js",
         "finders/ElementFinder.js",
         "HeaderTransparencyToggler.js",
         "automatic-pageloading/AutomaticPageLoader.js",

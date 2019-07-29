@@ -1,17 +1,17 @@
 import { AvatarDetailsFinder } from "../../src/finders/AvatarDetailsFinder.js";
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
 import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
-import { ElementVisibilityUpdater } from "../../src/ElementVisibilityUpdater.js";
+import { PostElementsVisibilityUpdater } from "../../src/element-visibility/PostElementsVisibilityUpdater.js";
 
 let testThreadPageBuilder = null;
 let elementFinder = new ElementFinder();
 let avatarDetailsFinder = new AvatarDetailsFinder();
-let elementVisibilityUpdater = new ElementVisibilityUpdater();
+let postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
 
 beforeEach(() => {
     testThreadPageBuilder = new TestThreadPageBuilder();
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
 });
 
 it('test get links section elements', () => {
@@ -23,7 +23,7 @@ it('test get links section elements', () => {
 it('test get links section with no avatar', () => {
     document.body.innerHTML = testThreadPageBuilder.withNoUserAvatarPics().buildPage();
 
-    elementVisibilityUpdater.hideEachPostsElements();
+    postElementsVisibilityUpdater.hideEachPostsElements();
     let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
 
     expect(linksSectionElements[0].outerHTML.indexOf("Adverts")).not.toBe(-1);

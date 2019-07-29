@@ -1,5 +1,6 @@
 "use strict";
-import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
+import { PostElementsVisibilityUpdater } from "./element-visibility/PostElementsVisibilityUpdater.js";
+import { WelcomeNoticeVisibilityUpdater } from "./element-visibility/WelcomeNoticeVisibilityUpdater.js";
 import { HeaderTransparencyToggler } from "./HeaderTransparencyToggler.js";
 import { AutomaticPageLoader } from "./automatic-pageloading/AutomaticPageLoader.js";
 import { PostsCompressionToggler } from "./post-manipulation/PostsCompressionToggler.js";
@@ -8,7 +9,8 @@ import { StorageKeys } from "./storage/ApplicationStorageKeys.js";
 import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
 import { UserTagger } from "./user-tagging/UserTagger.js";
 
-let elementVisibilityUpdater = new ElementVisibilityUpdater();
+let welcomeNoticeVisibilityUpdater = new WelcomeNoticeVisibilityUpdater();
+let postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
 let headerTransparencyToggler = new HeaderTransparencyToggler();
 let automaticPageLoader = new AutomaticPageLoader();
 let postsCompressionToggler = new PostsCompressionToggler();
@@ -26,7 +28,7 @@ catch (error) {
 }
 
 try {
-    elementVisibilityUpdater.hideWelcomeNotice();
+    welcomeNoticeVisibilityUpdater.hideWelcomeNotice();
 }
 catch (error) {
     console.error("Unable to hide welcome notice: " + error);
@@ -34,7 +36,7 @@ catch (error) {
 
 try {
     hidePostElementsSetting.ConditionallyExecute(() => {
-        elementVisibilityUpdater.hideEachPostsElements();
+        postElementsVisibilityUpdater.hideEachPostsElements();
         postsCompressionToggler.applyCompressionToggling();
     });
 }

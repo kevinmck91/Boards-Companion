@@ -1,12 +1,12 @@
 export { PostsCompressionToggler };
 import { ElementFinder } from "../finders/ElementFinder.js";
-import { ElementVisibilityUpdater } from "../ElementVisibilityUpdater.js";
+import { PostElementsVisibilityUpdater } from "../element-visibility/PostElementsVisibilityUpdater.js";
 
 class PostsCompressionToggler {
 
     constructor() {
         this.elementFinder = new ElementFinder();
-        this.elementVisibilityUpdater = new ElementVisibilityUpdater();
+        this.postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
     }
 
     applyCompressionToggling() {
@@ -27,10 +27,10 @@ class PostsCompressionToggler {
 
     _togglePostCompression(post) {
         if (this._isPostCompressed(post)) {
-            this.elementVisibilityUpdater.showPostElements(post);
+            this.postElementsVisibilityUpdater.showPostElements(post);
         }
         else {
-            this.elementVisibilityUpdater.hidePostElements(post);
+            this.postElementsVisibilityUpdater.hidePostElements(post);
         }
     }
 

@@ -1,7 +1,7 @@
 "use strict";
 export { HeaderTransparencyToggler };
 import { ElementFinder } from "./finders/ElementFinder.js";
-import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
+import { ElementVisibilityUpdater } from "./element-visibility/ElementVisibilityUpdater.js";
 
 class HeaderTransparencyToggler {
 
