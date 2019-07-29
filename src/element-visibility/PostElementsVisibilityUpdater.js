@@ -36,9 +36,13 @@ class PostElementsVisibilityUpdater {
     }
 
     _hidePostAvatarInfo(post) {
-        let avatarInfoElement = this.avatarDetailsFinder.getAvatarInfoElement(post);
-        this.elementRemover.removeWhitespaceElements(avatarInfoElement);
+        this._removeAvatarInfoElements(post);
         this.elementVisibilityUpdater.hideElements(this.avatarDetailsFinder.getHideableElements(post));
+    }
+
+    _removeAvatarInfoElements(post) {
+        let elementsForRemoval = this.avatarDetailsFinder.getElementsForRemoval(post);
+        this.elementRemover.removeElements(elementsForRemoval);
     }
 
     _showPostAvatarInfo(post) {

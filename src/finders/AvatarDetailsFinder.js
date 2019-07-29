@@ -2,10 +2,6 @@ export { AvatarDetailsFinder }
 
 class AvatarDetailsFinder {
 
-    getAvatarInfoElement(post) {
-        return post.querySelector('[valign="top"] > .alt2');
-    }
-
     getHideableElements(post) {
         let hideableElements = [];
         hideableElements.push(this.getRegisteredUserElement(post));
@@ -16,6 +12,12 @@ class AvatarDetailsFinder {
         hideableElements.push(this.getStarsElement(post));
         hideableElements.push(...(this.getLineBreakElements(post)));
         return hideableElements;
+    }
+
+    getElementsForRemoval(post) {
+        let elementsForRemoval = [];
+        elementsForRemoval.push(this.getWhitespaceElement(post));
+        return elementsForRemoval;
     }
 
     getRegisteredUserElement(post) {
@@ -48,5 +50,9 @@ class AvatarDetailsFinder {
 
     getLineBreakElements(post) {
         return post.querySelectorAll(".alt2 .smallfont br");
+    }
+
+    getWhitespaceElement(post) {
+        return post.querySelector(".alt2 .smallfont:last-of-type").childNodes[0];
     }
 }

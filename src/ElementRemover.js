@@ -2,7 +2,9 @@ export { ElementRemover }
 
 class ElementRemover {
 
-    removeWhitespaceElements(element) {
-        element.innerHTML = element.innerHTML.replace(/\&nbsp;/g, '');
+    removeElements(elements) {
+        for (let element of elements) {
+            element.parentNode.removeChild(element);
+        }
     }
 }
