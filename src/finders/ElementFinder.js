@@ -126,7 +126,7 @@ class ElementFinder {
     }
 
     getUserDetailsElementFromTagElement(tagElement) {
-        return tagElement.parentElement;
+        return tagElement.parentElement.parentElement.parentElement;
     }
 
     getUsernameElementFromUserDetailsElement(userDetailsElement) {
