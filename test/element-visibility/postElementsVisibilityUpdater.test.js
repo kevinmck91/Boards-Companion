@@ -84,3 +84,12 @@ it('avatar hidden', () => {
     let avatarPictureElement = avatarDetailsFinder.getAvatarPictureElement(elementFinder.getAllPosts()[0]);
     expect(avatarPictureElement.style.display).toBe("none");
 })
+
+it('links element not visible when moderator post', () => {
+    document.body.innerHTML = testThreadPageBuilder.isModerator().buildPage();
+
+    postElementsVisibilityUpdater.hideEachPostsElements();
+
+    let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
+    expect(linksSectionElements[1].style.display).toBe("none");
+})

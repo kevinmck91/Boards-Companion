@@ -201,6 +201,59 @@ class TestHtmlGenerator {
         </div>`;
     }
 
+    getModeratorPostContent() {
+        return `
+        <div id="edit111">
+            <table id="post111">
+                <tr>
+                </tr>
+                <tr valign="top">
+                    <td class="alt2">
+                        <div id="postmenu_110237434">
+                            <a class="bigusername" href="member.php?u=1234">testusername</a>
+                            <script type="text/javascript"></script>
+                        </div>
+                        <div class="smallfont">
+                            Registered User
+                        </div>
+                        <div class="smallfont">
+                            <br>
+                            <img src="stars">
+                        </div>
+                        <div class="smallfont">
+                            <a href="member">
+                                <img src="avatarpic">
+                            </a>
+                        </div>
+                        <div class="smallfont">
+                        	&nbsp;
+                            <br>
+                            <div>Join Date: Mar 2019</div>
+                            <div>Posts:1,111</div>
+                            <div>
+                                <a href="test.com">Adverts</a>
+                                |
+                                <a href="test2.com">Friends</a>
+                            </div>
+                            <div>
+                            "Mod: "
+                                <a href="test.com">Forum1</a>
+                                ", "
+                                <a href="test2.com">Forum2</a>
+                            </div>
+                            <div></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="postbit_thanks"></a>
+                    </td>
+                </tr>
+            </table>
+        </div>`;
+    }
+
     getThreadPageNavigator(currentPageNo, totalPages) {
         return `<div class="pagenav">
                     <table>

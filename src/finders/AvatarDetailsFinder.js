@@ -37,7 +37,14 @@ class AvatarDetailsFinder {
     }
 
     getLinksSectionElements(post) {
-        return Array.from(post.querySelectorAll(".alt2 .smallfont:last-of-type div:nth-last-of-type(-n+2)"));
+        let firstChildLinks = Array.from(post.querySelectorAll(".alt2 .smallfont div a:nth-child(1)"));
+        let linkElements = [];
+        for (let firstChildLink of firstChildLinks) {
+            linkElements.push(firstChildLink.parentElement);
+        }
+        let finalLinkElement = post.querySelector(".alt2 .smallfont:last-of-type div:last-of-type")
+        linkElements.push(finalLinkElement);
+        return linkElements;
     }
 
     getJoinDateElement(post) {

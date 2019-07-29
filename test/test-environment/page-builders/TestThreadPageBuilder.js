@@ -14,6 +14,7 @@ class TestThreadPageBuilder {
         this.pageNo = 1;
         this.maxNoOfPages = 2;
         this._hasUserAvatarPics = true;
+        this._isModeratorPosts = false;
     }
 
     withMultiplePosts(noOfPosts) {
@@ -28,6 +29,11 @@ class TestThreadPageBuilder {
 
     isNewUser() {
         this._isNewuser = true;
+        return this;
+    }
+
+    isModerator() {
+        this._isModeratorPosts = true;
         return this;
     }
 
@@ -94,6 +100,8 @@ class TestThreadPageBuilder {
         if (this.IsSignedIn) {
             if (!this._hasUserAvatarPics) {
                 return this.testHtmlGenerator.getPostContentWithoutAvatarPicture();
+            } else if (this._isModeratorPosts) {
+                return this.testHtmlGenerator.getModeratorPostContent();
             } else {
                 return this.testHtmlGenerator.getSignedInUserPost();
             }
