@@ -1,6 +1,6 @@
 import { PageInformationCollector } from "../../src/page/PageInformationCollector.js";
 import { TestPageManipulator } from "../test-environment/TestPageManipulator.js";
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 
 let pageInformationCollector = new PageInformationCollector();
 let testPageManipulator = new TestPageManipulator();

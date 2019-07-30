@@ -1,5 +1,5 @@
 import { PostsFormatter } from "../../src/post-manipulation/PostsFormatter.js";
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { ElementFinder } from "../../src/finders/ElementFinder.js"
 
 let postsFormatter = new PostsFormatter();

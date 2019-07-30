@@ -1,6 +1,6 @@
 
 import { ForumHomepageAppender } from "../../src/automatic-pageloading/ForumHomepageAppender.js";
-import { TestForumPageBuilder } from "../test-environment/page-builders/TestForumPageBuilder.js";
+import { TestForumPageBuilder } from "../test-environment/html-builders/TestForumPageBuilder.js";
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
 import { ElementGenerator } from "../../src/ElementGenerator.js";
 

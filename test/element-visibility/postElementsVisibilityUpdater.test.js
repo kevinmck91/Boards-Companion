@@ -1,8 +1,8 @@
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
 import { AvatarDetailsFinder } from "../../src/finders/AvatarDetailsFinder.js";
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { PostElementsVisibilityUpdater } from "../../src/element-visibility/PostElementsVisibilityUpdater.js";
-import { TestPostBuilder } from "../test-environment/TestPostBuilder.js";
+import { TestPostBuilder } from "../test-environment/html-builders/TestPostBuilder.js";
 
 let elementFinder = new ElementFinder();
 let testThreadPageBuilder = null;

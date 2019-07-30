@@ -1,4 +1,4 @@
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { ElementFinder } from "../../src/finders/ElementFinder.js";

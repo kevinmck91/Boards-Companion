@@ -1,7 +1,7 @@
 export { TestForumPageBuilder }
 
-import { TestCommonHtmlGenerator } from "../TestCommonHtmlGenerator.js";
-import { TestForumHtmlGenerator } from "../TestForumHtmlGenerator.js";
+import { TestCommonHtmlGenerator } from "../html-generators/TestCommonHtmlGenerator.js";
+import { TestForumHtmlGenerator } from "../html-generators/TestForumHtmlGenerator.js";
 
 class TestForumPageBuilder {
 

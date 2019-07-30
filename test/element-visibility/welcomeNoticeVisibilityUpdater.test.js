@@ -1,7 +1,7 @@
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { WelcomeNoticeVisibilityUpdater } from "../../src/element-visibility/WelcomeNoticeVisibilityUpdater.js";
-import { TestPostBuilder } from "../test-environment/TestPostBuilder.js";
+import { TestPostBuilder } from "../test-environment/html-builders/TestPostBuilder.js";
 
 let elementFinder = new ElementFinder();
 let testThreadPageBuilder = null;

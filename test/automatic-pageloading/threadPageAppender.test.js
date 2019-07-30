@@ -3,7 +3,7 @@ import { ElementFinder } from "../../src/finders/ElementFinder.js";
 import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { ElementGenerator } from "../../src/ElementGenerator.js";
 
 let threadPageAppender = new ThreadPageAppender();

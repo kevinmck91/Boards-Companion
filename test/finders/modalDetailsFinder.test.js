@@ -1,5 +1,5 @@
 import { ModalDetailsFinder } from "../../src/finders/ModalDetailsFinder.js";
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { ElementGenerator } from "../../src/ElementGenerator.js";
 import { TaggerModalUpdater } from "../../src/user-tagging/TaggerModalUpdater.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";

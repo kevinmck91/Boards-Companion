@@ -1,9 +1,9 @@
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
-import { TestForumPageBuilder } from "../test-environment/page-builders/TestForumPageBuilder.js";
-import { TestPostBuilder } from "../test-environment/TestPostBuilder.js";
+import { TestForumPageBuilder } from "../test-environment/html-builders/TestForumPageBuilder.js";
+import { TestPostBuilder } from "../test-environment/html-builders/TestPostBuilder.js";
 import { ElementGenerator } from "../../src/ElementGenerator.js";
 
 let elementFinder = new ElementFinder();

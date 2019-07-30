@@ -1,7 +1,7 @@
 import { AutomaticPageLoader } from "../../src/automatic-pageloading/AutomaticPageLoader.js";
 import { TestPageManipulator } from "../test-environment/TestPageManipulator.js";
-import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
-import { TestForumPageBuilder } from "../test-environment/page-builders/TestForumPageBuilder.js";
+import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
+import { TestForumPageBuilder } from "../test-environment/html-builders/TestForumPageBuilder.js";
 
 let automaticPageLoader;
 let testPageManipulator = new TestPageManipulator();

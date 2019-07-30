@@ -1,7 +1,7 @@
 export { TestThreadPageBuilder }
-import { TestCommonHtmlGenerator } from "../TestCommonHtmlGenerator.js";
-import { TestPostBuilder } from "../TestPostBuilder.js";
-import { TestThreadHtmlGenerator } from "../TestThreadHtmlGenerator.js";
+import { TestCommonHtmlGenerator } from "../html-generators/TestCommonHtmlGenerator.js";
+import { TestPostBuilder } from "./TestPostBuilder.js";
+import { TestThreadHtmlGenerator } from "../html-generators/TestThreadHtmlGenerator.js";
 
 class TestThreadPageBuilder {
 

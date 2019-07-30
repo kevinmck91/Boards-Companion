@@ -1,6 +1,6 @@
 export { TestEnvironmentArranger }
 import { BoardsScriptInserter } from "../../src/inserted-scripts/BoardsScriptInserter.js";
-import { TestCommonHtmlGenerator } from "./TestCommonHtmlGenerator.js";
+import { TestCommonHtmlGenerator } from "./html-generators/TestCommonHtmlGenerator.js";
 import { ChromeStorageMocker } from "./ChromeStorageMocker.js";
 
 let boardsScriptInserter = new BoardsScriptInserter();

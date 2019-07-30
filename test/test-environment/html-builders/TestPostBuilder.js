@@ -1,6 +1,6 @@
 export { TestPostBuilder }
-import { TestCommonHtmlGenerator } from "./TestCommonHtmlGenerator.js";
-import { TestPostHtmlGenerator } from "./TestPostHtmlGenerator.js";
+import { TestCommonHtmlGenerator } from "../html-generators/TestCommonHtmlGenerator.js";
+import { TestPostHtmlGenerator } from "../html-generators/TestPostHtmlGenerator.js";
 
 class TestPostBuilder {
 
