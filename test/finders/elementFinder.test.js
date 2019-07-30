@@ -3,6 +3,7 @@ import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThr
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { TestForumPageBuilder } from "../test-environment/page-builders/TestForumPageBuilder.js";
+import { TestPostBuilder } from "../test-environment/TestPostBuilder.js";
 import { ElementGenerator } from "../../src/ElementGenerator.js";
 
 let elementFinder = new ElementFinder();
@@ -11,11 +12,13 @@ let testEnvironmentArranger = new TestEnvironmentArranger();
 let testThreadPageBuilder = null;
 let testForumPageBuilder = new TestForumPageBuilder();
 let elementGenerator = new ElementGenerator();
+let testPostBuilder = new TestPostBuilder();
 
 beforeEach(() => {
     testEnvironmentArranger.InitializeEnvironment();
     testThreadPageBuilder = new TestThreadPageBuilder();
     testForumPageBuilder = new TestForumPageBuilder();
+    testPostBuilder = new TestPostBuilder();
 });
 
 it('test get posts from document', () => {
@@ -27,7 +30,8 @@ it('test get posts from document', () => {
 })
 
 it('test get posts from unsigned in user page', () => {
-    document.body.innerHTML = testThreadPageBuilder.isSignedOut().buildPage();
+    let post = testPostBuilder.isSignedOut().build();
+    document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
 
     let posts = elementFinder.getPostsFromDocument(document);
 

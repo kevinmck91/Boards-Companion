@@ -1,14 +1,14 @@
-import { TestHtmlGenerator } from "../test-environment/TestHtmlGenerator.js";
 import { ForumHomepagePrepender } from "../../src/automatic-pageloading/ForumHomepagePrepender.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { TestForumPageBuilder } from "../test-environment/page-builders/TestForumPageBuilder.js";
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
+import { ElementGenerator } from "../../src/ElementGenerator.js";
 
-let testHtmlGenerator = new TestHtmlGenerator();
 let forumHomepagePrepender = new ForumHomepagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let testForumPageBuilder = null;
 let elementFinder = new ElementFinder();
+let elementGenerator = new ElementGenerator();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -36,6 +36,6 @@ it('ensure forum homepage elements are prepended correctly', () => {
 })
 
 function prependForumHomepage(pageHtml) {
-    let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
+    let htmlDocument = elementGenerator.convertToDocument(pageHtml);
     forumHomepagePrepender.prependPage(htmlDocument);
 }

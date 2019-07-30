@@ -1,13 +1,15 @@
 export { TestForumPageBuilder }
 
-import { TestHtmlGenerator } from "../TestHtmlGenerator.js";
+import { TestCommonHtmlGenerator } from "../TestCommonHtmlGenerator.js";
+import { TestForumHtmlGenerator } from "../TestForumHtmlGenerator.js";
 
 class TestForumPageBuilder {
 
     constructor() {
         this.pageNo = 1;
         this.maxNoOfPages = 2;
-        this.testHtmlGenerator = new TestHtmlGenerator();
+        this.testCommonHtmlGenerator = new TestCommonHtmlGenerator();
+        this.testForumHtmlGenerator = new TestForumHtmlGenerator();
     }
 
     specificPage(pageNo, maxNoOfPages) {
@@ -17,10 +19,10 @@ class TestForumPageBuilder {
     }
 
     buildPage() {
-        let pageContent = this.testHtmlGenerator.getForumPageNavigator(this.pageNo, this.maxNoOfPages);
-        pageContent += this.testHtmlGenerator.getHeader();
-        pageContent += this.testHtmlGenerator.wrapThreadEntries(this.testHtmlGenerator.getThreadEntry());
-        pageContent += this.testHtmlGenerator.wrapForumFooterNavigator(this.testHtmlGenerator.getForumPageNavigator(this.pageNo, this.maxNoOfPages));
-        return this.testHtmlGenerator.wrapPageElements(pageContent);
+        let pageContent = this.testForumHtmlGenerator.getForumPageNavigator(this.pageNo, this.maxNoOfPages);
+        pageContent += this.testCommonHtmlGenerator.getHeader();
+        pageContent += this.testForumHtmlGenerator.wrapThreadEntries(this.testForumHtmlGenerator.getThreadEntry());
+        pageContent += this.testForumHtmlGenerator.wrapForumFooterNavigator(this.testForumHtmlGenerator.getForumPageNavigator(this.pageNo, this.maxNoOfPages));
+        return this.testCommonHtmlGenerator.wrapPageElements(pageContent);
     }
 }

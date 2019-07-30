@@ -2,14 +2,17 @@ import { ElementFinder } from "../../src/finders/ElementFinder.js";
 import { AvatarDetailsFinder } from "../../src/finders/AvatarDetailsFinder.js";
 import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
 import { PostElementsVisibilityUpdater } from "../../src/element-visibility/PostElementsVisibilityUpdater.js";
+import { TestPostBuilder } from "../test-environment/TestPostBuilder.js";
 
 let elementFinder = new ElementFinder();
 let testThreadPageBuilder = null;
 let avatarDetailsFinder = new AvatarDetailsFinder();
 let postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
+let testPostBuilder = new TestPostBuilder();
 
 beforeEach(() => {
     testThreadPageBuilder = new TestThreadPageBuilder();
+    testPostBuilder = new TestPostBuilder();
 });
 
 it('Registered user element hidden', () => {
@@ -57,7 +60,8 @@ it('&nbsp; removed from avatar info', () => {
 })
 
 it('links element not visible when no avatar', () => {
-    document.body.innerHTML = testThreadPageBuilder.withNoUserAvatarPics().buildPage();
+    let post = testPostBuilder.withoutAvatarPicture().build();
+    document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
@@ -66,7 +70,8 @@ it('links element not visible when no avatar', () => {
 })
 
 it('post count visible when no avatar', () => {
-    document.body.innerHTML = testThreadPageBuilder.withNoUserAvatarPics().buildPage();
+    let post = testPostBuilder.withoutAvatarPicture().build();
+    document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
@@ -86,7 +91,8 @@ it('avatar hidden', () => {
 })
 
 it('links element not visible when moderator post', () => {
-    document.body.innerHTML = testThreadPageBuilder.isModerator().buildPage();
+    let post = testPostBuilder.isModerator().build();
+    document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 

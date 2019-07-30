@@ -1,19 +1,19 @@
 import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
-import { TestHtmlGenerator } from "../test-environment/TestHtmlGenerator.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
 import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js";
 import { StorageKeys } from "../../src/storage/ApplicationStorageKeys.js";
 import { ModalDetailsFinder } from "../../src/finders/ModalDetailsFinder.js";
+import { ElementGenerator } from "../../src/ElementGenerator.js";
 
 let userTagger = new UserTagger();
 let testThreadPageBuilder = null;
-let testHtmlGenerator = new TestHtmlGenerator();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let elementFinder = new ElementFinder();
 let modalDetailsFinder = new ModalDetailsFinder();
 let chromeStorageMocker = null;
+let elementGenerator = new ElementGenerator();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -28,7 +28,7 @@ it('only apply tagging to candidate posts', () => {
     document.body.innerHTML = testThreadPageBuilder.specificPage(2, 2).buildPage();
     chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'green', text: 'testtext', userId: '123456' } });
 
-    let candidateDocument = testHtmlGenerator.convertToDocument(testThreadPageBuilder.specificPage(1, 2).buildPage());
+    let candidateDocument = elementGenerator.convertToDocument(testThreadPageBuilder.specificPage(1, 2).buildPage());
     let candidatePosts = elementFinder.getPostsFromDocument(candidateDocument);
     userTagger.applyTaggingToPosts(candidatePosts);
 

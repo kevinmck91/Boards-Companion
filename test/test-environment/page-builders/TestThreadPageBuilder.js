@@ -1,10 +1,14 @@
 export { TestThreadPageBuilder }
-import { TestHtmlGenerator } from "../TestHtmlGenerator.js";
+import { TestCommonHtmlGenerator } from "../TestCommonHtmlGenerator.js";
+import { TestPostBuilder } from "../TestPostBuilder.js";
+import { TestThreadHtmlGenerator } from "../TestThreadHtmlGenerator.js";
 
 class TestThreadPageBuilder {
 
     constructor() {
-        this.testHtmlGenerator = new TestHtmlGenerator();
+        this.testCommonHtmlGenerator = new TestCommonHtmlGenerator();
+        this.testPostBuilder = new TestPostBuilder();
+        this.testThreadHtmlGenerator = new TestThreadHtmlGenerator();
         this.noOfPosts = 1;
         this.IsSignedIn = true;
         this._hasNormalNotice = false;
@@ -15,15 +19,12 @@ class TestThreadPageBuilder {
         this.maxNoOfPages = 2;
         this._hasUserAvatarPics = true;
         this._isModeratorPosts = false;
+        this._isPostContentSpecified = false;
+        this._specifiedPostContent = "";
     }
 
     withMultiplePosts(noOfPosts) {
         this.noOfPosts = noOfPosts;
-        return this;
-    }
-
-    isSignedOut() {
-        this.isSignedIn = false;
         return this;
     }
 
@@ -32,13 +33,9 @@ class TestThreadPageBuilder {
         return this;
     }
 
-    isModerator() {
-        this._isModeratorPosts = true;
-        return this;
-    }
-
-    withNoUserAvatarPics() {
-        this._hasUserAvatarPics = false;
+    specifyPostContent(post) {
+        this._isPostContentSpecified = true;
+        this._specifiedPostContent = post;
         return this;
     }
 
@@ -62,26 +59,26 @@ class TestThreadPageBuilder {
 
     buildPage() {
         let pageContent = this._getPageNavigator();
-        pageContent += this.testHtmlGenerator.getHeader();
+        pageContent += this.testCommonHtmlGenerator.getHeader();
         pageContent += this._getNotices();
         pageContent += this._getPosts();
-        pageContent += this.testHtmlGenerator.wrapThreadFooterElements(this._getPageNavigator());
-        let pageHtml = this.testHtmlGenerator.wrapPageElements(pageContent);
+        pageContent += this.testThreadHtmlGenerator.wrapThreadFooterElements(this._getPageNavigator());
+        let pageHtml = this.testCommonHtmlGenerator.wrapPageElements(pageContent);
         return pageHtml;
     }
 
     _getPageNavigator() {
-        return this.testHtmlGenerator.getThreadPageNavigator(this.pageNo, this.maxNoOfPages);
+        return this.testThreadHtmlGenerator.getThreadPageNavigator(this.pageNo, this.maxNoOfPages);
     }
 
     _getNotices() {
         if (this.hasNotices) {
             let noticeElements = "";
             if (this._hasWelcomeNotice)
-                noticeElements += this.testHtmlGenerator.getWelcomeNotice();
+                noticeElements += this.testThreadHtmlGenerator.getWelcomeNotice();
             else
-                noticeElements += this.testHtmlGenerator.getNormalNotice();
-            return this.testHtmlGenerator.wrapNotices(noticeElements);
+                noticeElements += this.testThreadHtmlGenerator.getNormalNotice();
+            return this.testThreadHtmlGenerator.wrapNotices(noticeElements);
         } else
             return "";
     }
@@ -91,23 +88,16 @@ class TestThreadPageBuilder {
         for (let i = 0; i < this.noOfPosts; i++)
             postsHtml += this._getPost();
         if (this._isNewuser)
-            return this.testHtmlGenerator.wrapNewSignedInUserPosts(postsHtml)
+            return this.testThreadHtmlGenerator.wrapNewSignedInUserPosts(postsHtml)
         else
-            return this.testHtmlGenerator.wrapPosts(postsHtml);
+            return this.testThreadHtmlGenerator.wrapPosts(postsHtml);
     }
 
     _getPost() {
-        if (this.IsSignedIn) {
-            if (!this._hasUserAvatarPics) {
-                return this.testHtmlGenerator.getPostContentWithoutAvatarPicture();
-            } else if (this._isModeratorPosts) {
-                return this.testHtmlGenerator.getModeratorPostContent();
-            } else {
-                return this.testHtmlGenerator.getSignedInUserPost();
-            }
-        }
-        else {
-            return this.testHtmlGenerator.getUnsignedInUserPost();
+        if (this._isPostContentSpecified) {
+            return this._specifiedPostContent;
+        } else {
+            return this.testPostBuilder.build();
         }
     }
 }

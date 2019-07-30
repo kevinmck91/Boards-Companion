@@ -103,6 +103,11 @@ class ElementGenerator {
         return userlistEntry;
     }
 
+    convertToDocument(html) {
+        let parser = new DOMParser();
+        return parser.parseFromString(html, "text/html");
+    }
+
     _generateTaggedUsernameElement(username, userId) {
         let element = document.createElement('div');
         element.innerHTML = username;

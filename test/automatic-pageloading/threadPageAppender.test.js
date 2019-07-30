@@ -1,18 +1,18 @@
-import { TestHtmlGenerator } from "../test-environment/TestHtmlGenerator.js";
 import { ThreadPageAppender } from "../../src/automatic-pageloading/ThreadPageAppender.js";
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
 import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
 import { TestThreadPageBuilder } from "../test-environment/page-builders/TestThreadPageBuilder.js";
+import { ElementGenerator } from "../../src/ElementGenerator.js";
 
-let testHtmlGenerator = new TestHtmlGenerator();
 let threadPageAppender = new ThreadPageAppender();
 let elementFinder = new ElementFinder();
 let chromeStorageMocker = new ChromeStorageMocker();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
 let testThreadPageBuilder = null;
+let elementGenerator = new ElementGenerator();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -76,7 +76,7 @@ it('test tagging applied to next page posts', () => {
 })
 
 function appendNextPage(pageHtml) {
-    let htmlDocument = testHtmlGenerator.convertToDocument(pageHtml);
+    let htmlDocument = elementGenerator.convertToDocument(pageHtml);
     threadPageAppender.appendNextPage(htmlDocument, true);
 }
 
