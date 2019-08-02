@@ -16,7 +16,9 @@ class AvatarDetailsFinder {
 
     getElementsForRemoval(post) {
         let elementsForRemoval = [];
-        elementsForRemoval.push(this.getWhitespaceElement(post));
+        let whiteSpaceElement = this.getWhitespaceElement(post);
+        if (whiteSpaceElement != null)
+            elementsForRemoval.push(whiteSpaceElement);
         return elementsForRemoval;
     }
 
@@ -60,6 +62,10 @@ class AvatarDetailsFinder {
     }
 
     getWhitespaceElement(post) {
-        return post.querySelector(".alt2 .smallfont:last-of-type").childNodes[0];
+        let result = post.querySelector(".alt2 .smallfont:last-of-type").childNodes[0];
+        if (result.nodeType == Node.TEXT_NODE || result.tagName == 'br')
+            return result;
+        else
+            return null;
     }
 }

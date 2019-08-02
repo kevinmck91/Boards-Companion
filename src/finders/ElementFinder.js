@@ -19,6 +19,10 @@ class ElementFinder {
         return Array.from(document.querySelectorAll("[id^='edit']"));
     }
 
+    getFirstPost() {
+        return this.getAllPosts()[0];
+    }
+
     getPostsContainerFromDocument(htmlDocument) {
         let regularUserPosts = htmlDocument.querySelector('.left-col');
         let newSignedInUserPosts = htmlDocument.querySelector('#posts');

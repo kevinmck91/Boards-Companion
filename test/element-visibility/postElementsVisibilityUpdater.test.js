@@ -99,3 +99,15 @@ it('links element not visible when moderator post', () => {
     let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
     expect(linksSectionElements[1].style.display).toBe("none");
 })
+
+it('hiding posts multiple times removes join date element', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+
+    let post = elementFinder.getFirstPost();
+    postElementsVisibilityUpdater.hidePostElements(post);
+    postElementsVisibilityUpdater.hidePostElements(post);
+    postElementsVisibilityUpdater.hidePostElements(post);
+
+    let joinDate = avatarDetailsFinder.getJoinDateElement(post);
+    expect(joinDate.outerHTML).toBe("<div>Join Date: Mar 2019</div>");
+})
