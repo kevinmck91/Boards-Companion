@@ -1,6 +1,6 @@
 export { TaggerModalUpdater }
 import { ElementFinder } from "../finders/ElementFinder.js";
-import { ElementGenerator } from "../ElementGenerator.js"
+import { ModalElementGenerator } from "../element-generators/ModalElementGenerator.js"
 import { ModalDetailsFinder } from "../finders/ModalDetailsFinder.js";
 import { TaggedUsersUpdater } from "./TaggedUsersUpdater.js";
 import { PostsFormatter } from "../post-manipulation/PostsFormatter.js";
@@ -10,11 +10,11 @@ class TaggerModalUpdater {
 
     constructor() {
         this.elementFinder = new ElementFinder();
-        this.elementGenerator = new ElementGenerator();
         this.modalDetailsFinder = new ModalDetailsFinder();
         this.taggedUsersUpdater = new TaggedUsersUpdater();
         this.postsFormatter = new PostsFormatter();
         this.taggedUsersRetriever = new TaggedUsersRetriever();
+        this.modalElementGenerator = new ModalElementGenerator();
     }
 
     ensureModalInitialized() {
@@ -59,7 +59,7 @@ class TaggerModalUpdater {
     }
 
     _addModalElement() {
-        let modalElement = this.elementGenerator.generateModalElement();
+        let modalElement = this.modalElementGenerator.generateModalElement();
         document.body.appendChild(modalElement);
         this._hideModal();
     }
@@ -115,7 +115,7 @@ class TaggerModalUpdater {
     _displayTaggedUsers(userDetailsList) {
         let userListElement = this.elementFinder.getTaggerModalUserListElement();
         for (let userDetails of userDetailsList) {
-            let userListEntry = this.elementGenerator.generateUserListEntry(userDetails);
+            let userListEntry = this.modalElementGenerator.generateUserListEntry(userDetails);
             userListElement.appendChild(userListEntry);
         }
         this._activateDeleteUserElements();

@@ -2,12 +2,13 @@
 import { ForumHomepageAppender } from "../../src/automatic-pageloading/ForumHomepageAppender.js";
 import { TestForumPageBuilder } from "../test-environment/html-builders/TestForumPageBuilder.js";
 import { ElementFinder } from "../../src/finders/ElementFinder.js";
-import { ElementGenerator } from "../../src/ElementGenerator.js";
+import { GenericElementGenerator } from "../../src/element-generators/GenericElementGenerator.js";
+
 
 let forumHomepageAppender = new ForumHomepageAppender();
 let testForumPageBuilder = null;
 let elementFinder = new ElementFinder();
-let elementGenerator = new ElementGenerator();
+let genericElementGenerator = new GenericElementGenerator();
 
 beforeEach(() => {
     testForumPageBuilder = new TestForumPageBuilder();
@@ -30,6 +31,6 @@ it('forum page - ensure next page navigator updated', () => {
 })
 
 function appendForumHomepage(pageHtml) {
-    let htmlDocument = elementGenerator.convertToDocument(pageHtml);
+    let htmlDocument = genericElementGenerator.generateDocument(pageHtml);
     forumHomepageAppender.appendNextPage(htmlDocument);
 }

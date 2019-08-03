@@ -38,7 +38,6 @@
         "finders/ElementFinder.js",
         "HeaderTransparencyToggler.js",
         "automatic-pageloading/AutomaticPageLoader.js",
-        "ElementGenerator.js",
         "page/PageInformationCollector.js",
         "page/PageInternalsUpdater.js",
         "post-manipulation/PostsCompressionToggler.js",
@@ -65,6 +64,11 @@
         "user-tagging/TaggerModalUpdater.js",
         "user-tagging/UserTagApplier.js",
         "finders/AvatarDetailsFinder.js",
-        "helpers/ArrayHelper.js"
+        "helpers/ArrayHelper.js",
+        "element-generators/AutomaticPageLoadingElementGenerator.js",
+        "element-generators/FontAwesomeElementGenerator.js",
+        "element-generators/GenericElementGenerator.js",
+        "element-generators/ModalElementGenerator.js",
+        "element-generators/UserTaggingElementGenerator.js"
     ]
 }

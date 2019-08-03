@@ -2,9 +2,9 @@ export { ForumHomepagePrepender }
 import { PageInformationCollector } from "../page/PageInformationCollector.js";
 import { ElementFinder } from "../finders/ElementFinder.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
-import { ElementGenerator } from "../ElementGenerator.js";
 import { ForumHomepageUpdater } from "../page-updater/ForumHomepageUpdater.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
+import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
 
 class ForumHomepagePrepender {
 
@@ -12,12 +12,12 @@ class ForumHomepagePrepender {
         this.pageInformationCollector = new PageInformationCollector();
         this.elementFinder = new ElementFinder();
         this.loadingElementUpdater = new LoadingElementUpdater();
-        this.elementGenerator = new ElementGenerator();
         this.originalDocumentHeight = 0;
         this.originalYCoordinate = 0;
         this.previousPageDocument = "";
         this.forumHomepageUpdater = new ForumHomepageUpdater();
         this.navigatorUpdater = new NavigatorUpdater();
+        this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
     }
 
     prependPage(previousPageDocument) {
@@ -42,7 +42,7 @@ class ForumHomepagePrepender {
 
     _insertPreviousPageNumber() {
         let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
-        let pageNoElement = this.elementGenerator.generateForumTopPageNoElement(previousPageNo);
+        let pageNoElement = this.automaticPageLoadingElementGenerator.generateForumTopPageNoElement(previousPageNo);
         this.forumHomepageUpdater.prependElement(pageNoElement)
     }
 }

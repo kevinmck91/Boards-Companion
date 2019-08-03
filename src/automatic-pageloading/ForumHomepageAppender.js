@@ -4,8 +4,8 @@ import { ForumHomepageUpdater } from "../page-updater/ForumHomepageUpdater.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { PageInformationCollector } from "../page/PageInformationCollector.js";
-import { ElementGenerator } from "../ElementGenerator.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
+import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
 
 class ForumHomepageAppender {
 
@@ -15,8 +15,8 @@ class ForumHomepageAppender {
         this.loadingElementUpdater = new LoadingElementUpdater();
         this.threadPageUpdater = new ThreadPageUpdater();
         this.pageInformationCollector = new PageInformationCollector();
-        this.elementGenerator = new ElementGenerator();
         this.navigatorUpdater = new NavigatorUpdater();
+        this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
     }
 
     appendNextPage(nextPageDocument) {
@@ -34,6 +34,6 @@ class ForumHomepageAppender {
 
     _getPageNoElement(nextPageDocument) {
         let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
-        return this.elementGenerator.generateBottomPageNoElement(nextPageNo);
+        return this.automaticPageLoadingElementGenerator.generateBottomPageNoElement(nextPageNo);
     }
 }

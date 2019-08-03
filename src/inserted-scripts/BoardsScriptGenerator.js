@@ -1,14 +1,14 @@
 export { BoardsScriptGenerator }
-import { ElementGenerator } from "../ElementGenerator.js";
+import { GenericElementGenerator } from "../element-generators/GenericElementGenerator.js"
 
 class BoardsScriptGenerator {
 
     constructor() {
-        this.elementGenerator = new ElementGenerator();
+        this.genericElementGenerator = new GenericElementGenerator();
     }
 
     GeneratePostPostsInsertScript() {
-        return this.elementGenerator.generateScriptElement(this._enableMultiQuotes() + this._enableQuickReply());
+        return this.genericElementGenerator.generateScriptElement(this._enableMultiQuotes() + this._enableQuickReply());
     }
 
     _enableMultiQuotes() {

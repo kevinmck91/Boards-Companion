@@ -1,14 +1,14 @@
 export { PostHtmlUpdater }
 import { ElementFinder } from "../finders/ElementFinder.js";
 import { AvatarDetailsFinder } from "../finders/AvatarDetailsFinder.js";
-import { ElementGenerator } from "../ElementGenerator.js";
+import { UserTaggingElementGenerator } from "../element-generators/UserTaggingElementGenerator.js";
 
 class PostHtmlUpdater {
 
     constructor() {
         this.elementFinder = new ElementFinder();
-        this.elementGenerator = new ElementGenerator();
         this.avatarDetailsFinder = new AvatarDetailsFinder();
+        this.userTaggingElementGenerator = new UserTaggingElementGenerator();
     }
 
     addTagIconElementToPosts(posts) {
@@ -18,7 +18,7 @@ class PostHtmlUpdater {
     }
 
     _addTagIconElementToPost(post) {
-        let tagElement = this.elementGenerator.generateTagIconElement();
+        let tagElement = this.userTaggingElementGenerator.generateTagIconElement();
         let postCountElement = this.avatarDetailsFinder.getPostCountElement(post);
         postCountElement.innerHTML = postCountElement.innerHTML + tagElement.outerHTML;
     }

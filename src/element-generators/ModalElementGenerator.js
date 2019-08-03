@@ -1,64 +1,10 @@
-"use strict";
-export { ElementGenerator };
+export { ModalElementGenerator }
+import { FontAwesomeElementGenerator } from "./FontAwesomeElementGenerator.js";
 
-class ElementGenerator {
+class ModalElementGenerator {
 
-    generateLoadingElement() {
-        let loadingElement = document.createElement('div');
-        loadingElement.className = "loading";
-        loadingElement.innerText = "loading...";
-        loadingElement.style.textAlign = "center";
-        loadingElement.style.paddingBottom = "4px";
-        return loadingElement;
-    }
-
-    generateBottomPageNoElement(pageNo) {
-        let pageNoElement = document.createElement('div');
-        pageNoElement.innerHTML = "page " + pageNo;
-        pageNoElement.style.textAlign = "center";
-        pageNoElement.style.paddingBottom = "5px";
-        pageNoElement.style.paddingTop = "12px";
-        pageNoElement.className = 'page-number';
-        return pageNoElement;
-    }
-
-    generateForumTopPageNoElement(pageNo) {
-        let pageNoElement = this.generateThreadTopPageNoElement(pageNo);
-        pageNoElement.style.paddingTop = "4px";
-        pageNoElement.className = 'page-number';
-        return pageNoElement;
-    }
-
-    generateThreadTopPageNoElement(pageNo) {
-        let pageNoElement = document.createElement('div');
-        pageNoElement.innerHTML = "page " + pageNo;
-        pageNoElement.style.textAlign = "center";
-        pageNoElement.style.paddingBottom = "20px";
-        pageNoElement.className = 'page-number';
-        return pageNoElement;
-    }
-
-    generateScriptElement(contents) {
-        let script = document.createElement("script");
-        script.type = "text/javascript";
-        script.innerHTML = contents;
-        return script;
-    }
-
-    generateTagIconElement() {
-        let tagIconElement = document.createElement('span');
-        tagIconElement.className = "tag-icon clickable";
-        let tagIconElementContent = this._generateFontAwesomeIcon("fas fa-tag");
-        tagIconElement.appendChild(tagIconElementContent);
-        return tagIconElement;
-    }
-
-    generateUserTagElement(taggedUserDetails) {
-        let userTag = document.createElement('div');
-        userTag.innerHTML = taggedUserDetails.text;
-        userTag.style.backgroundColor = taggedUserDetails.colour;
-        userTag.className = 'user-tag';
-        return userTag;
+    constructor() {
+        this.fontAwesomeElementGenerator = new FontAwesomeElementGenerator();
     }
 
     generateModalElement() {
@@ -103,22 +49,18 @@ class ElementGenerator {
         return userlistEntry;
     }
 
-    convertToDocument(html) {
-        let parser = new DOMParser();
-        return parser.parseFromString(html, "text/html");
-    }
-
     _generateTaggedUsernameElement(username, userId) {
         let element = document.createElement('div');
         element.innerHTML = username;
         element.setAttribute('data-userid', userId);
+        element.className = 'username-entry';
         return element;
     }
 
     _generateDeleteUserElement() {
         let deleteUserElement = document.createElement('div');
         deleteUserElement.className = 'delete-user clickable';
-        let fontAwesomeIcon = this._generateFontAwesomeIcon("fas fa-trash-alt");
+        let fontAwesomeIcon = this.fontAwesomeElementGenerator.generateFontAwesomeIcon("fas fa-trash-alt");
         deleteUserElement.appendChild(fontAwesomeIcon);
         return deleteUserElement;
     }
@@ -135,15 +77,15 @@ class ElementGenerator {
         let closeElement = document.createElement('span');
         closeElement.className = 'clickable';
         closeElement.id = 'close-modal';
-        let elementIcon = this._generateFontAwesomeIcon("fas fa-times fa-lg");
+        let elementIcon = this.fontAwesomeElementGenerator.generateFontAwesomeIcon("fas fa-times fa-lg");
         closeElement.appendChild(elementIcon);
         return closeElement;
     }
 
-    _generateFontAwesomeIcon(iconClass) {
-        let tagIconElement = document.createElement('i');
-        tagIconElement.className = iconClass;
-        return tagIconElement;
+    _generateModalColourElement(colour) {
+        let colourElement = document.createElement('div');
+        colourElement.className = 'tag-colour-entry';
+        colourElement.style.backgroundColor = colour;
+        return colourElement;
     }
-
 }

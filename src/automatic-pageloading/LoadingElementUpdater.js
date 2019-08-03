@@ -1,35 +1,35 @@
 export { LoadingElementUpdater }
 import { ElementFinder } from "../finders/ElementFinder.js";
-import { ElementGenerator } from "../ElementGenerator.js"
 import { ForumHomepageUpdater } from "../page-updater/ForumHomepageUpdater.js";
 import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
+import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
 
 class LoadingElementUpdater {
 
     constructor() {
         this.elementFinder = new ElementFinder();
-        this.elementGenerator = new ElementGenerator();
         this.forumHomepageUpdater = new ForumHomepageUpdater();
         this.threadPageUpdater = new ThreadPageUpdater();
+        this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
     }
 
     insertThreadPageLoadingElement() {
-        let loadingElement = this.elementGenerator.generateLoadingElement();
+        let loadingElement = this.automaticPageLoadingElementGenerator.generateLoadingElement();
         this.threadPageUpdater.appendElement(loadingElement);
     }
 
     insertForumPageLoadingElement() {
-        let loadingElement = this.elementGenerator.generateLoadingElement();
+        let loadingElement = this.automaticPageLoadingElementGenerator.generateLoadingElement();
         this.forumHomepageUpdater.appendElement(loadingElement);
     }
 
     prependThreadPageLoadingElement() {
-        let loadingElement = this.elementGenerator.generateLoadingElement();
+        let loadingElement = this.automaticPageLoadingElementGenerator.generateLoadingElement();
         this.threadPageUpdater.prependElement(loadingElement);
     }
 
     prependForumPageLoadingElement() {
-        let loadingElement = this.elementGenerator.generateLoadingElement();
+        let loadingElement = this.automaticPageLoadingElementGenerator.generateLoadingElement();
         this.forumHomepageUpdater.prependElement(loadingElement);
     }
 

@@ -4,7 +4,7 @@ import { ThreadPagePrepender } from "../../src/automatic-pageloading/ThreadPageP
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
-import { ElementGenerator } from "../../src/ElementGenerator.js";
+import { GenericElementGenerator } from "../../src/element-generators/GenericElementGenerator.js";
 
 let postsCompressionToggler = new PostsCompressionToggler();
 let elementFinder = new ElementFinder();
@@ -12,7 +12,7 @@ let threadPagePrepender = new ThreadPagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let testThreadPageBuilder = null;
 let userTagger = new UserTagger();
-let elementGenerator = new ElementGenerator();
+let genericElementGenerator = new GenericElementGenerator();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -57,7 +57,7 @@ it('test click event not triggered on any element within footer element of post'
 it('test compression toggling applied to prepended page', () => {
     document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
     let pageHtml = testThreadPageBuilder.specificPage(2, 2).buildPage()
-    let htmlDocument = elementGenerator.convertToDocument(pageHtml);
+    let htmlDocument = genericElementGenerator.generateDocument(pageHtml);
 
     threadPagePrepender.prependPage(htmlDocument, true);
     let post = elementFinder.getFirstPost();

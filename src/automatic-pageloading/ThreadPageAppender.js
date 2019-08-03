@@ -5,10 +5,10 @@ import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { BoardsScriptInserter } from "../inserted-scripts/BoardsScriptInserter.js";
 import { PostsFormatter } from "../post-manipulation/PostsFormatter.js";
 import { PageInformationCollector } from "../page/PageInformationCollector.js";
-import { ElementGenerator } from "../ElementGenerator.js";
 import { BoardsScriptGenerator } from "../inserted-scripts/BoardsScriptGenerator.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { UserTagger } from "../user-tagging/UserTagger.js";
+import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
 
 class ThreadPageAppender {
 
@@ -19,10 +19,10 @@ class ThreadPageAppender {
         this.boardsScriptInserter = new BoardsScriptInserter();
         this.postsFormatter = new PostsFormatter();
         this.pageInformationCollector = new PageInformationCollector();
-        this.elementGenerator = new ElementGenerator();
         this.boardsScriptGenerator = new BoardsScriptGenerator();
         this.navigatorUpdater = new NavigatorUpdater();
         this.userTagger = new UserTagger();
+        this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
     }
 
     appendNextPage(nextPageDocument, hidePostElements) {
@@ -43,6 +43,6 @@ class ThreadPageAppender {
 
     _getPageNoElement(nextPageDocument) {
         let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
-        return this.elementGenerator.generateBottomPageNoElement(nextPageNo);
+        return this.automaticPageLoadingElementGenerator.generateBottomPageNoElement(nextPageNo);
     }
 }

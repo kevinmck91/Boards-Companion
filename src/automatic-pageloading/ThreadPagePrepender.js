@@ -4,11 +4,11 @@ import { ElementFinder } from "../finders/ElementFinder.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { BoardsScriptInserter } from "../inserted-scripts/BoardsScriptInserter.js";
 import { PostsFormatter } from "../post-manipulation/PostsFormatter.js";
-import { ElementGenerator } from "../ElementGenerator.js";
 import { BoardsScriptGenerator } from "../inserted-scripts/BoardsScriptGenerator.js";
 import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { UserTagger } from "../user-tagging/UserTagger.js";
+import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
 
 class ThreadPagePrepender {
 
@@ -18,7 +18,6 @@ class ThreadPagePrepender {
         this.loadingElementUpdater = new LoadingElementUpdater();
         this.boardsScriptInserter = new BoardsScriptInserter();
         this.postsFormatter = new PostsFormatter();
-        this.elementGenerator = new ElementGenerator();
         this.boardsScriptGenerator = new BoardsScriptGenerator();
         this.originalDocumentHeight = 0;
         this.originalYCoordinate = 0;
@@ -27,6 +26,7 @@ class ThreadPagePrepender {
         this.navigatorUpdater = new NavigatorUpdater();
         this.previousPagePosts = [];
         this.userTagger = new UserTagger();
+        this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
     }
 
     prependPage(previousPageDocument, hidePostElements) {
@@ -50,7 +50,7 @@ class ThreadPagePrepender {
 
     _insertPreviousPageNumber() {
         let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
-        let pageNoElement = this.elementGenerator.generateThreadTopPageNoElement(previousPageNo);
+        let pageNoElement = this.automaticPageLoadingElementGenerator.generateThreadTopPageNoElement(previousPageNo);
         this.threadPageUpdater.prependElement(pageNoElement)
     }
 

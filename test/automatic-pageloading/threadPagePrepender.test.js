@@ -3,14 +3,14 @@ import { ElementFinder } from "../../src/finders/ElementFinder.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
-import { ElementGenerator } from "../../src/ElementGenerator.js";
+import { GenericElementGenerator } from "../../src/element-generators/GenericElementGenerator.js";
 
 let threadPagePrepender = new ThreadPagePrepender();
 let elementFinder = new ElementFinder();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
 let testThreadPageBuilder = null;
-let elementGenerator = new ElementGenerator();
+let genericElementGenerator = new GenericElementGenerator();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -38,6 +38,6 @@ it('test tagging applied to previous page posts', () => {
 })
 
 function prependPage(pageHtml) {
-    let htmlDocument = elementGenerator.convertToDocument(pageHtml);
+    let htmlDocument = genericElementGenerator.generateDocument(pageHtml);
     threadPagePrepender.prependPage(htmlDocument, true);
 }

@@ -4,7 +4,7 @@ import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js"
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { UserTagger } from "../../src/user-tagging/UserTagger.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
-import { ElementGenerator } from "../../src/ElementGenerator.js";
+import { GenericElementGenerator } from "../../src/element-generators/GenericElementGenerator.js";
 
 let threadPageAppender = new ThreadPageAppender();
 let elementFinder = new ElementFinder();
@@ -12,7 +12,7 @@ let chromeStorageMocker = new ChromeStorageMocker();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
 let testThreadPageBuilder = null;
-let elementGenerator = new ElementGenerator();
+let genericElementGenerator = new GenericElementGenerator();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -76,7 +76,7 @@ it('test tagging applied to next page posts', () => {
 })
 
 function appendNextPage(pageHtml) {
-    let htmlDocument = elementGenerator.convertToDocument(pageHtml);
+    let htmlDocument = genericElementGenerator.generateDocument(pageHtml);
     threadPageAppender.appendNextPage(htmlDocument, true);
 }
 
