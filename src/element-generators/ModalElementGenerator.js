@@ -71,6 +71,7 @@ class ModalElementGenerator {
         return ` <select id="tag-colour-dropdown">
                     <option style="background-color: green" value="green">green</option>
                     <option style="background-color: red" value="red">red</option>
+                    <option style="background-color: yellow" value="yellow">yellow</option>
                     <option style="background-color: orange" value="orange">orange</option>
                     <option style="background-color: pink" value="pink">pink</option>
                     <option style="background-color: purple" value="purple">purple</option>
