@@ -40,7 +40,6 @@ it('Avatar links elements hidden', () => {
     expect(linksSectionElements[0].style.display).toBe('none');
 })
 
-
 it('Stars element hidden', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
@@ -99,6 +98,17 @@ it('links element not visible when moderator post', () => {
     let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
     expect(linksSectionElements[1].style.display).toBe("none");
 })
+
+it('join date visible when no registered user element, stars element, or avatar picture', () => {
+    let post = testPostBuilder.withoutRegisteredUserElement().withoutStarsElement().withoutAvatarPicture().build();
+    document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
+
+    postElementsVisibilityUpdater.hideEachPostsElements();
+
+    let linksSectionElements = avatarDetailsFinder.getLinksSection(elementFinder.getFirstPost());
+    expect(linksSectionElements.style.display).toBe("");
+})
+
 
 it('hiding posts multiple times removes join date element', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();

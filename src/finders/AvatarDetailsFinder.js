@@ -1,16 +1,28 @@
 export { AvatarDetailsFinder }
+import { ArrayHelper } from "../helpers/ArrayHelper.js";
 
 class AvatarDetailsFinder {
 
+    constructor() {
+        this.arrayHelper = new ArrayHelper();
+    }
+
     getHideableElements(post) {
         let hideableElements = [];
-        hideableElements.push(this.getRegisteredUserElement(post));
+
+        let registeredUserElement = this.getRegisteredUserElement(post);
+        this.arrayHelper.addValidItem(registeredUserElement, hideableElements)
+
         hideableElements.push(...(this.getLinksSectionElements(post)));
+
         let avatarPictureElement = this.getAvatarPictureElement(post);
-        if (avatarPictureElement != null)
-            hideableElements.push(avatarPictureElement);
-        hideableElements.push(this.getStarsElement(post));
+        this.arrayHelper.addValidItem(avatarPictureElement, hideableElements);
+
+        let starsElement = this.getStarsElement(post);
+        this.arrayHelper.addValidItem(starsElement, hideableElements);
+
         hideableElements.push(...(this.getLineBreakElements(post)));
+
         return hideableElements;
     }
 
@@ -23,11 +35,19 @@ class AvatarDetailsFinder {
     }
 
     getRegisteredUserElement(post) {
-        return post.querySelector(".alt2 div:nth-child(2)");
+        let result = post.querySelector(".alt2 div:nth-child(2)");
+        if (result.outerHTML.toLowerCase().indexOf("registered user") != -1)
+            return result;
+        else
+            return null;
     }
 
     getStarsElement(post) {
-        return post.querySelector(".alt2 div:nth-child(3)");
+        let result = post.querySelector(".alt2 div:nth-child(3)");
+        if (result.outerHTML.toLowerCase().indexOf("star") != -1)
+            return result;
+        else
+            return null;
     }
 
     getAvatarPictureElement(post) {
@@ -47,6 +67,10 @@ class AvatarDetailsFinder {
         let finalLinkElement = post.querySelector(".alt2 .smallfont:last-of-type div:last-of-type")
         linkElements.push(finalLinkElement);
         return linkElements;
+    }
+
+    getLinksSection(post) {
+        return post.querySelector(".alt2 .smallfont:last-of-type");
     }
 
     getJoinDateElement(post) {

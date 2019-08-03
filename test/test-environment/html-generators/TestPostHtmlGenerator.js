@@ -74,16 +74,18 @@ class TestPostHtmlGenerator {
     }
 
     wrapAvatarInfoFooterElements(elements) {
-        return ` <div class="smallfont">
-                    &nbsp;
-                    <br>
-                    `+ elements + `           
-                    <div></div>
-                </div>`
+        return ` 
+        <div class="smallfont">
+            &nbsp;
+            <br>
+            `+ elements + `           
+            <div></div>
+        </div>`
     }
 
     wrapPostElements(elements) {
-        return `<div id="edit111">
+        return `
+        <div id="edit111">
             <table id="post111">
                 <tr>
                 </tr>

@@ -10,10 +10,22 @@ class TestPostBuilder {
         this._hasAvatarPicture = true;
         this._isModerator = false;
         this._isSignedIn = true;
+        this._hasRegisteredUserElement = true;
+        this._hasStarsElement = true;
     }
 
     withoutAvatarPicture() {
         this._hasAvatarPicture = false;
+        return this;
+    }
+
+    withoutRegisteredUserElement() {
+        this._hasRegisteredUserElement = false;
+        return this;
+    }
+
+    withoutStarsElement() {
+        this._hasStarsElement = false;
         return this;
     }
 
@@ -53,8 +65,12 @@ class TestPostBuilder {
 
     _getAvatarInfoHeader() {
         let avatarInfoHeader = this.testPostHtmlGenerator.getUsernameElement();
-        avatarInfoHeader += this.testPostHtmlGenerator.getRegisteredUserElement();
-        avatarInfoHeader += this.testPostHtmlGenerator.getStarsElement();
+        if (this._hasRegisteredUserElement) {
+            avatarInfoHeader += this.testPostHtmlGenerator.getRegisteredUserElement();
+        }
+        if (this._hasStarsElement) {
+            avatarInfoHeader += this.testPostHtmlGenerator.getStarsElement();
+        }
         if (this._hasAvatarPicture) {
             avatarInfoHeader += this.testPostHtmlGenerator.getAvatarPictureElement();
         }
