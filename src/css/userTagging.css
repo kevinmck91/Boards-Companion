@@ -59,6 +59,8 @@
     border-width: 1px;
     border-style: solid;
     padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 #user-list {
@@ -68,13 +70,33 @@
 
 .user-list-entry {
     display: flex;
-    justify-content: space-between;
     margin-top: 3px;
     margin-bottom: 3px;
 }
 
-.delete-user {
+.username-entry {
+    flex: 3;
+}
+
+.tag-entry {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.tag-entry-container {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.delete-user-entry {
     margin-right: 7px;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .clickable {

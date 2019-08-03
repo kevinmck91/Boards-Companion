@@ -45,6 +45,8 @@ class ModalElementGenerator {
         userlistEntry.className = 'user-list-entry';
         let usernameElement = this._generateTaggedUsernameElement(taggedUserDetails.username, taggedUserDetails.userId);
         userlistEntry.appendChild(usernameElement);
+        let colourElement = this._generateTagEntryElement(taggedUserDetails.colour, taggedUserDetails.text);
+        userlistEntry.appendChild(colourElement);
         userlistEntry.appendChild(this._generateDeleteUserElement());
         return userlistEntry;
     }
@@ -59,7 +61,7 @@ class ModalElementGenerator {
 
     _generateDeleteUserElement() {
         let deleteUserElement = document.createElement('div');
-        deleteUserElement.className = 'delete-user clickable';
+        deleteUserElement.className = 'delete-user-entry clickable';
         let fontAwesomeIcon = this.fontAwesomeElementGenerator.generateFontAwesomeIcon("fas fa-trash-alt");
         deleteUserElement.appendChild(fontAwesomeIcon);
         return deleteUserElement;
@@ -67,9 +69,14 @@ class ModalElementGenerator {
 
     _generateColourDropDownHtml() {
         return ` <select id="tag-colour-dropdown">
-                    <option value="green">green</option>
-                    <option value="red">red</option>
-                    <option value="yellow">yellow</option>
+                    <option style="background-color: green" value="green">green</option>
+                    <option style="background-color: red" value="red">red</option>
+                    <option style="background-color: orange" value="orange">orange</option>
+                    <option style="background-color: pink" value="pink">pink</option>
+                    <option style="background-color: purple" value="purple">purple</option>
+                    <option style="background-color: white" value="white">white</option>
+                    <option style="background-color: fuchsia" value="fuchsia">fuchsia</option>
+                    <option style="background-color: lime" value="lime">lime</option>
                 </select> `;
     }
 
@@ -82,10 +89,15 @@ class ModalElementGenerator {
         return closeElement;
     }
 
-    _generateModalColourElement(colour) {
-        let colourElement = document.createElement('div');
-        colourElement.className = 'tag-colour-entry';
-        colourElement.style.backgroundColor = colour;
-        return colourElement;
+    _generateTagEntryElement(colour, text) {
+        let tagEntryElement = document.createElement('div');
+        tagEntryElement.innerHTML = text;
+        tagEntryElement.className = 'tag-entry';
+        tagEntryElement.style.backgroundColor = colour;
+
+        let tagEntryElementContainer = document.createElement('div');
+        tagEntryElementContainer.className = 'tag-entry-container';
+        tagEntryElementContainer.appendChild(tagEntryElement);
+        return tagEntryElementContainer;
     }
 }

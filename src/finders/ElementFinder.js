@@ -190,6 +190,6 @@ class ElementFinder {
     }
 
     getTaggerModalDeleteUserElements() {
-        return this.getTaggerModalElement().querySelectorAll('.delete-user');
+        return this.getTaggerModalElement().querySelectorAll('.delete-user-entry');
     }
 }

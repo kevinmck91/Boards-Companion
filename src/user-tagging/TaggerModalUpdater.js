@@ -133,7 +133,7 @@ class TaggerModalUpdater {
     }
 
     _unTagUser(deleteUserElement) {
-        let userId = deleteUserElement.previousSibling.dataset.userid;
+        let userId = deleteUserElement.previousSibling.previousSibling.dataset.userid;
         this.taggedUsersUpdater.unTagUser(userId);
         deleteUserElement.parentElement.style.display = 'none';
     }
