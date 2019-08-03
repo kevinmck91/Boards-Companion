@@ -61,11 +61,20 @@
     padding: 1px;
 }
 
+#user-list {
+    overflow-y: auto;
+    max-height: 150px;
+}
+
 .user-list-entry {
     display: flex;
     justify-content: space-between;
     margin-top: 3px;
     margin-bottom: 3px;
+}
+
+.delete-user {
+    margin-right: 7px;
 }
 
 .clickable {
