@@ -69,7 +69,7 @@ class AvatarDetailsFinder {
         return linkElements;
     }
 
-    getLinksSection(post) {
+    getAvatarInfoFooter(post) {
         return post.querySelector(".alt2 .smallfont:last-of-type");
     }
 
@@ -78,7 +78,15 @@ class AvatarDetailsFinder {
     }
 
     getPostCountElement(post) {
-        return post.querySelector(".alt2 .smallfont:last-of-type div:nth-last-of-type(3)");
+        let avatarInfoFooterElements = this.getAvatarInfoFooter(post).querySelectorAll('div');
+        let postCountElement = null;
+        for (let avatarInfoFooterElement of avatarInfoFooterElements) {
+            if (avatarInfoFooterElement.textContent.indexOf("Posts:") != -1) {
+                postCountElement = avatarInfoFooterElement;
+                break;
+            }
+        }
+        return postCountElement;
     }
 
     getLineBreakElements(post) {

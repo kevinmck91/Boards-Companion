@@ -105,8 +105,8 @@ it('join date visible when no registered user element, stars element, or avatar 
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    let linksSectionElements = avatarDetailsFinder.getLinksSection(elementFinder.getFirstPost());
-    expect(linksSectionElements.style.display).toBe("");
+    let avatarInfoFooter = avatarDetailsFinder.getAvatarInfoFooter(elementFinder.getFirstPost());
+    expect(avatarInfoFooter.style.display).toBe("");
 })
 
 

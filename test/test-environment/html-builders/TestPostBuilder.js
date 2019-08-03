@@ -12,6 +12,7 @@ class TestPostBuilder {
         this._isSignedIn = true;
         this._hasRegisteredUserElement = true;
         this._hasStarsElement = true;
+        this._hasLinksSection = true;
     }
 
     withoutAvatarPicture() {
@@ -26,6 +27,11 @@ class TestPostBuilder {
 
     withoutStarsElement() {
         this._hasStarsElement = false;
+        return this;
+    }
+
+    withoutLinksSection() {
+        this._hasLinksSection = false;
         return this;
     }
 
@@ -55,7 +61,9 @@ class TestPostBuilder {
     _getAvatarInfoFooter() {
         let avatarInfoFooterElements = this.testPostHtmlGenerator.getJoinDateElement();
         avatarInfoFooterElements += this.testPostHtmlGenerator.getPostsElement();
-        avatarInfoFooterElements += this.testPostHtmlGenerator.getRegularLinksSection();
+        if (this._hasLinksSection) {
+            avatarInfoFooterElements += this.testPostHtmlGenerator.getRegularLinksSection();
+        }
         if (this._isModerator) {
             avatarInfoFooterElements += this.testPostHtmlGenerator.getModLinkSection();
         }

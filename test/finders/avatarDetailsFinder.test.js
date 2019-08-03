@@ -63,3 +63,12 @@ it('test get linebreak element ', () => {
 
     expect(lineBreakElement.length).toBe(2);
 })
+
+it('test get post count element when no links section', () => {
+    let post = testPostBuilder.withoutLinksSection().build();
+    document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
+
+    let postCountElement = avatarDetailsFinder.getPostCountElement(elementFinder.getFirstPost());
+
+    expect(postCountElement.outerHTML.indexOf("Posts:")).not.toBe(-1);
+})
