@@ -36,7 +36,7 @@ class AvatarDetailsFinder {
 
     getRegisteredUserElement(post) {
         let result = post.querySelector(".alt2 div:nth-child(2)");
-        if (result.outerHTML.toLowerCase().indexOf("registered user") != -1)
+        if (result.children.length == 0)
             return result;
         else
             return null;

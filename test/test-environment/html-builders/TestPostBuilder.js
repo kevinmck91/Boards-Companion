@@ -13,6 +13,8 @@ class TestPostBuilder {
         this._hasRegisteredUserElement = true;
         this._hasStarsElement = true;
         this._hasLinksSection = true;
+        this._hasCustomRegisteredUserElement = false;
+        this._customRegisteredUserText = "";
     }
 
     withoutAvatarPicture() {
@@ -22,6 +24,12 @@ class TestPostBuilder {
 
     withoutRegisteredUserElement() {
         this._hasRegisteredUserElement = false;
+        return this;
+    }
+
+    withCustomRegisteredUserElement(text) {
+        this._hasCustomRegisteredUserElement = true;
+        this._customRegisteredUserText = text;
         return this;
     }
 
@@ -74,7 +82,11 @@ class TestPostBuilder {
     _getAvatarInfoHeader() {
         let avatarInfoHeader = this.testPostHtmlGenerator.getUsernameElement();
         if (this._hasRegisteredUserElement) {
-            avatarInfoHeader += this.testPostHtmlGenerator.getRegisteredUserElement();
+            if (this._hasCustomRegisteredUserElement) {
+                avatarInfoHeader += this.testPostHtmlGenerator.getCustomRegisteredUserElement(this._customRegisteredUserText);
+            } else {
+                avatarInfoHeader += this.testPostHtmlGenerator.getRegisteredUserElement();
+            }
         }
         if (this._hasStarsElement) {
             avatarInfoHeader += this.testPostHtmlGenerator.getStarsElement();

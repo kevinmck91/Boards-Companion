@@ -52,6 +52,15 @@ it('test get registered user element ', () => {
     expect(registeredUserElement.outerHTML.indexOf("Registered User")).not.toBe(-1);
 })
 
+it('test get custom registered user element', () => {
+    let post = testPostBuilder.withCustomRegisteredUserElement("customregistereduser").build();
+    document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
+
+    let registeredUserElement = avatarDetailsFinder.getRegisteredUserElement(elementFinder.getFirstPost());
+
+    expect(registeredUserElement.outerHTML.indexOf("customregistereduser")).not.toBe(-1);
+})
+
 it('test get stars element ', () => {
     let registeredUserElement = avatarDetailsFinder.getStarsElement(elementFinder.getFirstPost());
 
@@ -72,3 +81,4 @@ it('test get post count element when no links section', () => {
 
     expect(postCountElement.outerHTML.indexOf("Posts:")).not.toBe(-1);
 })
+

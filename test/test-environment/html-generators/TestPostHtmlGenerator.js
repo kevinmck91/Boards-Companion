@@ -24,7 +24,14 @@ class TestPostHtmlGenerator {
         return `
         <div class="smallfont">
             Registered User
-        </div>`
+        </div>`;
+    }
+
+    getCustomRegisteredUserElement(text) {
+        return `
+        <div class="smallfont">
+            `+ text + `
+        </div>`;
     }
 
     getStarsElement() {
@@ -32,7 +39,7 @@ class TestPostHtmlGenerator {
         <div class="smallfont">
             <br>
             <img src="stars">
-        </div>`
+        </div>`;
     }
 
     getAvatarPictureElement() {
@@ -41,7 +48,7 @@ class TestPostHtmlGenerator {
             <a href="member">
                 <img src="avatarpic">
             </a>
-        </div>`
+        </div>`;
     }
 
     getJoinDateElement() {
@@ -80,7 +87,7 @@ class TestPostHtmlGenerator {
             <br>
             `+ elements + `           
             <div></div>
-        </div>`
+        </div>`;
     }
 
     wrapPostElements(elements) {
