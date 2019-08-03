@@ -20,7 +20,7 @@ it('Registered user element hidden', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    expect(elementFinder.getAvatarInfoElementsFromPost(elementFinder.getAllPosts()[0])[0].style.display).toBe('none');
+    expect(elementFinder.getAvatarInfoElementsFromPost(elementFinder.getFirstPost())[0].style.display).toBe('none');
 })
 
 it('Join date element displayed', () => {
@@ -28,14 +28,14 @@ it('Join date element displayed', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    expect(avatarDetailsFinder.getJoinDateElement(elementFinder.getAllPosts()[0]).style.display).toBe('');
+    expect(avatarDetailsFinder.getJoinDateElement(elementFinder.getFirstPost()).style.display).toBe('');
 })
 
 it('Avatar links elements hidden', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     postElementsVisibilityUpdater.hideEachPostsElements();
-    let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
+    let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getFirstPost());
 
     expect(linksSectionElements[0].style.display).toBe('none');
 })
@@ -45,7 +45,7 @@ it('Stars element hidden', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    let starsElement = avatarDetailsFinder.getStarsElement(elementFinder.getAllPosts()[0]);
+    let starsElement = avatarDetailsFinder.getStarsElement(elementFinder.getFirstPost());
     expect(starsElement.style.display).toBe('none');
 })
 
@@ -55,7 +55,7 @@ it('&nbsp; removed from avatar info', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    expect(elementFinder.getAllPosts()[0].outerHTML.indexOf('&nbsp;')).toBe(-1);
+    expect(elementFinder.getFirstPost().outerHTML.indexOf('&nbsp;')).toBe(-1);
 })
 
 it('links element not visible when no avatar', () => {
@@ -64,7 +64,7 @@ it('links element not visible when no avatar', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
+    let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getFirstPost());
     expect(linksSectionElements[1].style.display).toBe("none");
 })
 
@@ -74,7 +74,7 @@ it('post count visible when no avatar', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    let postCountElement = avatarDetailsFinder.getPostCountElement(elementFinder.getAllPosts()[0]);
+    let postCountElement = avatarDetailsFinder.getPostCountElement(elementFinder.getFirstPost());
 
     expect(postCountElement.style.display).toBe("");
     expect(postCountElement.parentElement.style.display).toBe("");
@@ -85,7 +85,7 @@ it('avatar hidden', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    let avatarPictureElement = avatarDetailsFinder.getAvatarPictureElement(elementFinder.getAllPosts()[0]);
+    let avatarPictureElement = avatarDetailsFinder.getAvatarPictureElement(elementFinder.getFirstPost());
     expect(avatarPictureElement.style.display).toBe("none");
 })
 
@@ -95,7 +95,7 @@ it('links element not visible when moderator post', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getAllPosts()[0]);
+    let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getFirstPost());
     expect(linksSectionElements[1].style.display).toBe("none");
 })
 

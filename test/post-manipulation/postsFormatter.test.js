@@ -11,7 +11,7 @@ it('test highlight users posts', () => {
 
     postsFormatter.tagUsersPosts({ username: "testusername", colour: "red" });
 
-    let firstPost = elementFinder.getAllPosts()[0];
+    let firstPost = elementFinder.getFirstPost();
     let userTagElement = elementFinder.getUserTagElementFromPost(firstPost);
     expect(userTagElement.style.backgroundColor).toBe('red');
 })
@@ -22,7 +22,7 @@ it('test old tag element is removed when new tag added', () => {
     postsFormatter.tagUsersPosts({ username: "testusername", colour: "red" });
     postsFormatter.tagUsersPosts({ username: "testusername", colour: "green" });
 
-    let firstPost = elementFinder.getAllPosts()[0];
+    let firstPost = elementFinder.getFirstPost();
     let userTagElement = elementFinder.getUserTagElementFromPost(firstPost);
     expect(userTagElement.style.backgroundColor).toBe('green');
 })

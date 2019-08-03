@@ -32,7 +32,7 @@ it('only apply tagging to candidate posts', () => {
     let candidatePosts = elementFinder.getPostsFromDocument(candidateDocument);
     userTagger.applyTaggingToPosts(candidatePosts);
 
-    expect(elementFinder.getAllPosts()[0].innerHTML.indexOf("testtext")).toBe(-1);
+    expect(elementFinder.getFirstPost().innerHTML.indexOf("testtext")).toBe(-1);
 })
 
 it('test user id within modal user details', () => {

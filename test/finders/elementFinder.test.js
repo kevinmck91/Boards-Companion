@@ -41,7 +41,7 @@ it('test get posts from unsigned in user page', () => {
 it('test get avatar info elements', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    let avatarInfoElements = elementFinder.getAvatarInfoElementsFromPost(elementFinder.getAllPosts()[0]);
+    let avatarInfoElements = elementFinder.getAvatarInfoElementsFromPost(elementFinder.getFirstPost());
 
     expect(avatarInfoElements[0].outerHTML.includes("Registered User")).toBe(true);
 })
@@ -73,7 +73,7 @@ it('test get threads from document', () => {
 it('test get user details element', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(1).buildPage();
 
-    let userDetailsElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getAllPosts()[0]);
+    let userDetailsElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getFirstPost());
 
     expect(userDetailsElement.className).toBe('alt2');
 })
