@@ -43,8 +43,8 @@ class AvatarDetailsFinder {
     }
 
     getStarsElement(post) {
-        let result = post.querySelector(".alt2 div:nth-child(3)");
-        if (result.outerHTML.toLowerCase().indexOf("star") != -1)
+        let result = post.querySelector(".alt2 .smallfont > img");
+        if (result != null && result.outerHTML.toLowerCase().indexOf("star") != -1)
             return result;
         else
             return null;

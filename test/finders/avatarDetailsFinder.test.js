@@ -62,9 +62,18 @@ it('test get custom registered user element', () => {
 })
 
 it('test get stars element ', () => {
-    let registeredUserElement = avatarDetailsFinder.getStarsElement(elementFinder.getFirstPost());
+    let starsElement = avatarDetailsFinder.getStarsElement(elementFinder.getFirstPost());
 
-    expect(registeredUserElement.outerHTML.indexOf("stars")).not.toBe(-1);
+    expect(starsElement.outerHTML.indexOf("stars")).not.toBe(-1);
+})
+
+it('test get stars element if no registered user element', () => {
+    let post = testPostBuilder.withoutRegisteredUserElement().build();
+    document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
+
+    let starsElement = avatarDetailsFinder.getStarsElement(elementFinder.getFirstPost());
+
+    expect(starsElement.outerHTML.indexOf("stars")).not.toBe(-1);
 })
 
 it('test get linebreak element ', () => {
