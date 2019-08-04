@@ -1,16 +1,18 @@
 {
-  "name": "vscode-jest-tests",
-  "type": "node",
-  "request": "launch",
-  "program": "~/Github/Boards-Companion/node_modules/@angular/cli/bin/ng",
-  "args": [
-    "test",
-    "lib-name",
-    "--runInBand=true",
-    "--codeCoverage=false"
-  ],
-  "cwd": "~/Github/Boards-Companion",
-  "console": "integratedTerminal",
-  "internalConsoleOptions": "neverOpen",
-  "trace": "all"
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "~/Github/Boards-Companion/node_modules/.bin/jest",
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229
+    }
+  ]
 }
