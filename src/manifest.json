@@ -15,7 +15,7 @@
     "content_scripts": [
         {
             "matches": [
-                "*://www.boards.ie/*"
+                "*://192.168.1.165/*"
             ],
             "js": [
                 "content.js",

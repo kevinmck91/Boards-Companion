@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watch",
+    "integration-test": "testcafe chrome:userProfile test/integration/*.e2e.js -L",
     "postinstall": "cp -R node_modules/@fortawesome/fontawesome-free/js/all.js ./src/fontawesome"
   },
   "repository": {
@@ -23,6 +24,7 @@
     "@babel/preset-env": "^7.3.4",
     "@fortawesome/fontawesome-free": "^5.9.0",
     "babel-jest": "^24.1.0",
-    "jest": "^24.1.0"
+    "jest": "^24.1.0",
+    "testcafe": "^1.4.0"
   }
 }
