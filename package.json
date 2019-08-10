@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watch",
-    "integration-test": "testcafe chrome:userProfile test/integration/*.e2e.js -L",
+    "chrome-e2e-test": "testcafe chrome:userProfile test/e2e/*.e2e.js -L",
+    "firefox-e2e-test": "testcafe firefox:userProfile test/e2e/*.e2e.js -L",
     "build": "gulp",
     "postinstall": "cp -R node_modules/@fortawesome/fontawesome-free/js/all.js ./src/fontawesome"
   },
