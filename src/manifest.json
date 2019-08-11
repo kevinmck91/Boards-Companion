@@ -18,7 +18,7 @@
                 "*://www.boards.ie/*"
             ],
             "js": [
-                "content.js",
+                "modules-load/Chrome/loadMain.js",
                 "fontawesome/all.js"
             ],
             "css": [
