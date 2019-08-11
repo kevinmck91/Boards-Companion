@@ -7,6 +7,12 @@ function copyE2eTestFiles() {
         .pipe(dest("dist/e2e-test/Firefox"));
 }
 
+function copyReleaseFiles() {
+    return src("./src/**")
+        .pipe(dest("dist/release/Chrome"))
+        .pipe(dest("dist/release/Firefox"));
+}
+
 function transformE2eManifest() {
     return src("./src/manifest.json")
         .pipe(jsonTransform(function (json, file) {
@@ -18,7 +24,7 @@ function transformE2eManifest() {
         .pipe(dest("dist/e2e-test/Firefox"));
 }
 
-function transformFirefoxManifest() {
+function transformE2eFirefoxManifest() {
     return src("dist/e2e-test/Firefox/manifest.json")
         .pipe(jsonTransform(function (json, file) {
             json.content_scripts[0].js[0] = "modules-load/Firefox/loadMain.js"
@@ -27,4 +33,13 @@ function transformFirefoxManifest() {
         .pipe(dest("dist/e2e-test/Firefox"));
 }
 
-exports.default = series(copyE2eTestFiles, transformE2eManifest, transformFirefoxManifest);
+function transformReleaseFirefoxManifest() {
+    return src("dist/release/Firefox/manifest.json")
+        .pipe(jsonTransform(function (json, file) {
+            json.content_scripts[0].js[0] = "modules-load/Firefox/loadMain.js"
+            return JSON.stringify(json, null, '\t');
+        }))
+        .pipe(dest("dist/release/Firefox"));
+}
+
+exports.default = series(copyE2eTestFiles, transformE2eManifest, transformE2eFirefoxManifest, copyReleaseFiles, transformReleaseFirefoxManifest);
