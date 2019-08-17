@@ -12,6 +12,11 @@
         "default_icon": "icons/icon16.png",
         "default_popup": "popup/extensionConfiguration.html"
     },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "boards-companion@mozilla.org"
+        }
+    },
     "content_scripts": [
         {
             "matches": [
@@ -19,7 +24,8 @@
             ],
             "js": [
                 "modules-load/Chrome/loadMain.js",
-                "fontawesome/all.js"
+                "fontawesome/all.js",
+                "fontawesome/firefox-fix.js"
             ],
             "css": [
                 "css/userTagging.css"
