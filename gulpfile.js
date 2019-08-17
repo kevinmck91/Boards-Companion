@@ -37,6 +37,9 @@ function copyFirefoxReleaseFiles(cb) {
     src("./src/popup/**")
         .pipe(dest("dist/release/Firefox/popup"));
 
+    src("./src/storage/**")
+        .pipe(dest("dist/release/Firefox/storage"));
+
     src("./src/manifest.json")
         .pipe(dest("dist/release/Firefox"));
 
