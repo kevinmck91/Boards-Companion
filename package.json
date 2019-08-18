@@ -6,6 +6,10 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watch",
+    "chrome-e2e-test": "testcafe chrome:userProfile test/e2e/*.e2e.js",
+    "firefox-e2e-test": "testcafe firefox:userProfile test/e2e/*.e2e.js",
+    "build": "gulp",
+    "rollup": "rollup src/main.js --file bundle.js --format iife",
     "postinstall": "cp -R node_modules/@fortawesome/fontawesome-free/js/all.js ./src/fontawesome"
   },
   "repository": {
@@ -23,6 +27,12 @@
     "@babel/preset-env": "^7.3.4",
     "@fortawesome/fontawesome-free": "^5.9.0",
     "babel-jest": "^24.1.0",
-    "jest": "^24.1.0"
+    "gulp": "^4.0.2",
+    "gulp-json-transform": "^0.4.7",
+    "jest": "^24.1.0",
+    "rollup": "^1.19.4",
+    "rollup-stream": "^1.24.1",
+    "testcafe": "^1.4.0",
+    "vinyl-source-stream": "^2.0.0"
   }
 }

@@ -51,7 +51,7 @@ class UserTagger {
 
     _getUserIdFromUsernameElement(usernameElement) {
         let usernameLink = usernameElement.href;
-        let userId = usernameLink.match(/(?<=u\=)\d+/);
+        let userId = usernameLink.match(/u\=(\d+)/)[1];
         return userId;
     }
 }
