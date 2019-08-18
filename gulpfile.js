@@ -84,7 +84,7 @@ function transformFirefoxManifest(manifestFolder) {
             json.content_scripts[0].js[0] = "bundle.js";
             json.browser_specific_settings = {
                 "gecko": {
-                    "id": "boards-companion@mozilla.org"
+                    "id": "{87846437-1077-4212-abfb-433482c7a63f}"
                 }
             };
             json.content_scripts[0].js[2] = "fontawesome/firefox-fix.js";
