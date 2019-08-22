@@ -51,6 +51,22 @@ class TestThreadHtmlGenerator {
         </form>`;
     }
 
+    getAd() {
+        return `
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>Advertisement</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        `;
+    }
+
     getThreadPageNavigator(currentPageNo, totalPages) {
         return `<div class="pagenav">
                     <table>

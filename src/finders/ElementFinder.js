@@ -120,7 +120,8 @@ class ElementFinder {
         let tagIconElements = [];
         for (let post of posts) {
             let tagIconElement = this.getTagIconElementFromPost(post);
-            tagIconElements.push(tagIconElement);
+            if (tagIconElement != null)
+                tagIconElements.push(tagIconElement);
         }
         return tagIconElements;
     }

@@ -10,7 +10,7 @@ class TestThreadPageBuilder {
         this.testPostBuilder = new TestPostBuilder();
         this.testThreadHtmlGenerator = new TestThreadHtmlGenerator();
         this.noOfPosts = 1;
-        this.IsSignedIn = true;
+        this._IsSignedIn = true;
         this._hasNormalNotice = false;
         this._hasWelcomeNotice = false;
         this.hasNotices = false;
@@ -57,6 +57,11 @@ class TestThreadPageBuilder {
         return this;
     }
 
+    isSignedOut() {
+        this._IsSignedIn = false;
+        return this;
+    }
+
     buildPage() {
         let pageContent = this._getPageNavigator();
         pageContent += this.testCommonHtmlGenerator.getHeader();
@@ -85,8 +90,18 @@ class TestThreadPageBuilder {
 
     _getPosts() {
         let postsHtml = "";
-        for (let i = 0; i < this.noOfPosts; i++)
-            postsHtml += this._getPost();
+        if (this._IsSignedIn) {
+            for (let i = 1; i <= this.noOfPosts; i++)
+                postsHtml += this._getPost();
+        } else {
+            for (let i = 1; i <= this.noOfPosts; i++) {
+                if (i % 2 == 0) {
+                    postsHtml += this.testThreadHtmlGenerator.getAd();
+                } else {
+                    postsHtml += this._getPost();
+                }
+            }
+        }
         if (this._isNewuser)
             return this.testThreadHtmlGenerator.wrapNewSignedInUserPosts(postsHtml)
         else
@@ -99,5 +114,9 @@ class TestThreadPageBuilder {
         } else {
             return this.testPostBuilder.build();
         }
+    }
+
+    _getAdPost() {
+        return this.testThreadHtmlGenerator.getAd();
     }
 }

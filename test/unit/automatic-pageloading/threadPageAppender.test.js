@@ -75,6 +75,15 @@ it('test tagging applied to next page posts', () => {
     expect(elementFinder.getAllTagIconElements().length).toBe(2);
 })
 
+it('test tagging applied ok to signed out page', () => {
+    document.body.innerHTML = testThreadPageBuilder.isSignedOut().specificPage(1, 2).buildPage();
+
+    userTagger.applyTagging();
+    appendNextPage(testThreadPageBuilder.isSignedOut().withMultiplePosts(2).specificPage(2, 2).buildPage());
+
+    expect(elementFinder.getAllTagIconElements().length).toBe(2);
+})
+
 function appendNextPage(pageHtml) {
     let htmlDocument = genericElementGenerator.generateDocument(pageHtml);
     threadPageAppender.appendNextPage(htmlDocument, true);

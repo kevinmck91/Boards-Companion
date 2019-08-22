@@ -13,7 +13,11 @@ class PostHtmlUpdater {
 
     addTagIconElementToPosts(posts) {
         for (let post of posts) {
-            this._addTagIconElementToPost(post);
+            try {
+                this._addTagIconElementToPost(post);
+            } catch (ex) {
+                console.error("Error adding tag icon: " + ex.stack);
+            }
         }
     }
 
