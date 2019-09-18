@@ -51,6 +51,37 @@ class TestThreadHtmlGenerator {
         </form>`;
     }
 
+    getNavigationRibbon(currentPageNo, totalPages) {
+        return `
+        <div align="center">
+            <div class="page fix-width">
+                <div align="left">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    `+ this.getThreadPageNavigator(currentPageNo, totalPages) + `
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <script type="text/javascript"></script>
+                    <table></table>
+                </div>
+            </div>
+        </div>`
+    }
+
     getAd() {
         return `
         <div>

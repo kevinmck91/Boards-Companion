@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Boards Companion",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "description": "Extension to enhance boards.ie user experience",
     "icons": {
         "16": "icons/icon16.png",
@@ -51,6 +51,7 @@
         "automatic-pageloading/ThreadPageAppender.js",
         "automatic-pageloading/ThreadPagePrepender.js",
         "automatic-pageloading/ForumHomepageAppender.js",
+        "automatic-pageloading/NavigationRibbonUpdater.js",
         "NavigatorUpdater.js",
         "automatic-pageloading/ForumHomepagePrepender.js",
         "post-manipulation/PostHtmlUpdater.js",

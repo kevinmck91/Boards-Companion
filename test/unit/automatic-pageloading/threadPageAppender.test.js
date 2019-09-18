@@ -31,12 +31,13 @@ it('add next page successfully', () => {
     expect(elementFinder.getAllPosts().length).toBe(2);
 })
 
-it('insert correct page no', () => {
+it('ensure page navigator is inserted', () => {
     document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
 
     appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
-    expect(document.body.outerHTML.indexOf("page 2")).not.toBe(-1);
+    expect(document.body.outerHTML.match(/Page 2 of 2/g).length).toBe(2);
+
 })
 
 it('update navigator', () => {
@@ -77,6 +78,7 @@ it('test tagging applied to next page posts', () => {
 
 it('test tagging applied ok to signed out page', () => {
     document.body.innerHTML = testThreadPageBuilder.isSignedOut().specificPage(1, 2).buildPage();
+    console.error = jest.fn();
 
     userTagger.applyTagging();
     appendNextPage(testThreadPageBuilder.isSignedOut().withMultiplePosts(2).specificPage(2, 2).buildPage());

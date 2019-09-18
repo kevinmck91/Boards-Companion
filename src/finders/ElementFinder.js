@@ -1,7 +1,12 @@
 "use strict";
 export { ElementFinder };
+import { ElementRemover } from "../ElementRemover.js";
 
 class ElementFinder {
+
+    constructor() {
+        this.elementRemover = new ElementRemover();
+    }
 
     searchForWelcomeNotice() {
         let notice = document.getElementById('notices');
@@ -85,7 +90,44 @@ class ElementFinder {
     }
 
     getBottomPageNavigator() {
-        return document.querySelectorAll('.pagenav')[1];
+        return this.getBottomPageNavigatorFromDocument(document);
+    }
+
+    getBottomPageNavigatorFromDocument(htmlDocument) {
+        const navigators = htmlDocument.querySelectorAll('.pagenav');
+        return navigators[navigators.length - 1];
+    }
+
+    getBottomPageNavigationRibbonFromDocument(htmlDocument) {
+        let bottomPageNavigator = this.getBottomPageNavigatorFromDocument(htmlDocument);
+        let bottomPageNavigatorRibbon = this.findParentElement(bottomPageNavigator, 11);
+        this._cleanPageNavigationRibbonElement(bottomPageNavigatorRibbon);
+        return bottomPageNavigatorRibbon;
+    }
+
+    findParentElement(candidateElement, noOfGenerations) {
+        for (let i = 1; i <= noOfGenerations; i++) {
+            candidateElement = candidateElement.parentElement;
+        }
+        return candidateElement;
+    }
+
+    _cleanPageNavigationRibbonElement(pageNavigationRibbon) {
+        let table = pageNavigationRibbon.querySelectorAll('table')[0];
+        let elementsForDeletion = this.getElementSiblings(table);
+        this.elementRemover.removeElements(elementsForDeletion);
+    }
+
+    getElementSiblings(candidateElement) {
+        let siblings = [];
+        let sibling = candidateElement.parentNode.firstChild;
+        while (sibling) {
+            if (sibling !== candidateElement) {
+                siblings.push(sibling);
+            }
+            sibling = sibling.nextSibling
+        }
+        return siblings;
     }
 
     getTopPageNavigatorFromDocument(htmlDocument) {

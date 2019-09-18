@@ -114,3 +114,20 @@ it('test get modal element', () => {
     let modalElement = elementFinder.getTaggerModalElement();
     expect(modalElement).not.toBe(null);
 })
+
+it('test get bottom page navigation ribbon', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+
+    const bottomPageNavigationRibbon = elementFinder.getBottomPageNavigationRibbonFromDocument(document);
+
+    expect(bottomPageNavigationRibbon.outerHTML.match(/<table/g).length).toBe(3);
+})
+
+it('test bottom page navigation ribbon cleaned', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+
+    const bottomPageNavigationRibbon = elementFinder.getBottomPageNavigationRibbonFromDocument(document);
+
+    expect(bottomPageNavigationRibbon.outerHTML.match(/<script/g)).toBe(null);
+
+})

@@ -26,7 +26,7 @@ class ThreadPageAppender {
     }
 
     appendNextPage(nextPageDocument, hidePostElements) {
-        this._insertPageNumber(nextPageDocument);
+        this._insertNavigationRibbon(nextPageDocument);
         let nextPagePosts = this.elementFinder.getPostsFromDocument(nextPageDocument);
         this.threadPageUpdater.appendElements(nextPagePosts);
         this.navigatorUpdater.updateBottomPageNavigatorFromDocument(nextPageDocument);
@@ -36,13 +36,18 @@ class ThreadPageAppender {
         this.userTagger.applyTaggingToPosts(nextPagePosts);
     }
 
-    _insertPageNumber(nextPageDocument) {
-        let pageNoElement = this._getPageNoElement(nextPageDocument);
-        this.threadPageUpdater.appendElement(pageNoElement);
+    _insertNavigationRibbon(nextPageDocument) {
+        let navigationRibbon = this.elementFinder.getBottomPageNavigationRibbonFromDocument(nextPageDocument);
+        this._styleNavigationRibbon(navigationRibbon);
+        this.threadPageUpdater.appendElement(navigationRibbon);
     }
 
     _getPageNoElement(nextPageDocument) {
         let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
         return this.automaticPageLoadingElementGenerator.generateBottomPageNoElement(nextPageNo);
+    }
+
+    _styleNavigationRibbon(navigationRibbon) {
+        navigationRibbon.style.marginTop = '25px';
     }
 }

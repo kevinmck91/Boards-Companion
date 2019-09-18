@@ -63,17 +63,17 @@ class TestThreadPageBuilder {
     }
 
     buildPage() {
-        let pageContent = this._getPageNavigator();
+        let pageContent = this._getNavigationRibbon();
         pageContent += this.testCommonHtmlGenerator.getHeader();
         pageContent += this._getNotices();
         pageContent += this._getPosts();
-        pageContent += this.testThreadHtmlGenerator.wrapThreadFooterElements(this._getPageNavigator());
+        pageContent += this.testThreadHtmlGenerator.wrapThreadFooterElements(this._getNavigationRibbon());
         let pageHtml = this.testCommonHtmlGenerator.wrapPageElements(pageContent);
         return pageHtml;
     }
 
-    _getPageNavigator() {
-        return this.testThreadHtmlGenerator.getThreadPageNavigator(this.pageNo, this.maxNoOfPages);
+    _getNavigationRibbon() {
+        return this.testThreadHtmlGenerator.getNavigationRibbon(this.pageNo, this.maxNoOfPages);
     }
 
     _getNotices() {

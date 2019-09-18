@@ -33,7 +33,7 @@ class ThreadPagePrepender {
         this.previousPageDocument = previousPageDocument;
         this.previousPagePosts = this.elementFinder.getPostsFromDocument(this.previousPageDocument);
         this._setOriginalPosition();
-        this._insertPreviousPageNumber();
+        this._insertNavigationRibbon();
         this.threadPageUpdater.prependElements(this.previousPagePosts);
         this.loadingElementUpdater.removeLoadingElements();
         this.boardsScriptInserter.insertScript(this.boardsScriptGenerator.GeneratePostPostsInsertScript());
@@ -48,15 +48,17 @@ class ThreadPagePrepender {
         this.originalYCoordinate = this.pageInformationCollector.getCurrentYCoordinate();
     }
 
-    _insertPreviousPageNumber() {
-        let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
-        let pageNoElement = this.automaticPageLoadingElementGenerator.generateThreadTopPageNoElement(previousPageNo);
-        this.threadPageUpdater.prependElement(pageNoElement)
+    _insertNavigationRibbon() {
+        let navigationRibbon = this.elementFinder.getBottomPageNavigationRibbonFromDocument(this.previousPageDocument);
+        this._styleNavigationRibbon(navigationRibbon);
+        this.threadPageUpdater.prependElement(navigationRibbon);
     }
 
     _scrollToOriginalPosition() {
         window.scrollTo(0, (this.originalYCoordinate + this.pageInformationCollector.getDocumentHeight() - this.originalDocumentHeight));
     }
 
-
+    _styleNavigationRibbon(navigationRibbon) {
+        navigationRibbon.style.marginBottom = '25px';
+    }
 }
