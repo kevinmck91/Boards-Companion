@@ -18,21 +18,28 @@ beforeEach(() => {
     testForumPageBuilder = new TestForumPageBuilder();
 })
 
-it('ensure forum homepage elements are prepended in correct order', () => {
-    document.body.innerHTML = testForumPageBuilder.specificPage(2, 2).buildPage();
-
-    prependForumHomepage(testForumPageBuilder.buildPage());
-
-    let pageNoElement = document.body.querySelectorAll(".left-col > *")[1];
-    expect(pageNoElement.outerHTML.indexOf('<div')).not.toBe(-1);
-})
-
 it('ensure forum homepage elements are prepended correctly', () => {
     document.body.innerHTML = testForumPageBuilder.specificPage(2, 2).buildPage();
 
     prependForumHomepage(testForumPageBuilder.buildPage());
 
-    expect(elementFinder.getAllThreadsContainers().length).toBe(2);
+    expect(document.body.outerHTML.match(/title/g).length).toBe(2);
+})
+
+it('ensure navigation ribbon is inserted', () => {
+    document.body.innerHTML = testForumPageBuilder.specificPage(2, 2).buildPage();
+
+    prependForumHomepage(testForumPageBuilder.buildPage());
+
+    expect(document.body.outerHTML.match(/2 of 2/g).length).toBe(3);
+})
+
+it('ensure navigation ribbon is inserted in correct location', () => {
+    document.body.innerHTML = testForumPageBuilder.specificPage(2, 2).buildPage();
+
+    prependForumHomepage(testForumPageBuilder.buildPage());
+
+    expect(document.body.outerHTML.match(/(2 of 2[\s\S]*)title([\s\S]*)2 of 2([\s\S]*)title([\s\S]*)2 of 2/g)).not.toBe(null);
 })
 
 function prependForumHomepage(pageHtml) {

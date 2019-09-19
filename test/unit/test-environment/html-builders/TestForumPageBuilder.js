@@ -19,10 +19,11 @@ class TestForumPageBuilder {
     }
 
     buildPage() {
-        let pageContent = this.testForumHtmlGenerator.getForumPageNavigator(this.pageNo, this.maxNoOfPages);
+        let pageContent = this.testForumHtmlGenerator.getNavigationRibbon(this.pageNo, this.maxNoOfPages);
         pageContent += this.testCommonHtmlGenerator.getHeader();
-        pageContent += this.testForumHtmlGenerator.wrapThreadEntries(this.testForumHtmlGenerator.getThreadEntry());
-        pageContent += this.testForumHtmlGenerator.wrapForumFooterNavigator(this.testForumHtmlGenerator.getForumPageNavigator(this.pageNo, this.maxNoOfPages));
+        let threadAndFooterContent = this.testForumHtmlGenerator.wrapThreadEntries(this.testForumHtmlGenerator.getThreadEntry());
+        threadAndFooterContent += this.testForumHtmlGenerator.wrapForumFooterNavigator(this.testForumHtmlGenerator.getNavigationRibbon(this.pageNo, this.maxNoOfPages));
+        pageContent += this.testForumHtmlGenerator.wrapThreadAndFooter(threadAndFooterContent);
         return this.testCommonHtmlGenerator.wrapPageElements(pageContent);
     }
 }

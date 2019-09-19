@@ -9,6 +9,7 @@ import { BoardsScriptGenerator } from "../inserted-scripts/BoardsScriptGenerator
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { UserTagger } from "../user-tagging/UserTagger.js";
 import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
+import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
 
 class ThreadPageAppender {
 
@@ -23,6 +24,7 @@ class ThreadPageAppender {
         this.navigatorUpdater = new NavigatorUpdater();
         this.userTagger = new UserTagger();
         this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
+        this.navigationRibbonStyler = new NavigationRibbonStyler();
     }
 
     appendNextPage(nextPageDocument, hidePostElements) {
@@ -37,17 +39,9 @@ class ThreadPageAppender {
     }
 
     _insertNavigationRibbon(nextPageDocument) {
-        let navigationRibbon = this.elementFinder.getBottomPageNavigationRibbonFromDocument(nextPageDocument);
-        this._styleNavigationRibbon(navigationRibbon);
+        let navigationRibbon = this.elementFinder.getThreadBottomNavigationRibbonFromDocument(nextPageDocument);
+        this.navigationRibbonStyler.styleAppendedNavigationRibbon(navigationRibbon);
         this.threadPageUpdater.appendElement(navigationRibbon);
     }
 
-    _getPageNoElement(nextPageDocument) {
-        let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
-        return this.automaticPageLoadingElementGenerator.generateBottomPageNoElement(nextPageNo);
-    }
-
-    _styleNavigationRibbon(navigationRibbon) {
-        navigationRibbon.style.marginTop = '25px';
-    }
 }

@@ -23,7 +23,6 @@ class TestForumHtmlGenerator {
 
     wrapThreadEntries(entries) {
         return `
-        <form id="inlinemodform">
             <div class="threadlist-wrapper">
                 <div class="left-col">
                     <table id="threadslist">
@@ -33,16 +32,36 @@ class TestForumHtmlGenerator {
                             ` + entries + `
                         </tbody>
                     </table>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>New Thread</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-        </form>`
+            </div>`
+    }
+
+    wrapThreadAndFooter(content) {
+        return `<form id="inlinemodform">
+                    `+ content + `
+                </form>`;
+    }
+
+    getNavigationRibbon(currentPageNo, totalPages) {
+        return `<table>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                `+ this.getForumPageNavigator(currentPageNo, totalPages) + `
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table`;
     }
 
     getForumPageNavigator(currentPageNo, totalPages) {

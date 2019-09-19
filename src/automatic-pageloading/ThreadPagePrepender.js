@@ -9,6 +9,7 @@ import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { UserTagger } from "../user-tagging/UserTagger.js";
 import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
+import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
 
 class ThreadPagePrepender {
 
@@ -27,6 +28,7 @@ class ThreadPagePrepender {
         this.previousPagePosts = [];
         this.userTagger = new UserTagger();
         this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
+        this.navigationRibbonStyler = new NavigationRibbonStyler();
     }
 
     prependPage(previousPageDocument, hidePostElements) {
@@ -49,8 +51,8 @@ class ThreadPagePrepender {
     }
 
     _insertNavigationRibbon() {
-        let navigationRibbon = this.elementFinder.getBottomPageNavigationRibbonFromDocument(this.previousPageDocument);
-        this._styleNavigationRibbon(navigationRibbon);
+        let navigationRibbon = this.elementFinder.getThreadBottomNavigationRibbonFromDocument(this.previousPageDocument);
+        this.navigationRibbonStyler.stylePrependedNavigationRibbon(navigationRibbon);
         this.threadPageUpdater.prependElement(navigationRibbon);
     }
 
@@ -58,7 +60,4 @@ class ThreadPagePrepender {
         window.scrollTo(0, (this.originalYCoordinate + this.pageInformationCollector.getDocumentHeight() - this.originalDocumentHeight));
     }
 
-    _styleNavigationRibbon(navigationRibbon) {
-        navigationRibbon.style.marginBottom = '25px';
-    }
 }

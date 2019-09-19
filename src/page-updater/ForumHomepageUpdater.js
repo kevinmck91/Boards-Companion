@@ -8,14 +8,13 @@ class ForumHomepageUpdater {
     }
 
     appendElement(element) {
-        let contentElements = this.elementFinder.getForumHomepageContentElements();
-        let lastElement = contentElements[contentElements.length - 1];
-        lastElement.parentElement.insertBefore(element, lastElement.nextSibling);
+        let parentElement = this.elementFinder.getForumHomepageThreadContainer();
+        let threadSubContainer = parentElement.children[parentElement.children.length - 2];
+        threadSubContainer.parentElement.insertBefore(element, threadSubContainer.nextSibling);
     }
 
     prependElement(element) {
-        let contentElements = this.elementFinder.getForumHomepageContentElements();
-        let firstElement = contentElements[0];
-        firstElement.parentElement.insertBefore(element, firstElement);
+        let parentElement = this.elementFinder.getForumHomepageThreadContainer();
+        parentElement.insertBefore(element, parentElement.children[0]);
     }
 }

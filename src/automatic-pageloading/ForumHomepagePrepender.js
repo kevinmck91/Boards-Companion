@@ -5,6 +5,7 @@ import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { ForumHomepageUpdater } from "../page-updater/ForumHomepageUpdater.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
+import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
 
 class ForumHomepagePrepender {
 
@@ -18,12 +19,13 @@ class ForumHomepagePrepender {
         this.forumHomepageUpdater = new ForumHomepageUpdater();
         this.navigatorUpdater = new NavigatorUpdater();
         this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
+        this.navigationRibbonStyler = new NavigationRibbonStyler();
     }
 
     prependPage(previousPageDocument) {
         this.previousPageDocument = previousPageDocument;
         this._setOriginalPosition();
-        this._insertPreviousPageNumber();
+        this._insertNavigationRibbon();
         let nextPageThreadContainer = this.elementFinder.getThreadsContainerFromDocument(this.previousPageDocument);
         this.forumHomepageUpdater.prependElement(nextPageThreadContainer);
         this.loadingElementUpdater.removeLoadingElements();
@@ -40,9 +42,9 @@ class ForumHomepagePrepender {
         window.scrollTo(0, (this.originalYCoordinate + this.pageInformationCollector.getDocumentHeight() - this.originalDocumentHeight));
     }
 
-    _insertPreviousPageNumber() {
-        let previousPageNo = this.pageInformationCollector.getPageNoFromDocument(this.previousPageDocument);
-        let pageNoElement = this.automaticPageLoadingElementGenerator.generateForumTopPageNoElement(previousPageNo);
-        this.forumHomepageUpdater.prependElement(pageNoElement)
+    _insertNavigationRibbon() {
+        let navigationRibbon = this.elementFinder.getForumBottomNavigationRibbonFromDocument(this.previousPageDocument);
+        this.navigationRibbonStyler.stylePrependedNavigationRibbon(navigationRibbon);
+        this.forumHomepageUpdater.prependElement(navigationRibbon);
     }
 }

@@ -41,8 +41,8 @@ class ElementFinder {
         return this.getPostsContainerFromDocument(document);
     }
 
-    getForumHomepageContentElements() {
-        return document.body.querySelectorAll('.page-number, #threadslist');
+    getForumHomepageThreadContainer() {
+        return document.getElementById('inlinemodform');
     }
 
     getPostsFromDocument(htmlDocument) {
@@ -56,10 +56,6 @@ class ElementFinder {
 
     getThreadsContainerFromDocument(htmlDocument) {
         return htmlDocument.getElementById("threadslist");
-    }
-
-    getAllThreadsContainers() {
-        return document.body.querySelectorAll('.left-col > #threadslist');
     }
 
     getAvatarInfoElementsFromPost(post) {
@@ -98,7 +94,13 @@ class ElementFinder {
         return navigators[navigators.length - 1];
     }
 
-    getBottomPageNavigationRibbonFromDocument(htmlDocument) {
+    getForumBottomNavigationRibbonFromDocument(htmlDocument) {
+        let bottomPageNavigator = this.getBottomPageNavigatorFromDocument(htmlDocument);
+        let bottomNavationRibbon = this.findParentElement(bottomPageNavigator, 8);
+        return bottomNavationRibbon;
+    }
+
+    getThreadBottomNavigationRibbonFromDocument(htmlDocument) {
         let bottomPageNavigator = this.getBottomPageNavigatorFromDocument(htmlDocument);
         let bottomPageNavigatorRibbon = this.findParentElement(bottomPageNavigator, 11);
         this._cleanPageNavigationRibbonElement(bottomPageNavigatorRibbon);

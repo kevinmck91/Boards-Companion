@@ -51,7 +51,7 @@
         "automatic-pageloading/ThreadPageAppender.js",
         "automatic-pageloading/ThreadPagePrepender.js",
         "automatic-pageloading/ForumHomepageAppender.js",
-        "automatic-pageloading/NavigationRibbonUpdater.js",
+        "automatic-pageloading/NavigationRibbonStyler.js",
         "NavigatorUpdater.js",
         "automatic-pageloading/ForumHomepagePrepender.js",
         "post-manipulation/PostHtmlUpdater.js",

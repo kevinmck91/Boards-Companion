@@ -6,6 +6,7 @@ import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { PageInformationCollector } from "../page/PageInformationCollector.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
+import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
 
 class ForumHomepageAppender {
 
@@ -17,23 +18,21 @@ class ForumHomepageAppender {
         this.pageInformationCollector = new PageInformationCollector();
         this.navigatorUpdater = new NavigatorUpdater();
         this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
+        this.navigationRibbonStyler = new NavigationRibbonStyler();
     }
 
     appendNextPage(nextPageDocument) {
-        this._insertNextPageNumber(nextPageDocument);
+        this._insertNavigationRibbon(nextPageDocument);
         let nextPageThreadContainer = this.elementFinder.getThreadsContainerFromDocument(nextPageDocument);
         this.forumHomepageUpdater.appendElement(nextPageThreadContainer);
         this.navigatorUpdater.updateBottomPageNavigatorFromDocument(nextPageDocument);
         this.loadingElementUpdater.removeLoadingElements();
     }
 
-    _insertNextPageNumber(nextPageDocument) {
-        let pageNoElement = this._getPageNoElement(nextPageDocument);
-        this.forumHomepageUpdater.appendElement(pageNoElement);
+    _insertNavigationRibbon(nextPageDocument) {
+        let navigationRibbon = this.elementFinder.getForumBottomNavigationRibbonFromDocument(nextPageDocument);
+        this.navigationRibbonStyler.styleAppendedNavigationRibbon(navigationRibbon);
+        this.forumHomepageUpdater.appendElement(navigationRibbon);
     }
 
-    _getPageNoElement(nextPageDocument) {
-        let nextPageNo = this.pageInformationCollector.getPageNoFromDocument(nextPageDocument);
-        return this.automaticPageLoadingElementGenerator.generateBottomPageNoElement(nextPageNo);
-    }
 }
