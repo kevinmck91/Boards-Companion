@@ -1,13 +1,12 @@
-"use strict";
 export { HeaderTransparencyToggler };
-import { ElementFinder } from "./finders/ElementFinder.js";
+import { HeaderElementFinder } from "./finders/HeaderElementFinder.js";
 import { ElementVisibilityUpdater } from "./element-visibility/ElementVisibilityUpdater.js";
 
 class HeaderTransparencyToggler {
 
     constructor() {
         this.elementVisibilityUpdater = new ElementVisibilityUpdater();
-        this.elementFinder = new ElementFinder();
+        this.headerElementFinder = new HeaderElementFinder();
     }
 
     enableToggling() {
@@ -29,7 +28,7 @@ class HeaderTransparencyToggler {
     }
 
     _untransparentizeOnMouseOver() {
-        for (let headerElement of this.elementFinder.getHeaderElements()) {
+        for (let headerElement of this.headerElementFinder.getHeaderElements()) {
             headerElement.addEventListener('mouseover', () => {
                 if (this._isThread()) {
                     this._untransparentizeHeader();
@@ -43,12 +42,12 @@ class HeaderTransparencyToggler {
     }
 
     _transparentizeHeader() {
-        this.elementVisibilityUpdater.transparentizeElements(this.elementFinder.getHeaderElements());
+        this.elementVisibilityUpdater.transparentizeElements(this.headerElementFinder.getHeaderElements());
 
     }
 
     _untransparentizeHeader() {
-        this.elementVisibilityUpdater.untransparentizeElements(this.elementFinder.getHeaderElements());
+        this.elementVisibilityUpdater.untransparentizeElements(this.headerElementFinder.getHeaderElements());
     }
 
     _isTopOfPage() {

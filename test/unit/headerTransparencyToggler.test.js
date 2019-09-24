@@ -1,12 +1,12 @@
 "use strict";
 import { HeaderTransparencyToggler } from "../../src/HeaderTransparencyToggler.js";
-import { ElementFinder } from "../../src/finders/ElementFinder.js";
+import { HeaderElementFinder } from "../../src/finders/HeaderElementFinder.js";
 import { TestPageManipulator } from "./test-environment/TestPageManipulator.js";
 import { PageInformationCollector } from "../../src/page/PageInformationCollector.js";
 import { TestThreadPageBuilder } from "./test-environment/html-builders/TestThreadPageBuilder.js";
 
 let headerTransparencyToggler = new HeaderTransparencyToggler();
-let elementFinder = new ElementFinder();
+let headerElementFinder = new HeaderElementFinder();
 let testPageManipulator = new TestPageManipulator();
 let pageInformationCollector = new PageInformationCollector();
 let testThreadPageBuilder = null;
@@ -23,7 +23,7 @@ it('Test mid page header transparent', () => {
     headerTransparencyToggler.enableToggling();
     testPageManipulator.triggerScrollEvent();
 
-    expect(elementFinder.getBreadCrumbs().style.opacity).toBe('0');
+    expect(headerElementFinder.getBreadCrumbs().style.opacity).toBe('0');
 })
 
 it('Test top of page non-transparent header', () => {

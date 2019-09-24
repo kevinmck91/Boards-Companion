@@ -38,6 +38,7 @@
         "finders/ElementFinder.js",
         "finders/TaggerModalElementFinder.js",
         "finders/NavigationElementFinder.js",
+        "finders/HeaderElementFinder.js",
         "HeaderTransparencyToggler.js",
         "automatic-pageloading/AutomaticPageLoader.js",
         "page/PageInformationCollector.js",

@@ -1,12 +1,11 @@
-"use strict";
 export { PageInformationCollector };
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { HeaderElementFinder } from "../finders/HeaderElementFinder.js";
 import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 
 class PageInformationCollector {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.headerElementFinder = new HeaderElementFinder();
         this.navigationElementFinder = new NavigationElementFinder();
     }
 
@@ -41,7 +40,7 @@ class PageInformationCollector {
     }
 
     isHeaderNontransparent() {
-        return this.elementFinder.getBreadCrumbs().style.opacity != '0';
+        return this.headerElementFinder.getBreadCrumbs().style.opacity != '0';
     }
 
     getPageNoFromDocument(htmlDocument) {
