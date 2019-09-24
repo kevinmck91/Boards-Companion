@@ -1,6 +1,6 @@
 export { TaggedUsersRetriever }
 import { StorageRetriever } from "../storage/StorageRetriever.js";
-import { StorageKeys } from "../storage/ApplicationStorageKeys.js"
+import { ApplicationSettings } from "../ApplicationSettings.js";
 
 class TaggedUsersRetriever {
 
@@ -28,7 +28,7 @@ class TaggedUsersRetriever {
         let tagDetailList = [];
         let objectKeys = Object.keys(data);
         for (let objectKey of objectKeys) {
-            if (objectKey.indexOf("." + StorageKeys.TagDetail) != -1) {
+            if (objectKey.indexOf("." + ApplicationSettings.StorageConstants.TagDetail) != -1) {
                 tagDetailList.push(data[objectKey]);
             }
         }

@@ -1,6 +1,6 @@
-import { StorageKeys } from "../storage/ApplicationStorageKeys.js";
+import { ApplicationSettings } from "../ApplicationSettings.js";
 
-let configurationSettingIdentifiers = [StorageKeys.AutoScrollingEnabled, StorageKeys.HidePostElementsEnabled, StorageKeys.ToggleHeaderTransparency];
+let popupSettings = [ApplicationSettings.PopupSettings.AutoscrollingEnabled, ApplicationSettings.PopupSettings.HidePostElements, ApplicationSettings.PopupSettings.ToggleHeaderTransparency];
 updateCheckboxValuesFromStorage();
 enableSaving();
 
@@ -9,25 +9,26 @@ function enableSaving() {
 }
 
 function updateCheckboxValuesFromStorage() {
-    for (let configurationSettingIdentifier of configurationSettingIdentifiers) {
-        updateCheckboxValueFromStorage(configurationSettingIdentifier);
+    for (let popupSetting of popupSettings) {
+        updateCheckboxValueFromStorage(popupSetting);
     }
 }
 
 function saveCurrentConfiguration() {
-    for (let configurationSetting of configurationSettingIdentifiers) {
-        addConfigurationSettingToStorage(configurationSetting);
+    for (let popupSetting of popupSettings) {
+        addConfigurationSettingToStorage(popupSetting);
     }
     chrome.tabs.reload();
 }
 
-function updateCheckboxValueFromStorage(configurationSettingIdentifier) {
-    chrome.storage.sync.get(configurationSettingIdentifier, function (result) {
-        if (result[configurationSettingIdentifier] != false) {
-            setConfigurationCheckbox(configurationSettingIdentifier, true);
-        }
-        else {
-            setConfigurationCheckbox(configurationSettingIdentifier, false);
+function updateCheckboxValueFromStorage(popupSetting) {
+    chrome.storage.sync.get(popupSetting.Key, function (result) {
+        if (result[popupSetting.Key] == true) {
+            setConfigurationCheckbox(popupSetting.Key, true);
+        } else if (result[popupSetting.Key] == false) {
+            setConfigurationCheckbox(popupSetting.Key, false);
+        } else {
+            setConfigurationCheckbox(popupSetting.Key, popupSetting.DefaultValue)
         }
     });
 }
@@ -36,12 +37,12 @@ function setConfigurationCheckbox(checkboxId, isChecked) {
     document.getElementById(checkboxId).checked = isChecked;
 }
 
-function addConfigurationSettingToStorage(configurationSettingIdentifier) {
-    if (document.getElementById(configurationSettingIdentifier).checked) {
-        chrome.storage.sync.set({ [configurationSettingIdentifier]: true });
+function addConfigurationSettingToStorage(popupSetting) {
+    if (document.getElementById(popupSetting.Key).checked) {
+        chrome.storage.sync.set({ [popupSetting.Key]: true });
     }
     else {
-        chrome.storage.sync.set({ [configurationSettingIdentifier]: false });
+        chrome.storage.sync.set({ [popupSetting.Key]: false });
     }
 }
 

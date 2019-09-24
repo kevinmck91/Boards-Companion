@@ -41,7 +41,8 @@ function copyFirefoxFiles(destinationFolder) {
         copyGlob("./src/icons/**", destinationFolder + "/icons"),
         copyGlob("./src/popup/**", destinationFolder + "/popup"),
         copyGlob("./src/storage/**", destinationFolder + "/storage"),
-        copyGlob("./src/manifest.json", destinationFolder)
+        copyGlob("./src/manifest.json", destinationFolder),
+        copyGlob("./src/ApplicationSettings.js", destinationFolder)
     ]);
 }
 

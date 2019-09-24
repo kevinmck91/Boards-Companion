@@ -5,7 +5,7 @@ import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArra
 import { UserTagger } from "../../../src/user-tagging/UserTagger.js";
 import { ElementFinder } from "../../../src/finders/ElementFinder.js";
 import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js";
-import { StorageKeys } from "../../../src/storage/ApplicationStorageKeys.js";
+import { StorageKeyGenerator } from "../../../src/storage/StorageKeyGenerator.js";
 
 let modalDetailsFinder = new ModalDetailsFinder();
 let testThreadPageBuilder = null;
@@ -14,6 +14,7 @@ let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
 let elementFinder = new ElementFinder();
 let chromeStorageMocker = null;
+let storageKeyGenerator = new StorageKeyGenerator();
 
 beforeEach(() => {
     testThreadPageBuilder = new TestThreadPageBuilder();
@@ -43,7 +44,7 @@ it('ensure modal element only initialized once', () => {
 
 it('test show all tagged users', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
+    chromeStorageMocker.MockGetter({ [storageKeyGenerator.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
 
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser', '123456');
@@ -56,7 +57,7 @@ it('test show all tagged users', () => {
 
 it('test show all tagged users clicked twice', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
+    chromeStorageMocker.MockGetter({ [storageKeyGenerator.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
 
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser', '123456');
@@ -70,7 +71,7 @@ it('test show all tagged users clicked twice', () => {
 
 it('test click untag user element', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
-    chromeStorageMocker.MockGetter({ [StorageKeys.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
+    chromeStorageMocker.MockGetter({ [storageKeyGenerator.generateTagDetailKey('123456')]: { username: 'testtaggeduser', colour: 'red', text: 'testtext', userId: '123456' } });
 
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser', '123456');
@@ -79,7 +80,7 @@ it('test click untag user element', () => {
     let deleteUserElement = elementFinder.getTaggerModalDeleteUserElements()[0];
     deleteUserElement.click();
 
-    expect(chromeStorageMocker.chromeMock.storage.sync.remove.mock.calls[0][0]).toBe(StorageKeys.generateTagDetailKey('123456'));
+    expect(chromeStorageMocker.chromeMock.storage.sync.remove.mock.calls[0][0]).toBe(storageKeyGenerator.generateTagDetailKey('123456'));
 })
 
 it('test when empty object returned from chrome storage', () => {

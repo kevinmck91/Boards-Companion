@@ -42,7 +42,7 @@
         "page/PageInternalsUpdater.js",
         "post-manipulation/PostsCompressionToggler.js",
         "inserted-scripts/BoardsScriptGenerator.js",
-        "ConfigurationSettingExecutor.js",
+        "PopupSettingExecutor.js",
         "automatic-pageloading/LoadingElementUpdater.js",
         "inserted-scripts/BoardsScriptInserter.js",
         "post-manipulation/PostsFormatter.js",
@@ -57,11 +57,11 @@
         "post-manipulation/PostHtmlUpdater.js",
         "storage/StorageUpdater.js",
         "storage/StorageRetriever.js",
+        "storage/StorageKeyGenerator.js",
         "user-tagging/TaggedUsersUpdater.js",
         "user-tagging/TaggedUsersRetriever.js",
         "user-tagging/UserTagger.js",
         "finders/ModalDetailsFinder.js",
-        "storage/ApplicationStorageKeys.js",
         "user-tagging/TaggerModalUpdater.js",
         "user-tagging/UserTagApplier.js",
         "finders/AvatarDetailsFinder.js",
@@ -70,6 +70,7 @@
         "element-generators/FontAwesomeElementGenerator.js",
         "element-generators/GenericElementGenerator.js",
         "element-generators/ModalElementGenerator.js",
-        "element-generators/UserTaggingElementGenerator.js"
+        "element-generators/UserTaggingElementGenerator.js",
+        "ApplicationSettings.js"
     ]
 }

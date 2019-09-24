@@ -5,8 +5,8 @@ import { HeaderTransparencyToggler } from "./HeaderTransparencyToggler.js";
 import { AutomaticPageLoader } from "./automatic-pageloading/AutomaticPageLoader.js";
 import { PostsCompressionToggler } from "./post-manipulation/PostsCompressionToggler.js";
 import { PageInternalsUpdater } from "./page/PageInternalsUpdater.js";
-import { StorageKeys } from "./storage/ApplicationStorageKeys.js";
-import { ConfigurationSettingExecutor } from "./ConfigurationSettingExecutor.js";
+import { ApplicationSettings } from "./ApplicationSettings.js";
+import { PopupSettingExecutor } from "./PopupSettingExecutor.js";
 import { UserTagger } from "./user-tagging/UserTagger.js";
 
 let welcomeNoticeVisibilityUpdater = new WelcomeNoticeVisibilityUpdater();
@@ -15,9 +15,9 @@ let headerTransparencyToggler = new HeaderTransparencyToggler();
 let automaticPageLoader = new AutomaticPageLoader();
 let postsCompressionToggler = new PostsCompressionToggler();
 let pageInternalsUpdater = new PageInternalsUpdater();
-let autoscrollingsSetting = new ConfigurationSettingExecutor(StorageKeys.AutoScrollingEnabled);
-let hidePostElementsSetting = new ConfigurationSettingExecutor(StorageKeys.HidePostElementsEnabled);
-let toggleHeaderTransparencySetting = new ConfigurationSettingExecutor(StorageKeys.ToggleHeaderTransparency);
+let autoscrollingsSetting = new PopupSettingExecutor(ApplicationSettings.PopupSettings.AutoscrollingEnabled);
+let hidePostElementsSetting = new PopupSettingExecutor(ApplicationSettings.PopupSettings.HidePostElements);
+let toggleHeaderTransparencySetting = new PopupSettingExecutor(ApplicationSettings.PopupSettings.ToggleHeaderTransparency);
 let userTagger = new UserTagger();
 
 try {
@@ -35,32 +35,43 @@ catch (error) {
 }
 
 try {
-    hidePostElementsSetting.ConditionallyExecute(() => {
-        postElementsVisibilityUpdater.hideEachPostsElements();
-        postsCompressionToggler.applyCompressionToggling();
-    });
+    hidePostElementsSetting.ExecuteFunctionality(
+        () => {
+            postElementsVisibilityUpdater.hideEachPostsElements();
+            postsCompressionToggler.applyCompressionToggling();
+        },
+        null);
 }
 catch (error) {
     console.error("Unable to hide post elements: " + error);
 }
 
 try {
-    toggleHeaderTransparencySetting.ConditionallyExecute(() => {
-        headerTransparencyToggler.enableToggling();
-    });
+    toggleHeaderTransparencySetting.ExecuteFunctionality(
+        () => {
+            headerTransparencyToggler.enableToggling();
+        },
+        null);
 }
 catch (error) {
     console.error("Unable to toggle header reduction: " + error);
 }
 
 try {
-    autoscrollingsSetting.ConditionallyExecute(() => {
-        hidePostElementsSetting.ConditionallyExecute(() => {
-            automaticPageLoader.autoScrollPages(true);
-        }, () => {
-            automaticPageLoader.autoScrollPages(false);
-        });
-    });
+    autoscrollingsSetting.ExecuteFunctionality(
+        () => {
+            hidePostElementsSetting.ExecuteFunctionality(
+                () => {
+                    automaticPageLoader.autoScrollPages(true);
+                },
+                () => {
+                    automaticPageLoader.autoScrollPages(false);
+                },
+                () => {
+                    automaticPageLoader.autoScrollPages(false);
+                });
+        },
+        null);
 }
 catch (error) {
     console.error("Unable to activate auto page scrolling: " + error);
