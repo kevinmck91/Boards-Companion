@@ -1,18 +1,18 @@
 export { ModalDetailsFinder }
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { TaggerModalElementFinder } from "../finders/TaggerModalElementFinder.js";
 
 class ModalDetailsFinder {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.taggerModalElementFinder = new TaggerModalElementFinder();
     }
 
     getUsername() {
-        return this.elementFinder.getTaggerModalUsernameElement().value;
+        return this.taggerModalElementFinder.getTaggerModalUsernameElement().value;
     }
 
     getUserId() {
-        return this.elementFinder.getTaggerModalUserIdElement().value;
+        return this.taggerModalElementFinder.getTaggerModalUserIdElement().value;
     }
 
     getSelectedColour() {
@@ -21,7 +21,7 @@ class ModalDetailsFinder {
     }
 
     getTagText() {
-        return this.elementFinder.getTaggerModalElement().querySelector('#tag-text').value;
+        return this.taggerModalElementFinder.getTaggerModalElement().querySelector('#tag-text').value;
     }
 
     getUserDetails() {

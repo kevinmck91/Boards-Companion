@@ -2,14 +2,14 @@ import { ModalDetailsFinder } from "../../../src/finders/ModalDetailsFinder.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { TaggerModalUpdater } from "../../../src/user-tagging/TaggerModalUpdater.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
-import { ElementFinder } from "../../../src/finders/ElementFinder.js";
+import { TaggerModalElementFinder } from "../../../src/finders/TaggerModalElementFinder.js";
 import { ModalElementGenerator } from "../../../src/element-generators/ModalElementGenerator.js"
 
 let modalDetailsFinder = new ModalDetailsFinder();
 let testThreadPageBuilder = null;
 let taggerModalUpdater = new TaggerModalUpdater();
 let testEnvironmentArranger = new TestEnvironmentArranger();
-let elementFinder = new ElementFinder();
+let taggerModalElementFinder = new TaggerModalElementFinder();
 let modalElementGenerator = new ModalElementGenerator();
 
 beforeEach(() => {
@@ -31,6 +31,6 @@ it('test find cancel button', () => {
 
     taggerModalUpdater.ensureModalInitialized();
 
-    let cancelButton = elementFinder.getTaggerModalCancelButton();
+    let cancelButton = taggerModalElementFinder.getTaggerModalCancelButton();
     expect(cancelButton).not.toBe(null);
 })

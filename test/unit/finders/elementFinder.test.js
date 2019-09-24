@@ -4,7 +4,6 @@ import { UserTagger } from "../../../src/user-tagging/UserTagger.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { TestForumPageBuilder } from "../test-environment/html-builders/TestForumPageBuilder.js";
 import { TestPostBuilder } from "../test-environment/html-builders/TestPostBuilder.js";
-import { ModalElementGenerator } from "../../../src/element-generators/ModalElementGenerator.js"
 
 let elementFinder = new ElementFinder();
 let userTagger = new UserTagger();
@@ -12,7 +11,6 @@ let testEnvironmentArranger = new TestEnvironmentArranger();
 let testThreadPageBuilder = null;
 let testForumPageBuilder = new TestForumPageBuilder();
 let testPostBuilder = new TestPostBuilder();
-let modalElementGenerator = new ModalElementGenerator();
 
 beforeEach(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -104,15 +102,6 @@ it('test get user posts', () => {
     let userPosts = elementFinder.getUserPosts('testusername');
 
     expect(userPosts.length).toBe(3);
-})
-
-it('test get modal element', () => {
-    document.body.innerHTML = testThreadPageBuilder.buildPage();
-
-    document.body.appendChild(modalElementGenerator.generateModalElement());
-
-    let modalElement = elementFinder.getTaggerModalElement();
-    expect(modalElement).not.toBe(null);
 })
 
 it('test get bottom page navigation ribbon', () => {

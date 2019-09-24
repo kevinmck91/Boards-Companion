@@ -36,6 +36,7 @@
         "element-visibility/WelcomeNoticeVisibilityUpdater.js",
         "ElementRemover.js",
         "finders/ElementFinder.js",
+        "finders/TaggerModalElementFinder.js",
         "HeaderTransparencyToggler.js",
         "automatic-pageloading/AutomaticPageLoader.js",
         "page/PageInformationCollector.js",
