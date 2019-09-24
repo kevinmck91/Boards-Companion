@@ -62,7 +62,7 @@
         "user-tagging/TaggedUsersUpdater.js",
         "user-tagging/TaggedUsersRetriever.js",
         "user-tagging/UserTagger.js",
-        "finders/ModalDetailsFinder.js",
+        "finders/TaggerModalDetailsFinder.js",
         "user-tagging/TaggerModalUpdater.js",
         "user-tagging/UserTagApplier.js",
         "finders/AvatarDetailsFinder.js",

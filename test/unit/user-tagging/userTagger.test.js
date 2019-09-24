@@ -3,7 +3,7 @@ import { UserTagger } from "../../../src/user-tagging/UserTagger.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { ElementFinder } from "../../../src/finders/ElementFinder.js";
 import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js";
-import { ModalDetailsFinder } from "../../../src/finders/ModalDetailsFinder.js";
+import { TaggerModalDetailsFinder } from "../../../src/finders/TaggerModalDetailsFinder.js";
 import { GenericElementGenerator } from "../../../src/element-generators/GenericElementGenerator.js";
 import { StorageKeyGenerator } from "../../../src/storage/StorageKeyGenerator.js";
 
@@ -11,7 +11,7 @@ let userTagger = new UserTagger();
 let testThreadPageBuilder = null;
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let elementFinder = new ElementFinder();
-let modalDetailsFinder = new ModalDetailsFinder();
+let taggerModalDetailsFinder = new TaggerModalDetailsFinder();
 let chromeStorageMocker = null;
 let genericElementGenerator = new GenericElementGenerator();
 let storageKeyGenerator = new StorageKeyGenerator();
@@ -43,6 +43,6 @@ it('test user id within modal user details', () => {
     let tagIcon = elementFinder.getAllTagIconElements()[0];
     tagIcon.click();
 
-    let modalUserDetails = modalDetailsFinder.getUserDetails();
+    let modalUserDetails = taggerModalDetailsFinder.getUserDetails();
     expect(modalUserDetails.userId).toBe('1234');
 })

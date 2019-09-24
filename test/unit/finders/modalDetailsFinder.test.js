@@ -1,11 +1,11 @@
-import { ModalDetailsFinder } from "../../../src/finders/ModalDetailsFinder.js";
+import { TaggerModalDetailsFinder } from "../../../src/finders/TaggerModalDetailsFinder.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { TaggerModalUpdater } from "../../../src/user-tagging/TaggerModalUpdater.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { TaggerModalElementFinder } from "../../../src/finders/TaggerModalElementFinder.js";
 import { ModalElementGenerator } from "../../../src/element-generators/ModalElementGenerator.js"
 
-let modalDetailsFinder = new ModalDetailsFinder();
+let taggerModalDetailsFinder = new TaggerModalDetailsFinder();
 let testThreadPageBuilder = null;
 let taggerModalUpdater = new TaggerModalUpdater();
 let testEnvironmentArranger = new TestEnvironmentArranger();
@@ -22,7 +22,7 @@ it('test find default selected colour', () => {
 
     document.body.appendChild(modalElementGenerator.generateModalElement("testuser"));
 
-    let selectedColour = modalDetailsFinder.getSelectedColour();
+    let selectedColour = taggerModalDetailsFinder.getSelectedColour();
     expect(selectedColour).toBe('green');
 })
 

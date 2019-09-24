@@ -1,7 +1,7 @@
 export { TaggerModalUpdater }
 import { TaggerModalElementFinder } from "../finders/TaggerModalElementFinder.js";
 import { ModalElementGenerator } from "../element-generators/ModalElementGenerator.js"
-import { ModalDetailsFinder } from "../finders/ModalDetailsFinder.js";
+import { TaggerModalDetailsFinder } from "../finders/TaggerModalDetailsFinder.js";
 import { TaggedUsersUpdater } from "./TaggedUsersUpdater.js";
 import { PostsFormatter } from "../post-manipulation/PostsFormatter.js";
 import { TaggedUsersRetriever } from "./TaggedUsersRetriever.js";
@@ -10,7 +10,7 @@ class TaggerModalUpdater {
 
     constructor() {
         this.taggerModalElementFinder = new TaggerModalElementFinder();
-        this.modalDetailsFinder = new ModalDetailsFinder();
+        this.taggerModalDetailsFinder = new TaggerModalDetailsFinder();
         this.taggedUsersUpdater = new TaggedUsersUpdater();
         this.postsFormatter = new PostsFormatter();
         this.taggedUsersRetriever = new TaggedUsersRetriever();
@@ -26,7 +26,7 @@ class TaggerModalUpdater {
         let modalSubmitButton = this.taggerModalElementFinder.getTaggerModalSubmitButton();
         modalSubmitButton.addEventListener('click', (ev) => {
             ev.preventDefault();
-            let userDetails = _this.modalDetailsFinder.getUserDetails();
+            let userDetails = _this.taggerModalDetailsFinder.getUserDetails();
             _this.taggedUsersUpdater.tagUser(userDetails);
             _this.postsFormatter.tagUsersPosts(userDetails);
             _this._deactivateModal();

@@ -1,7 +1,7 @@
-export { ModalDetailsFinder }
-import { TaggerModalElementFinder } from "../finders/TaggerModalElementFinder.js";
+export { TaggerModalDetailsFinder }
+import { TaggerModalElementFinder } from "./TaggerModalElementFinder.js";
 
-class ModalDetailsFinder {
+class TaggerModalDetailsFinder {
 
     constructor() {
         this.taggerModalElementFinder = new TaggerModalElementFinder();

@@ -1,4 +1,4 @@
-import { ModalDetailsFinder } from "../../../src/finders/ModalDetailsFinder.js";
+import { TaggerModalDetailsFinder } from "../../../src/finders/TaggerModalDetailsFinder.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { TaggerModalUpdater } from "../../../src/user-tagging/TaggerModalUpdater";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
@@ -7,7 +7,7 @@ import { TaggerModalElementFinder } from "../../../src/finders/TaggerModalElemen
 import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js";
 import { StorageKeyGenerator } from "../../../src/storage/StorageKeyGenerator.js";
 
-let modalDetailsFinder = new ModalDetailsFinder();
+let taggerModalDetailsFinder = new TaggerModalDetailsFinder();
 let testThreadPageBuilder = null;
 let taggerModalUpdater = new TaggerModalUpdater();
 let testEnvironmentArranger = new TestEnvironmentArranger();
@@ -28,7 +28,7 @@ it('test activate modal element', () => {
     userTagger.applyTagging();
     taggerModalUpdater.activateModal('testuser');
 
-    let userDetails = modalDetailsFinder.getUserDetails();
+    let userDetails = taggerModalDetailsFinder.getUserDetails();
     expect(userDetails.username).toBe('testuser');
 })
 
