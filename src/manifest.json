@@ -37,6 +37,7 @@
         "ElementRemover.js",
         "finders/ElementFinder.js",
         "finders/TaggerModalElementFinder.js",
+        "finders/NavigationElementFinder.js",
         "HeaderTransparencyToggler.js",
         "automatic-pageloading/AutomaticPageLoader.js",
         "page/PageInformationCollector.js",

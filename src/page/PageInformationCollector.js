@@ -1,22 +1,24 @@
 "use strict";
 export { PageInformationCollector };
 import { ElementFinder } from "../finders/ElementFinder.js";
+import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 
 class PageInformationCollector {
 
     constructor() {
         this.elementFinder = new ElementFinder();
+        this.navigationElementFinder = new NavigationElementFinder();
     }
 
     getNextPageUrl() {
-        const navigator = this.elementFinder.getBottomPageNavigator();
-        const nextPageElement = this.elementFinder.getNextPageElementFromNavigator(navigator);
+        const navigator = this.navigationElementFinder.getBottomPageNavigator();
+        const nextPageElement = this.navigationElementFinder.getNextPageElementFromNavigator(navigator);
         return this._getLinkFromPageLinkElement(nextPageElement);
     }
 
     getPreviousPageUrl() {
-        const navigator = this.elementFinder.getTopPageNavigator();
-        const previousPageElement = this.elementFinder.getPreviousPageElementFromNavigator(navigator);
+        const navigator = this.navigationElementFinder.getTopPageNavigator();
+        const previousPageElement = this.navigationElementFinder.getPreviousPageElementFromNavigator(navigator);
         return this._getLinkFromPageLinkElement(previousPageElement);
     }
 
@@ -29,12 +31,12 @@ class PageInformationCollector {
     }
 
     getMaxNoOfPages() {
-        const navigator = this.elementFinder.getTopPageNavigator();
+        const navigator = this.navigationElementFinder.getTopPageNavigator();
         return this._parseY(this._getPageXofY(navigator));
     }
 
     getBottomNavigatorPageNo() {
-        const navigator = this.elementFinder.getBottomPageNavigator();
+        const navigator = this.navigationElementFinder.getBottomPageNavigator();
         return this._parseX(this._getPageXofY(navigator));
     }
 
@@ -43,7 +45,7 @@ class PageInformationCollector {
     }
 
     getPageNoFromDocument(htmlDocument) {
-        let navigator = this.elementFinder.getTopPageNavigatorFromDocument(htmlDocument);
+        let navigator = this.navigationElementFinder.getTopPageNavigatorFromDocument(htmlDocument);
         return this._parseX(this._getPageXofY(navigator));
     }
 
@@ -60,7 +62,7 @@ class PageInformationCollector {
     }
 
     isFirstPageOfTopNavigator() {
-        const navigator = this.elementFinder.getTopPageNavigator();
+        const navigator = this.navigationElementFinder.getTopPageNavigator();
         return this._parseX(this._getPageXofY(navigator)) == 1;
     }
 

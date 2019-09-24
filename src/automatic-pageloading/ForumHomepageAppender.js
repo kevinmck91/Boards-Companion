@@ -1,5 +1,6 @@
 export { ForumHomepageAppender }
 import { ElementFinder } from "../finders/ElementFinder.js";
+import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 import { ForumHomepageUpdater } from "../page-updater/ForumHomepageUpdater.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
@@ -12,6 +13,7 @@ class ForumHomepageAppender {
 
     constructor() {
         this.elementFinder = new ElementFinder();
+        this.navigationElementFinder = new NavigationElementFinder();
         this.forumHomepageUpdater = new ForumHomepageUpdater();
         this.loadingElementUpdater = new LoadingElementUpdater();
         this.threadPageUpdater = new ThreadPageUpdater();
@@ -30,7 +32,7 @@ class ForumHomepageAppender {
     }
 
     _insertNavigationRibbon(nextPageDocument) {
-        let navigationRibbon = this.elementFinder.getForumBottomNavigationRibbonFromDocument(nextPageDocument);
+        let navigationRibbon = this.navigationElementFinder.getForumBottomNavigationRibbonFromDocument(nextPageDocument);
         this.navigationRibbonStyler.styleAppendedNavigationRibbon(navigationRibbon);
         this.forumHomepageUpdater.appendElement(navigationRibbon);
     }

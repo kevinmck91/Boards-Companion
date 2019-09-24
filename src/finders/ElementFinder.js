@@ -1,12 +1,7 @@
 "use strict";
 export { ElementFinder };
-import { ElementRemover } from "../ElementRemover.js";
 
 class ElementFinder {
-
-    constructor() {
-        this.elementRemover = new ElementRemover();
-    }
 
     searchForWelcomeNotice() {
         let notice = document.getElementById('notices');
@@ -81,43 +76,11 @@ class ElementFinder {
         return document.getElementById('breadcrumb');
     }
 
-    getTopPageNavigator() {
-        return document.querySelectorAll('.pagenav')[0];
-    }
-
-    getBottomPageNavigator() {
-        return this.getBottomPageNavigatorFromDocument(document);
-    }
-
-    getBottomPageNavigatorFromDocument(htmlDocument) {
-        const navigators = htmlDocument.querySelectorAll('.pagenav');
-        return navigators[navigators.length - 1];
-    }
-
-    getForumBottomNavigationRibbonFromDocument(htmlDocument) {
-        let bottomPageNavigator = this.getBottomPageNavigatorFromDocument(htmlDocument);
-        let bottomNavationRibbon = this.findParentElement(bottomPageNavigator, 8);
-        return bottomNavationRibbon;
-    }
-
-    getThreadBottomNavigationRibbonFromDocument(htmlDocument) {
-        let bottomPageNavigator = this.getBottomPageNavigatorFromDocument(htmlDocument);
-        let bottomPageNavigatorRibbon = this.findParentElement(bottomPageNavigator, 11);
-        this._cleanPageNavigationRibbonElement(bottomPageNavigatorRibbon);
-        return bottomPageNavigatorRibbon;
-    }
-
     findParentElement(candidateElement, noOfGenerations) {
         for (let i = 1; i <= noOfGenerations; i++) {
             candidateElement = candidateElement.parentElement;
         }
         return candidateElement;
-    }
-
-    _cleanPageNavigationRibbonElement(pageNavigationRibbon) {
-        let table = pageNavigationRibbon.querySelectorAll('table')[0];
-        let elementsForDeletion = this.getElementSiblings(table);
-        this.elementRemover.removeElements(elementsForDeletion);
     }
 
     getElementSiblings(candidateElement) {
@@ -130,18 +93,6 @@ class ElementFinder {
             sibling = sibling.nextSibling
         }
         return siblings;
-    }
-
-    getTopPageNavigatorFromDocument(htmlDocument) {
-        return htmlDocument.querySelectorAll('.pagenav')[0];
-    }
-
-    getNextPageElementFromNavigator(navigator) {
-        return navigator.querySelector('.alt2 + .alt1');
-    }
-
-    getPreviousPageElementFromNavigator(navigator) {
-        return navigator.querySelector('.alt2').previousElementSibling;
     }
 
     getLoadingElements() {

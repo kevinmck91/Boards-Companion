@@ -1,5 +1,6 @@
 export { ThreadPageAppender }
 import { ElementFinder } from "../finders/ElementFinder.js";
+import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { BoardsScriptInserter } from "../inserted-scripts/BoardsScriptInserter.js";
@@ -15,6 +16,7 @@ class ThreadPageAppender {
 
     constructor() {
         this.elementFinder = new ElementFinder();
+        this.navigationElementFinder = new NavigationElementFinder();
         this.threadPageUpdater = new ThreadPageUpdater();
         this.loadingElementUpdater = new LoadingElementUpdater();
         this.boardsScriptInserter = new BoardsScriptInserter();
@@ -39,7 +41,7 @@ class ThreadPageAppender {
     }
 
     _insertNavigationRibbon(nextPageDocument) {
-        let navigationRibbon = this.elementFinder.getThreadBottomNavigationRibbonFromDocument(nextPageDocument);
+        let navigationRibbon = this.navigationElementFinder.getThreadBottomNavigationRibbonFromDocument(nextPageDocument);
         this.navigationRibbonStyler.styleAppendedNavigationRibbon(navigationRibbon);
         this.threadPageUpdater.appendElement(navigationRibbon);
     }

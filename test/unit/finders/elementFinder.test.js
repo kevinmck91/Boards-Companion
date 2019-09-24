@@ -104,19 +104,3 @@ it('test get user posts', () => {
     expect(userPosts.length).toBe(3);
 })
 
-it('test get bottom page navigation ribbon', () => {
-    document.body.innerHTML = testThreadPageBuilder.buildPage();
-
-    const bottomNavigationRibbon = elementFinder.getThreadBottomNavigationRibbonFromDocument(document);
-
-    expect(bottomNavigationRibbon.outerHTML.match(/<table/g).length).toBe(3);
-})
-
-it('test bottom page navigation ribbon cleaned', () => {
-    document.body.innerHTML = testThreadPageBuilder.buildPage();
-
-    const bottomNavigationRibbon = elementFinder.getThreadBottomNavigationRibbonFromDocument(document);
-
-    expect(bottomNavigationRibbon.outerHTML.match(/<script/g)).toBe(null);
-
-})
