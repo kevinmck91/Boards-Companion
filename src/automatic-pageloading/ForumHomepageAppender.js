@@ -5,6 +5,7 @@ import { ForumHomepageUpdater } from "../page-updater/ForumHomepageUpdater.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
+import { PageInformationCollector } from "../page/PageInformationCollector.js";
 
 class ForumHomepageAppender {
 
@@ -15,6 +16,7 @@ class ForumHomepageAppender {
         this.loadingElementUpdater = new LoadingElementUpdater();
         this.navigatorUpdater = new NavigatorUpdater();
         this.navigationRibbonStyler = new NavigationRibbonStyler();
+        this.pageInformationCollector = new PageInformationCollector();
     }
 
     appendNextPage(nextPageDocument) {

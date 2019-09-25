@@ -77,6 +77,11 @@ class PageInformationCollector {
         return window.scrollY;
     }
 
+    isUserSignedOut() {
+        const searchPanel = this.headerElementFinder.getSearchPanel();
+        return searchPanel.outerHTML.indexOf('Login') > 0;
+    }
+
     _getPageXofY(navigator) {
         return navigator.querySelector('.vbmenu_control').textContent;
     }

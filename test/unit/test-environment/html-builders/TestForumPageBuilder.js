@@ -10,6 +10,7 @@ class TestForumPageBuilder {
         this.maxNoOfPages = 2;
         this.testCommonHtmlGenerator = new TestCommonHtmlGenerator();
         this.testForumHtmlGenerator = new TestForumHtmlGenerator();
+        this.isSignedIn = true;
     }
 
     specificPage(pageNo, maxNoOfPages) {
@@ -18,12 +19,33 @@ class TestForumPageBuilder {
         return this;
     }
 
+    isSignedOut() {
+        this.isSignedIn = false;
+        return this;
+    }
+
     buildPage() {
         let pageContent = this.testForumHtmlGenerator.getNavigationRibbon(this.pageNo, this.maxNoOfPages);
-        pageContent += this.testCommonHtmlGenerator.getHeader();
-        let threadAndFooterContent = this.testForumHtmlGenerator.wrapThreadEntries(this.testForumHtmlGenerator.getThreadEntry());
-        threadAndFooterContent += this.testForumHtmlGenerator.wrapForumFooterNavigator(this.testForumHtmlGenerator.getNavigationRibbon(this.pageNo, this.maxNoOfPages));
+        pageContent += this._getHeader();
+        let threadAndFooterContent = this._getThreadAndFooterContent();
         pageContent += this.testForumHtmlGenerator.wrapThreadAndFooter(threadAndFooterContent);
         return this.testCommonHtmlGenerator.wrapPageElements(pageContent);
+    }
+
+    _getHeader() {
+        if (this.isSignedIn)
+            return this.testCommonHtmlGenerator.getHeader();
+        else
+            return this.testCommonHtmlGenerator.getSignedOutHeader();
+    }
+
+    _getThreadAndFooterContent() {
+        let threadAndFooterContent = "";
+        if (this.isSignedIn)
+            threadAndFooterContent = this.testForumHtmlGenerator.wrapThreadEntries(this.testForumHtmlGenerator.getThreadEntry());
+        else
+            threadAndFooterContent = this.testForumHtmlGenerator.wrapSignedOutThreadEntries(this.testForumHtmlGenerator.getThreadEntry());
+        threadAndFooterContent += this.testForumHtmlGenerator.wrapForumFooterNavigator(this.testForumHtmlGenerator.getNavigationRibbon(this.pageNo, this.maxNoOfPages));
+        return threadAndFooterContent;
     }
 }

@@ -23,7 +23,19 @@ class TestForumHtmlGenerator {
 
     wrapThreadEntries(entries) {
         return `
-            <div class="threadlist-wrapper">
+                <table id="threadslist">
+                    <tbody>
+                    </tbody>
+                    <tbody id="threadbits_forum_7">
+                        ` + entries + `
+                    </tbody>
+                </table>
+                `
+    }
+
+    wrapSignedOutThreadEntries(entries) {
+        return `
+            <div class="threadslist-wrapper">
                 <div class="left-col">
                     <table id="threadslist">
                         <tbody>

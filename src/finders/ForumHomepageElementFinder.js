@@ -1,13 +1,29 @@
 export { ForumHomepageElementFinder };
+import { PageInformationCollector } from "../page/PageInformationCollector.js";
 
 class ForumHomepageElementFinder {
+
+    constructor() {
+        this.pageInformationCollector = new PageInformationCollector();
+    }
 
     getForumHomepageThreadContainer() {
         return document.getElementById('inlinemodform');
     }
 
     getThreadsContainerFromDocument(htmlDocument) {
+        if (this.pageInformationCollector.isUserSignedOut())
+            return this.getSignedOutThreadsContainerFromDocument(htmlDocument);
+        else
+            return this.getSignedInThreadsContainerFromDocument(htmlDocument);
+    }
+
+    getSignedInThreadsContainerFromDocument(htmlDocument) {
         return htmlDocument.getElementById("threadslist");
+    }
+
+    getSignedOutThreadsContainerFromDocument(htmlDocument) {
+        return htmlDocument.querySelectorAll(".threadslist-wrapper")[0];
     }
 
 }

@@ -16,6 +16,19 @@ class TestCommonHtmlGenerator {
         <div id="breadcrumb" style="top:87px;"></div>`;
     }
 
+    getSignedOutHeader() {
+        return `
+        <div class="nav-area"></div>
+        <div id="header">
+            <ul>
+                <li></li>
+                <li></li>
+                <li>Login</li>
+            </ul>
+        </div>
+        <div id="breadcrumb" style="top:87px;"></div>`;
+    }
+
     getExistingJavascriptScriptElement() {
         let script = document.createElement("script");
         script.type = "text/javascript";

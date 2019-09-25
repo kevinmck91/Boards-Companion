@@ -44,6 +44,14 @@ it('ensure navigation ribbon inserted between pages', () => {
     expect(document.body.outerHTML.match(/title([\s\S]*)2 of 2([\s\S]*)title/)).not.toBe(null);
 })
 
+it('ensure signed out page appended correctly', () => {
+    document.body.innerHTML = testForumPageBuilder.isSignedOut().buildPage();
+
+    appendForumHomepage(testForumPageBuilder.isSignedOut().specificPage(2, 2).buildPage());
+
+    expect(document.body.outerHTML.match(/threadslist-wrapper/g).length).toBe(2);
+})
+
 function appendForumHomepage(pageHtml) {
     let htmlDocument = genericElementGenerator.generateDocument(pageHtml);
     forumHomepageAppender.appendNextPage(htmlDocument);
