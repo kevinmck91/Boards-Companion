@@ -1,6 +1,6 @@
-export { ElementFinder };
+export { GenericElementFinder };
 
-class ElementFinder {
+class GenericElementFinder {
 
     findParentElement(candidateElement, noOfGenerations) {
         for (let i = 1; i <= noOfGenerations; i++) {

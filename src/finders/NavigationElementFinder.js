@@ -1,11 +1,11 @@
 export { NavigationElementFinder }
-import { ElementFinder } from "./ElementFinder.js";
+import { GenericElementFinder } from "./GenericElementFinder.js";
 import { ElementRemover } from "../ElementRemover.js";
 
 class NavigationElementFinder {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.genericElementFinder = new GenericElementFinder();
         this.elementRemover = new ElementRemover();
     }
 
@@ -24,13 +24,13 @@ class NavigationElementFinder {
 
     getForumBottomNavigationRibbonFromDocument(htmlDocument) {
         let bottomPageNavigator = this.getBottomPageNavigatorFromDocument(htmlDocument);
-        let bottomNavationRibbon = this.elementFinder.findParentElement(bottomPageNavigator, 8);
+        let bottomNavationRibbon = this.genericElementFinder.findParentElement(bottomPageNavigator, 8);
         return bottomNavationRibbon;
     }
 
     getThreadBottomNavigationRibbonFromDocument(htmlDocument) {
         let bottomPageNavigator = this.getBottomPageNavigatorFromDocument(htmlDocument);
-        let bottomPageNavigatorRibbon = this.elementFinder.findParentElement(bottomPageNavigator, 11);
+        let bottomPageNavigatorRibbon = this.genericElementFinder.findParentElement(bottomPageNavigator, 11);
         this._cleanPageNavigationRibbonElement(bottomPageNavigatorRibbon);
         return bottomPageNavigatorRibbon;
     }
@@ -53,7 +53,7 @@ class NavigationElementFinder {
 
     _cleanPageNavigationRibbonElement(pageNavigationRibbon) {
         let table = pageNavigationRibbon.querySelectorAll('table')[0];
-        let elementsForDeletion = this.elementFinder.getElementSiblings(table);
+        let elementsForDeletion = this.genericElementFinder.getElementSiblings(table);
         this.elementRemover.removeElements(elementsForDeletion);
     }
 }
