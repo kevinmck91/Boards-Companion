@@ -52,10 +52,11 @@ class ModalElementGenerator {
     }
 
     _generateTaggedUsernameElement(username, userId) {
-        let element = document.createElement('div');
+        let element = document.createElement('a');
         element.innerHTML = username;
         element.setAttribute('data-userid', userId);
         element.className = 'username-entry';
+        element.href = window.location.origin + '/vbulletin/member.php?u=' + userId;
         return element;
     }
 
