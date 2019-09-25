@@ -1,11 +1,13 @@
 export { PostsCompressionToggler };
 import { ElementFinder } from "../finders/ElementFinder.js";
+import { AvatarDetailsFinder } from "../finders/AvatarDetailsFinder.js";
 import { PostElementsVisibilityUpdater } from "../element-visibility/PostElementsVisibilityUpdater.js";
 
 class PostsCompressionToggler {
 
     constructor() {
         this.elementFinder = new ElementFinder();
+        this.avatarDetailsFinder = new AvatarDetailsFinder();
         this.postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
     }
 
@@ -53,7 +55,7 @@ class PostsCompressionToggler {
     }
 
     _isClickWithinTagIconElement(clickEvent, post) {
-        let tagElement = this.elementFinder.getTagIconElementFromPost(post);
+        let tagElement = this.avatarDetailsFinder.getTagIconElementFromPost(post);
         if (tagElement == null)
             return false;
         else if (tagElement.contains(clickEvent.target))

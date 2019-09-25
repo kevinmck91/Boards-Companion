@@ -3,14 +3,19 @@ import { ElementFinder } from "../../../src/finders/ElementFinder.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { PostElementsVisibilityUpdater } from "../../../src/element-visibility/PostElementsVisibilityUpdater.js";
 import { TestPostBuilder } from "../test-environment/html-builders/TestPostBuilder.js";
+import { UserTagger } from "../../../src/user-tagging/UserTagger.js";
+import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 
 let testThreadPageBuilder = null;
 let elementFinder = new ElementFinder();
 let avatarDetailsFinder = new AvatarDetailsFinder();
 let postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
 let testPostBuilder = new TestPostBuilder();
+let userTagger = new UserTagger();
+let testEnvironmentArranger = new TestEnvironmentArranger();
 
 beforeEach(() => {
+    testEnvironmentArranger.InitializeEnvironment();
     testThreadPageBuilder = new TestThreadPageBuilder();
     testPostBuilder = new TestPostBuilder();
     document.body.innerHTML = testThreadPageBuilder.buildPage();
@@ -38,7 +43,6 @@ it('test get avatar picture', () => {
 
     expect(avatarPicture.outerHTML.indexOf("avatarpic")).not.toBe(-1);
 })
-
 
 it('test get join date ', () => {
     let joinDateElement = avatarDetailsFinder.getJoinDateElement(elementFinder.getFirstPost());
@@ -91,3 +95,38 @@ it('test get post count element when no links section', () => {
     expect(postCountElement.outerHTML.indexOf("Posts:")).not.toBe(-1);
 })
 
+it('test get avatar info elements', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+
+    let avatarInfoElements = avatarDetailsFinder.getAvatarInfoElementsFromPost(elementFinder.getFirstPost());
+
+    expect(avatarInfoElements[0].outerHTML.includes("Registered User")).toBe(true);
+})
+
+it('test get user details element', () => {
+    document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(1).buildPage();
+
+    let userDetailsElement = avatarDetailsFinder.getUserDetailsElementFromPost(elementFinder.getFirstPost());
+
+    expect(userDetailsElement.className).toBe('alt2');
+})
+
+it('test get all tag icon elements', () => {
+    document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(2).buildPage();
+
+    userTagger.applyTagging();
+    let tagIconElements = avatarDetailsFinder.getAllTagIconElements();
+
+    expect(tagIconElements.length).toBe(2);
+})
+
+it('test get username element using tag icon element', () => {
+    document.body.innerHTML = testThreadPageBuilder.buildPage();
+
+    userTagger.applyTagging();
+    let tagIconElement = avatarDetailsFinder.getAllTagIconElements()[0];
+    let userDetailsElement = avatarDetailsFinder.getUserDetailsElementFromTagElement(tagIconElement);
+    let usernameElement = avatarDetailsFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
+
+    expect(usernameElement.textContent.indexOf('testusername')).not.toBe(-1);
+})

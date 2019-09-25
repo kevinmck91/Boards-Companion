@@ -100,4 +100,47 @@ class AvatarDetailsFinder {
         else
             return null;
     }
+
+    getUsernameElementFromPost(post) {
+        return post.querySelector('[id^="postmenu"]');
+    }
+
+    getAllTagIconElements() {
+        return Array.from(document.querySelectorAll('.tag-icon'));
+    }
+
+    getTagIconElementsFromPosts(posts) {
+        let tagIconElements = [];
+        for (let post of posts) {
+            let tagIconElement = this.getTagIconElementFromPost(post);
+            if (tagIconElement != null)
+                tagIconElements.push(tagIconElement);
+        }
+        return tagIconElements;
+    }
+
+    getTagIconElementFromPost(post) {
+        return post.querySelector('.tag-icon');
+    }
+
+    getUserDetailsElementFromTagElement(tagElement) {
+        return tagElement.parentElement.parentElement.parentElement;
+    }
+
+    getUsernameElementFromUserDetailsElement(userDetailsElement) {
+        return userDetailsElement.querySelector('.bigusername');
+    }
+
+    getUserTagElementFromPost(post) {
+        return post.querySelector('.user-tag');
+    }
+
+    getUserDetailsElementFromPost(post) {
+        return post.querySelector('[id^="post"] > tbody > [valign="top"] > td');
+    }
+
+    getAvatarInfoElementsFromPost(post) {
+        return Array.from(post.querySelectorAll('.alt2 .smallfont'));
+    }
+
 }

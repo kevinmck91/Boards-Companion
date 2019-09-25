@@ -1,4 +1,3 @@
-"use strict";
 export { ElementFinder };
 
 class ElementFinder {
@@ -53,10 +52,6 @@ class ElementFinder {
         return htmlDocument.getElementById("threadslist");
     }
 
-    getAvatarInfoElementsFromPost(post) {
-        return Array.from(post.querySelectorAll('.alt2 .smallfont'));
-    }
-
     getFooterElementFromPost(post) {
         return post.querySelector('tr:nth-child(3)');
     }
@@ -84,40 +79,6 @@ class ElementFinder {
         return Array.from(document.querySelectorAll('.loading'));
     }
 
-    getUserDetailsElementFromPost(post) {
-        return post.querySelector('[id^="post"] > tbody > [valign="top"] > td');
-    }
-
-    getUsernameElementFromPost(post) {
-        return post.querySelector('[id^="postmenu"]');
-    }
-
-    getAllTagIconElements() {
-        return Array.from(document.querySelectorAll('.tag-icon'));
-    }
-
-    getTagIconElementsFromPosts(posts) {
-        let tagIconElements = [];
-        for (let post of posts) {
-            let tagIconElement = this.getTagIconElementFromPost(post);
-            if (tagIconElement != null)
-                tagIconElements.push(tagIconElement);
-        }
-        return tagIconElements;
-    }
-
-    getTagIconElementFromPost(post) {
-        return post.querySelector('.tag-icon');
-    }
-
-    getUserDetailsElementFromTagElement(tagElement) {
-        return tagElement.parentElement.parentElement.parentElement;
-    }
-
-    getUsernameElementFromUserDetailsElement(userDetailsElement) {
-        return userDetailsElement.querySelector('.bigusername');
-    }
-
     getUserPosts(username) {
         let allPosts = this.getAllPosts();
         return this.getUserPostsFromPosts(username, allPosts);
@@ -132,10 +93,6 @@ class ElementFinder {
             }
         }
         return usernamePosts;
-    }
-
-    getUserTagElementFromPost(post) {
-        return post.querySelector('.user-tag');
     }
 
 }

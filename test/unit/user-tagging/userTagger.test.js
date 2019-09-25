@@ -2,6 +2,7 @@ import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThr
 import { UserTagger } from "../../../src/user-tagging/UserTagger.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { ElementFinder } from "../../../src/finders/ElementFinder.js";
+import { AvatarDetailsFinder } from "../../../src/finders/AvatarDetailsFinder.js";
 import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js";
 import { TaggerModalDetailsFinder } from "../../../src/finders/TaggerModalDetailsFinder.js";
 import { GenericElementGenerator } from "../../../src/element-generators/GenericElementGenerator.js";
@@ -11,6 +12,7 @@ let userTagger = new UserTagger();
 let testThreadPageBuilder = null;
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let elementFinder = new ElementFinder();
+let avatarDetailsFinder = new AvatarDetailsFinder();
 let taggerModalDetailsFinder = new TaggerModalDetailsFinder();
 let chromeStorageMocker = null;
 let genericElementGenerator = new GenericElementGenerator();
@@ -40,7 +42,7 @@ it('test user id within modal user details', () => {
     document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
 
     userTagger.applyTagging();
-    let tagIcon = elementFinder.getAllTagIconElements()[0];
+    let tagIcon = avatarDetailsFinder.getAllTagIconElements()[0];
     tagIcon.click();
 
     let modalUserDetails = taggerModalDetailsFinder.getUserDetails();

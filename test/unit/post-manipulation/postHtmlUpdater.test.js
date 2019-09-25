@@ -16,11 +16,10 @@ it('test tag post', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(2).buildPage();
 
     postHtmlUpdater.addTagIconElementToPosts(elementFinder.getAllPosts());
-    let userDetailsElement = elementFinder.getUserDetailsElementFromPost(elementFinder.getFirstPost());
+    let userDetailsElement = avatarDetailsFinder.getUserDetailsElementFromPost(elementFinder.getFirstPost());
 
     expect(userDetailsElement.querySelector(".tag-icon")).not.toBe(null);
 })
-
 
 it('tag icon within post count div', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();

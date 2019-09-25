@@ -20,7 +20,7 @@ it('Registered user element hidden', () => {
 
     postElementsVisibilityUpdater.hideEachPostsElements();
 
-    expect(elementFinder.getAvatarInfoElementsFromPost(elementFinder.getFirstPost())[0].style.display).toBe('none');
+    expect(avatarDetailsFinder.getAvatarInfoElementsFromPost(elementFinder.getFirstPost())[0].style.display).toBe('none');
 })
 
 it('Join date element displayed', () => {
