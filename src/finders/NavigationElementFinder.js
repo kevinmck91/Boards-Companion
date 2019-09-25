@@ -53,4 +53,8 @@ class NavigationElementFinder {
         return navigator.querySelector('.alt2').previousElementSibling;
     }
 
+    getLoadingElements() {
+        return Array.from(document.querySelectorAll('.loading'));
+    }
+
 }

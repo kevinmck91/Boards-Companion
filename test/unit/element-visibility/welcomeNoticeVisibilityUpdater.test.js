@@ -1,9 +1,9 @@
-import { ElementFinder } from "../../../src/finders/ElementFinder.js";
+import { NoticeElementFinder } from "../../../src/finders/NoticeElementFinder.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { WelcomeNoticeVisibilityUpdater } from "../../../src/element-visibility/WelcomeNoticeVisibilityUpdater.js";
 import { TestPostBuilder } from "../test-environment/html-builders/TestPostBuilder.js";
 
-let elementFinder = new ElementFinder();
+let noticeElementFinder = new NoticeElementFinder();
 let testThreadPageBuilder = null;
 let welcomeNoticeVisibilityUpdater = new WelcomeNoticeVisibilityUpdater();
 let testPostBuilder = new TestPostBuilder();
@@ -19,7 +19,7 @@ it('Welcome notice hidden', () => {
 
     welcomeNoticeVisibilityUpdater.hideWelcomeNotice();
 
-    expect(elementFinder.searchForWelcomeNotice().style.display).toBe('none');
+    expect(noticeElementFinder.searchForWelcomeNotice().style.display).toBe('none');
 })
 
 it('normal notice not hidden', () => {
@@ -27,7 +27,7 @@ it('normal notice not hidden', () => {
 
     welcomeNoticeVisibilityUpdater.hideWelcomeNotice();
 
-    expect(elementFinder.getNotice().style.display).toBe('');
+    expect(noticeElementFinder.getNotice().style.display).toBe('');
 })
 
 it('page without notice runs without error', () => {

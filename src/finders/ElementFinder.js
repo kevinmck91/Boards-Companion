@@ -2,18 +2,6 @@ export { ElementFinder };
 
 class ElementFinder {
 
-    searchForWelcomeNotice() {
-        let notice = document.getElementById('notices');
-        if (notice != null && notice.outerHTML.includes('here are some tips and tricks to help you get started')) {
-            return notice;
-        }
-        else return null;
-    }
-
-    getNotice() {
-        return document.getElementById('notices');
-    }
-
     getAllPosts() {
         return Array.from(document.querySelectorAll("[id^='edit']"));
     }
@@ -73,10 +61,6 @@ class ElementFinder {
             sibling = sibling.nextSibling
         }
         return siblings;
-    }
-
-    getLoadingElements() {
-        return Array.from(document.querySelectorAll('.loading'));
     }
 
     getUserPosts(username) {

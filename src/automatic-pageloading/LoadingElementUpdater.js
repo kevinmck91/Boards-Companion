@@ -1,5 +1,5 @@
 export { LoadingElementUpdater }
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 import { ForumHomepageUpdater } from "../page-updater/ForumHomepageUpdater.js";
 import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
@@ -7,7 +7,7 @@ import { AutomaticPageLoadingElementGenerator } from "../element-generators/Auto
 class LoadingElementUpdater {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.navigationElementFinder = new NavigationElementFinder();
         this.forumHomepageUpdater = new ForumHomepageUpdater();
         this.threadPageUpdater = new ThreadPageUpdater();
         this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
@@ -34,7 +34,7 @@ class LoadingElementUpdater {
     }
 
     removeLoadingElements() {
-        for (let loadingElement of this.elementFinder.getLoadingElements()) {
+        for (let loadingElement of this.navigationElementFinder.getLoadingElements()) {
             if (loadingElement != null) {
                 loadingElement.parentElement.removeChild(loadingElement);
             }

@@ -1,17 +1,17 @@
 export { WelcomeNoticeVisibilityUpdater }
 
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { NoticeElementFinder } from "../finders/NoticeElementFinder.js";
 import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 
 class WelcomeNoticeVisibilityUpdater {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.noticeElementFinder = new NoticeElementFinder();
         this.elementVisibilityUpdater = new ElementVisibilityUpdater();
     }
 
     hideWelcomeNotice() {
-        const welcomeNotice = this.elementFinder.searchForWelcomeNotice();
+        const welcomeNotice = this.noticeElementFinder.searchForWelcomeNotice();
         if (welcomeNotice != null)
             this.elementVisibilityUpdater.hideElement(welcomeNotice);
     }
