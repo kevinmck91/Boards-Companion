@@ -1,4 +1,4 @@
-import { AvatarDetailsFinder } from "../../../src/finders/AvatarDetailsFinder.js";
+import { AvatarElementFinder } from "../../../src/finders/AvatarElementFinder.js";
 import { ElementFinder } from "../../../src/finders/ElementFinder.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { PostElementsVisibilityUpdater } from "../../../src/element-visibility/PostElementsVisibilityUpdater.js";
@@ -8,7 +8,7 @@ import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArra
 
 let testThreadPageBuilder = null;
 let elementFinder = new ElementFinder();
-let avatarDetailsFinder = new AvatarDetailsFinder();
+let avatarElementFinder = new AvatarElementFinder();
 let postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
 let testPostBuilder = new TestPostBuilder();
 let userTagger = new UserTagger();
@@ -23,7 +23,7 @@ beforeEach(() => {
 });
 
 it('test get links section elements', () => {
-    let linksSection = avatarDetailsFinder.getLinksSectionElements(elementFinder.getFirstPost());
+    let linksSection = avatarElementFinder.getLinksSectionElements(elementFinder.getFirstPost());
 
     expect(linksSection.length).toBe(2);
 })
@@ -33,25 +33,25 @@ it('test get links section with no avatar', () => {
     document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
 
     postElementsVisibilityUpdater.hideEachPostsElements();
-    let linksSectionElements = avatarDetailsFinder.getLinksSectionElements(elementFinder.getFirstPost());
+    let linksSectionElements = avatarElementFinder.getLinksSectionElements(elementFinder.getFirstPost());
 
     expect(linksSectionElements[0].outerHTML.indexOf("Adverts")).not.toBe(-1);
 })
 
 it('test get avatar picture', () => {
-    let avatarPicture = avatarDetailsFinder.getAvatarPictureElement(elementFinder.getFirstPost());
+    let avatarPicture = avatarElementFinder.getAvatarPictureElement(elementFinder.getFirstPost());
 
     expect(avatarPicture.outerHTML.indexOf("avatarpic")).not.toBe(-1);
 })
 
 it('test get join date ', () => {
-    let joinDateElement = avatarDetailsFinder.getJoinDateElement(elementFinder.getFirstPost());
+    let joinDateElement = avatarElementFinder.getJoinDateElement(elementFinder.getFirstPost());
 
     expect(joinDateElement.outerHTML.indexOf("Mar 2019")).not.toBe(-1);
 })
 
 it('test get registered user element ', () => {
-    let registeredUserElement = avatarDetailsFinder.getRegisteredUserElement(elementFinder.getFirstPost());
+    let registeredUserElement = avatarElementFinder.getRegisteredUserElement(elementFinder.getFirstPost());
 
     expect(registeredUserElement.outerHTML.indexOf("Registered User")).not.toBe(-1);
 })
@@ -60,13 +60,13 @@ it('test get custom registered user element', () => {
     let post = testPostBuilder.withCustomRegisteredUserElement("customregistereduser").build();
     document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
 
-    let registeredUserElement = avatarDetailsFinder.getRegisteredUserElement(elementFinder.getFirstPost());
+    let registeredUserElement = avatarElementFinder.getRegisteredUserElement(elementFinder.getFirstPost());
 
     expect(registeredUserElement.outerHTML.indexOf("customregistereduser")).not.toBe(-1);
 })
 
 it('test get stars element ', () => {
-    let starsElement = avatarDetailsFinder.getStarsElement(elementFinder.getFirstPost());
+    let starsElement = avatarElementFinder.getStarsElement(elementFinder.getFirstPost());
 
     expect(starsElement.outerHTML.indexOf("stars")).not.toBe(-1);
 })
@@ -75,13 +75,13 @@ it('test get stars element if no registered user element', () => {
     let post = testPostBuilder.withoutRegisteredUserElement().build();
     document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
 
-    let starsElement = avatarDetailsFinder.getStarsElement(elementFinder.getFirstPost());
+    let starsElement = avatarElementFinder.getStarsElement(elementFinder.getFirstPost());
 
     expect(starsElement.outerHTML.indexOf("stars")).not.toBe(-1);
 })
 
 it('test get linebreak element ', () => {
-    let lineBreakElement = avatarDetailsFinder.getLineBreakElements(elementFinder.getFirstPost());
+    let lineBreakElement = avatarElementFinder.getLineBreakElements(elementFinder.getFirstPost());
 
     expect(lineBreakElement.length).toBe(2);
 })
@@ -90,7 +90,7 @@ it('test get post count element when no links section', () => {
     let post = testPostBuilder.withoutLinksSection().build();
     document.body.innerHTML = testThreadPageBuilder.specifyPostContent(post).buildPage();
 
-    let postCountElement = avatarDetailsFinder.getPostCountElement(elementFinder.getFirstPost());
+    let postCountElement = avatarElementFinder.getPostCountElement(elementFinder.getFirstPost());
 
     expect(postCountElement.outerHTML.indexOf("Posts:")).not.toBe(-1);
 })
@@ -98,7 +98,7 @@ it('test get post count element when no links section', () => {
 it('test get avatar info elements', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    let avatarInfoElements = avatarDetailsFinder.getAvatarInfoElementsFromPost(elementFinder.getFirstPost());
+    let avatarInfoElements = avatarElementFinder.getAvatarInfoElementsFromPost(elementFinder.getFirstPost());
 
     expect(avatarInfoElements[0].outerHTML.includes("Registered User")).toBe(true);
 })
@@ -106,7 +106,7 @@ it('test get avatar info elements', () => {
 it('test get user details element', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(1).buildPage();
 
-    let userDetailsElement = avatarDetailsFinder.getUserDetailsElementFromPost(elementFinder.getFirstPost());
+    let userDetailsElement = avatarElementFinder.getUserDetailsElementFromPost(elementFinder.getFirstPost());
 
     expect(userDetailsElement.className).toBe('alt2');
 })
@@ -115,7 +115,7 @@ it('test get all tag icon elements', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(2).buildPage();
 
     userTagger.applyTagging();
-    let tagIconElements = avatarDetailsFinder.getAllTagIconElements();
+    let tagIconElements = avatarElementFinder.getAllTagIconElements();
 
     expect(tagIconElements.length).toBe(2);
 })
@@ -124,9 +124,9 @@ it('test get username element using tag icon element', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     userTagger.applyTagging();
-    let tagIconElement = avatarDetailsFinder.getAllTagIconElements()[0];
-    let userDetailsElement = avatarDetailsFinder.getUserDetailsElementFromTagElement(tagIconElement);
-    let usernameElement = avatarDetailsFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
+    let tagIconElement = avatarElementFinder.getAllTagIconElements()[0];
+    let userDetailsElement = avatarElementFinder.getUserDetailsElementFromTagElement(tagIconElement);
+    let usernameElement = avatarElementFinder.getUsernameElementFromUserDetailsElement(userDetailsElement);
 
     expect(usernameElement.textContent.indexOf('testusername')).not.toBe(-1);
 })

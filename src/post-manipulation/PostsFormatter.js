@@ -2,7 +2,7 @@ export { PostsFormatter }
 import { PostElementsVisibilityUpdater } from "../element-visibility/PostElementsVisibilityUpdater.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
 import { ElementFinder } from "../finders/ElementFinder.js";
-import { AvatarDetailsFinder } from "../finders/AvatarDetailsFinder.js";
+import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 import { UserTaggingElementGenerator } from "../element-generators/UserTaggingElementGenerator.js";
 
 class PostsFormatter {
@@ -10,7 +10,7 @@ class PostsFormatter {
     constructor() {
         this.postsCompressionToggler = new PostsCompressionToggler();
         this.elementFinder = new ElementFinder();
-        this.avatarDetailsFinder = new AvatarDetailsFinder();
+        this.avatarElementFinder = new AvatarElementFinder();
         this.postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
         this.userTaggingElementGenerator = new UserTaggingElementGenerator();
     }
@@ -34,7 +34,7 @@ class PostsFormatter {
 
     _tagPosts(posts, taggedUserDetails) {
         for (let post of posts) {
-            let usernameElement = this.avatarDetailsFinder.getUsernameElementFromPost(post);
+            let usernameElement = this.avatarElementFinder.getUsernameElementFromPost(post);
             this._ensureExistingTagsRemoved(post);
             let userTagElement = this.userTaggingElementGenerator.generateUserTagElement(taggedUserDetails);
             usernameElement.appendChild(userTagElement);
@@ -42,8 +42,8 @@ class PostsFormatter {
     }
 
     _ensureExistingTagsRemoved(post) {
-        let usernameElement = this.avatarDetailsFinder.getUsernameElementFromPost(post);
-        let existingTagElement = this.avatarDetailsFinder.getUserTagElementFromPost(post);
+        let usernameElement = this.avatarElementFinder.getUsernameElementFromPost(post);
+        let existingTagElement = this.avatarElementFinder.getUserTagElementFromPost(post);
         if (existingTagElement != null) {
             usernameElement.removeChild(existingTagElement);
         }

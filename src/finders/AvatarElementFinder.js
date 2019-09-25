@@ -1,7 +1,7 @@
-export { AvatarDetailsFinder }
+export { AvatarElementFinder }
 import { ArrayHelper } from "../helpers/ArrayHelper.js";
 
-class AvatarDetailsFinder {
+class AvatarElementFinder {
 
     constructor() {
         this.arrayHelper = new ArrayHelper();

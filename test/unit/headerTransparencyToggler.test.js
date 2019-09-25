@@ -1,4 +1,3 @@
-"use strict";
 import { HeaderTransparencyToggler } from "../../src/HeaderTransparencyToggler.js";
 import { HeaderElementFinder } from "../../src/finders/HeaderElementFinder.js";
 import { TestPageManipulator } from "./test-environment/TestPageManipulator.js";

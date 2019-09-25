@@ -1,5 +1,5 @@
 import { ElementFinder } from "../../../src/finders/ElementFinder.js";
-import { AvatarDetailsFinder } from "../../../src/finders/AvatarDetailsFinder.js";
+import { AvatarElementFinder } from "../../../src/finders/AvatarElementFinder.js";
 import { PostsCompressionToggler } from "../../../src/post-manipulation/PostsCompressionToggler.js";
 import { ThreadPagePrepender } from "../../../src/automatic-pageloading/ThreadPagePrepender.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
@@ -9,7 +9,7 @@ import { GenericElementGenerator } from "../../../src/element-generators/Generic
 
 let postsCompressionToggler = new PostsCompressionToggler();
 let elementFinder = new ElementFinder();
-let avatarDetailsFinder = new AvatarDetailsFinder();
+let avatarElementFinder = new AvatarElementFinder();
 let threadPagePrepender = new ThreadPagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let testThreadPageBuilder = null;
@@ -74,16 +74,16 @@ it('test compression toggling not applied to tag element', () => {
     userTagger.applyTagging();
     postsCompressionToggler.applyCompressionToggling();
     let post = elementFinder.getFirstPost();
-    let tagElement = avatarDetailsFinder.getTagIconElementFromPost(post);
+    let tagElement = avatarElementFinder.getTagIconElementFromPost(post);
     tagElement.click();
 
     expect(isPostCompressed(post)).toBe(false);
 })
 
 function isPostUncompressed(post) {
-    return avatarDetailsFinder.getAvatarInfoElementsFromPost(post)[0].style.display == '';
+    return avatarElementFinder.getAvatarInfoElementsFromPost(post)[0].style.display == '';
 }
 
 function isPostCompressed(post) {
-    return avatarDetailsFinder.getAvatarInfoElementsFromPost(post)[0].style.display == 'none';
+    return avatarElementFinder.getAvatarInfoElementsFromPost(post)[0].style.display == 'none';
 }

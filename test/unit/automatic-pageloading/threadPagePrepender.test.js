@@ -1,6 +1,6 @@
 import { ThreadPagePrepender } from "../../../src/automatic-pageloading/ThreadPagePrepender.js";
 import { ElementFinder } from "../../../src/finders/ElementFinder.js";
-import { AvatarDetailsFinder } from "../../../src/finders/AvatarDetailsFinder.js";
+import { AvatarElementFinder } from "../../../src/finders/AvatarElementFinder.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { UserTagger } from "../../../src/user-tagging/UserTagger.js";
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
@@ -8,7 +8,7 @@ import { GenericElementGenerator } from "../../../src/element-generators/Generic
 
 let threadPagePrepender = new ThreadPagePrepender();
 let elementFinder = new ElementFinder();
-let avatarDetailsFinder = new AvatarDetailsFinder();
+let avatarElementFinder = new AvatarElementFinder();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
 let testThreadPageBuilder = null;
@@ -36,7 +36,7 @@ it('test tagging applied to previous page posts', () => {
     userTagger.applyTagging();
     prependPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
-    expect(avatarDetailsFinder.getAllTagIconElements().length).toBe(2);
+    expect(avatarElementFinder.getAllTagIconElements().length).toBe(2);
 })
 
 function prependPage(pageHtml) {

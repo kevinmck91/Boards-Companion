@@ -1,13 +1,12 @@
-"use strict";
 export { ElementVisibilityUpdater };
 import { ElementFinder } from "../finders/ElementFinder.js";
-import { AvatarDetailsFinder } from "../finders/AvatarDetailsFinder.js";
+import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 
 class ElementVisibilityUpdater {
 
     constructor() {
         this.elementFinder = new ElementFinder();
-        this.avatarDetailsFinder = new AvatarDetailsFinder();
+        this.avatarElementFinder = new AvatarElementFinder();
     }
 
     hideElement(element) {

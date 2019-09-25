@@ -1,7 +1,7 @@
 export { PostElementsVisibilityUpdater }
 
 import { ElementFinder } from "../finders/ElementFinder.js";
-import { AvatarDetailsFinder } from "../finders/AvatarDetailsFinder.js";
+import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { ElementRemover } from "../ElementRemover.js";
 
@@ -9,7 +9,7 @@ class PostElementsVisibilityUpdater {
 
     constructor() {
         this.elementFinder = new ElementFinder();
-        this.avatarDetailsFinder = new AvatarDetailsFinder();
+        this.avatarElementFinder = new AvatarElementFinder();
         this.elementVisibilityUpdater = new ElementVisibilityUpdater();
         this.elementRemover = new ElementRemover();
     }
@@ -37,16 +37,16 @@ class PostElementsVisibilityUpdater {
 
     _hidePostAvatarInfo(post) {
         this._removeAvatarInfoElements(post);
-        this.elementVisibilityUpdater.hideElements(this.avatarDetailsFinder.getHideableElements(post));
+        this.elementVisibilityUpdater.hideElements(this.avatarElementFinder.getHideableElements(post));
     }
 
     _removeAvatarInfoElements(post) {
-        let elementsForRemoval = this.avatarDetailsFinder.getElementsForRemoval(post);
+        let elementsForRemoval = this.avatarElementFinder.getElementsForRemoval(post);
         this.elementRemover.removeElements(elementsForRemoval);
     }
 
     _showPostAvatarInfo(post) {
-        this.elementVisibilityUpdater.showElements(this.avatarDetailsFinder.getHideableElements(post));
+        this.elementVisibilityUpdater.showElements(this.avatarElementFinder.getHideableElements(post));
     }
 
     _hideEachPostsFooter() {
