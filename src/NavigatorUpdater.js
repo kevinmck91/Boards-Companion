@@ -1,11 +1,9 @@
 export { NavigatorUpdater }
 import { NavigationElementFinder } from "./finders/NavigationElementFinder.js";
-import { ThreadPageUpdater } from "./page-updater/ThreadPageUpdater.js";
 
 class NavigatorUpdater {
 
     constructor() {
-        this.threadPageUpdater = new ThreadPageUpdater();
         this.navigationElementFinder = new NavigationElementFinder();
     }
 

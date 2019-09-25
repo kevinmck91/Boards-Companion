@@ -1,12 +1,10 @@
 export { PostHtmlUpdater }
-import { ElementFinder } from "../finders/ElementFinder.js";
 import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 import { UserTaggingElementGenerator } from "../element-generators/UserTaggingElementGenerator.js";
 
 class PostHtmlUpdater {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
         this.avatarElementFinder = new AvatarElementFinder();
         this.userTaggingElementGenerator = new UserTaggingElementGenerator();
     }

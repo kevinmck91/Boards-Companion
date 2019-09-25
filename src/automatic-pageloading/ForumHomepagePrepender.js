@@ -1,25 +1,23 @@
 export { ForumHomepagePrepender }
 import { PageInformationCollector } from "../page/PageInformationCollector.js";
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { ForumHomepageElementFinder } from "../finders/ForumHomepageElementFinder.js";
 import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { ForumHomepageUpdater } from "../page-updater/ForumHomepageUpdater.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
-import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
 import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
 
 class ForumHomepagePrepender {
 
     constructor() {
         this.pageInformationCollector = new PageInformationCollector();
-        this.elementFinder = new ElementFinder();
+        this.forumHomepageElementFinder = new ForumHomepageElementFinder();
         this.loadingElementUpdater = new LoadingElementUpdater();
         this.originalDocumentHeight = 0;
         this.originalYCoordinate = 0;
         this.previousPageDocument = "";
         this.forumHomepageUpdater = new ForumHomepageUpdater();
         this.navigatorUpdater = new NavigatorUpdater();
-        this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
         this.navigationRibbonStyler = new NavigationRibbonStyler();
         this.navigationElementFinder = new NavigationElementFinder();
     }
@@ -28,7 +26,7 @@ class ForumHomepagePrepender {
         this.previousPageDocument = previousPageDocument;
         this._setOriginalPosition();
         this._insertNavigationRibbon();
-        let nextPageThreadContainer = this.elementFinder.getThreadsContainerFromDocument(this.previousPageDocument);
+        let nextPageThreadContainer = this.forumHomepageElementFinder.getThreadsContainerFromDocument(this.previousPageDocument);
         this.forumHomepageUpdater.prependElement(nextPageThreadContainer);
         this.loadingElementUpdater.removeLoadingElements();
         this.navigatorUpdater.updateTopPageNavigatorFromDocument(this.previousPageDocument);

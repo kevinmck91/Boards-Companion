@@ -41,6 +41,7 @@
         "finders/HeaderElementFinder.js",
         "finders/NoticeElementFinder.js",
         "finders/PostElementFinder.js",
+        "finders/ForumHomepageElementFinder.js",
         "HeaderTransparencyToggler.js",
         "automatic-pageloading/AutomaticPageLoader.js",
         "page/PageInformationCollector.js",

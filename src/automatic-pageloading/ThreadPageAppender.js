@@ -5,11 +5,9 @@ import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { BoardsScriptInserter } from "../inserted-scripts/BoardsScriptInserter.js";
 import { PostsFormatter } from "../post-manipulation/PostsFormatter.js";
-import { PageInformationCollector } from "../page/PageInformationCollector.js";
 import { BoardsScriptGenerator } from "../inserted-scripts/BoardsScriptGenerator.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { UserTagger } from "../user-tagging/UserTagger.js";
-import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
 import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
 
 class ThreadPageAppender {
@@ -21,11 +19,9 @@ class ThreadPageAppender {
         this.loadingElementUpdater = new LoadingElementUpdater();
         this.boardsScriptInserter = new BoardsScriptInserter();
         this.postsFormatter = new PostsFormatter();
-        this.pageInformationCollector = new PageInformationCollector();
         this.boardsScriptGenerator = new BoardsScriptGenerator();
         this.navigatorUpdater = new NavigatorUpdater();
         this.userTagger = new UserTagger();
-        this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
         this.navigationRibbonStyler = new NavigationRibbonStyler();
     }
 

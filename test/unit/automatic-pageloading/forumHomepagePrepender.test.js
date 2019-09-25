@@ -1,13 +1,11 @@
 import { ForumHomepagePrepender } from "../../../src/automatic-pageloading/ForumHomepagePrepender.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { TestForumPageBuilder } from "../test-environment/html-builders/TestForumPageBuilder.js";
-import { ElementFinder } from "../../../src/finders/ElementFinder.js";
 import { GenericElementGenerator } from "../../../src/element-generators/GenericElementGenerator.js";
 
 let forumHomepagePrepender = new ForumHomepagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let testForumPageBuilder = null;
-let elementFinder = new ElementFinder();
 let genericElementGenerator = new GenericElementGenerator();
 
 beforeAll(() => {

@@ -9,7 +9,6 @@ import { BoardsScriptGenerator } from "../inserted-scripts/BoardsScriptGenerator
 import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { NavigatorUpdater } from "../NavigatorUpdater.js";
 import { UserTagger } from "../user-tagging/UserTagger.js";
-import { AutomaticPageLoadingElementGenerator } from "../element-generators/AutomaticPageLoadingElementGenerator.js";
 import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
 
 class ThreadPagePrepender {
@@ -29,7 +28,6 @@ class ThreadPagePrepender {
         this.navigatorUpdater = new NavigatorUpdater();
         this.previousPagePosts = [];
         this.userTagger = new UserTagger();
-        this.automaticPageLoadingElementGenerator = new AutomaticPageLoadingElementGenerator();
         this.navigationRibbonStyler = new NavigationRibbonStyler();
     }
 

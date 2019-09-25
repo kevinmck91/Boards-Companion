@@ -1,13 +1,6 @@
 export { ElementVisibilityUpdater };
-import { ElementFinder } from "../finders/ElementFinder.js";
-import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 
 class ElementVisibilityUpdater {
-
-    constructor() {
-        this.elementFinder = new ElementFinder();
-        this.avatarElementFinder = new AvatarElementFinder();
-    }
 
     hideElement(element) {
         try {

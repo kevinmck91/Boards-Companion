@@ -2,14 +2,6 @@ export { ElementFinder };
 
 class ElementFinder {
 
-    getForumHomepageThreadContainer() {
-        return document.getElementById('inlinemodform');
-    }
-
-    getThreadsContainerFromDocument(htmlDocument) {
-        return htmlDocument.getElementById("threadslist");
-    }
-
     findParentElement(candidateElement, noOfGenerations) {
         for (let i = 1; i <= noOfGenerations; i++) {
             candidateElement = candidateElement.parentElement;

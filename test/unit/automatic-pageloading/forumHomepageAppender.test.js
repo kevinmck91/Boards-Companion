@@ -1,13 +1,11 @@
 
 import { ForumHomepageAppender } from "../../../src/automatic-pageloading/ForumHomepageAppender.js";
 import { TestForumPageBuilder } from "../test-environment/html-builders/TestForumPageBuilder.js";
-import { ElementFinder } from "../../../src/finders/ElementFinder.js";
 import { GenericElementGenerator } from "../../../src/element-generators/GenericElementGenerator.js";
 
 
 let forumHomepageAppender = new ForumHomepageAppender();
 let testForumPageBuilder = null;
-let elementFinder = new ElementFinder();
 let genericElementGenerator = new GenericElementGenerator();
 
 beforeEach(() => {
