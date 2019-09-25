@@ -1,4 +1,4 @@
-import { ElementFinder } from "../../../src/finders/ElementFinder.js";
+import { PostElementFinder } from "../../../src/finders/PostElementFinder.js";
 import { AvatarElementFinder } from "../../../src/finders/AvatarElementFinder.js";
 import { PostsCompressionToggler } from "../../../src/post-manipulation/PostsCompressionToggler.js";
 import { ThreadPagePrepender } from "../../../src/automatic-pageloading/ThreadPagePrepender.js";
@@ -8,7 +8,7 @@ import { UserTagger } from "../../../src/user-tagging/UserTagger.js";
 import { GenericElementGenerator } from "../../../src/element-generators/GenericElementGenerator.js";
 
 let postsCompressionToggler = new PostsCompressionToggler();
-let elementFinder = new ElementFinder();
+let postElementFinder = new PostElementFinder();
 let avatarElementFinder = new AvatarElementFinder();
 let threadPagePrepender = new ThreadPagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
@@ -28,7 +28,7 @@ it('test post gets compressed when clicked', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     postsCompressionToggler.applyCompressionToggling();
-    let post = elementFinder.getFirstPost();
+    let post = postElementFinder.getFirstPost();
     post.click();
 
     expect(isPostCompressed(post)).toBe(true);
@@ -38,7 +38,7 @@ it('test post gets uncompressed when clicked twice', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     postsCompressionToggler.applyCompressionToggling();
-    let post = elementFinder.getFirstPost();
+    let post = postElementFinder.getFirstPost();
     post.click();
     post.click();
 
@@ -49,8 +49,8 @@ it('test click event not triggered on any element within footer element of post'
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
     postsCompressionToggler.applyCompressionToggling();
-    let post = elementFinder.getFirstPost();
-    let elementWithinFooter = elementFinder.getFooterElementFromPost(post).children[0];
+    let post = postElementFinder.getFirstPost();
+    let elementWithinFooter = postElementFinder.getFooterElementFromPost(post).children[0];
     elementWithinFooter.click();
 
     expect(isPostUncompressed(post)).toBe(true);
@@ -62,7 +62,7 @@ it('test compression toggling applied to prepended page', () => {
     let htmlDocument = genericElementGenerator.generateDocument(pageHtml);
 
     threadPagePrepender.prependPage(htmlDocument, true);
-    let post = elementFinder.getFirstPost();
+    let post = postElementFinder.getFirstPost();
     post.click();
 
     expect(isPostUncompressed(post)).toBe(true)
@@ -73,7 +73,7 @@ it('test compression toggling not applied to tag element', () => {
 
     userTagger.applyTagging();
     postsCompressionToggler.applyCompressionToggling();
-    let post = elementFinder.getFirstPost();
+    let post = postElementFinder.getFirstPost();
     let tagElement = avatarElementFinder.getTagIconElementFromPost(post);
     tagElement.click();
 

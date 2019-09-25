@@ -35,12 +35,6 @@ class NavigationElementFinder {
         return bottomPageNavigatorRibbon;
     }
 
-    _cleanPageNavigationRibbonElement(pageNavigationRibbon) {
-        let table = pageNavigationRibbon.querySelectorAll('table')[0];
-        let elementsForDeletion = this.elementFinder.getElementSiblings(table);
-        this.elementRemover.removeElements(elementsForDeletion);
-    }
-
     getTopPageNavigatorFromDocument(htmlDocument) {
         return htmlDocument.querySelectorAll('.pagenav')[0];
     }
@@ -57,4 +51,9 @@ class NavigationElementFinder {
         return Array.from(document.querySelectorAll('.loading'));
     }
 
+    _cleanPageNavigationRibbonElement(pageNavigationRibbon) {
+        let table = pageNavigationRibbon.querySelectorAll('table')[0];
+        let elementsForDeletion = this.elementFinder.getElementSiblings(table);
+        this.elementRemover.removeElements(elementsForDeletion);
+    }
 }

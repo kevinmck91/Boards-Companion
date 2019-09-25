@@ -1,5 +1,5 @@
 import { ThreadPagePrepender } from "../../../src/automatic-pageloading/ThreadPagePrepender.js";
-import { ElementFinder } from "../../../src/finders/ElementFinder.js";
+import { PostElementFinder } from "../../../src/finders/PostElementFinder.js";
 import { AvatarElementFinder } from "../../../src/finders/AvatarElementFinder.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { UserTagger } from "../../../src/user-tagging/UserTagger.js";
@@ -7,7 +7,7 @@ import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThr
 import { GenericElementGenerator } from "../../../src/element-generators/GenericElementGenerator.js";
 
 let threadPagePrepender = new ThreadPagePrepender();
-let elementFinder = new ElementFinder();
+let postElementFinder = new PostElementFinder();
 let avatarElementFinder = new AvatarElementFinder();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let userTagger = new UserTagger();
@@ -27,7 +27,7 @@ it('add previous page successfully', () => {
 
     prependPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
-    expect(elementFinder.getAllPosts().length).toBe(2);
+    expect(postElementFinder.getAllPosts().length).toBe(2);
 })
 
 it('test tagging applied to previous page posts', () => {

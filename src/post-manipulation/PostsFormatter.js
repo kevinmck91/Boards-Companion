@@ -1,7 +1,7 @@
 export { PostsFormatter }
 import { PostElementsVisibilityUpdater } from "../element-visibility/PostElementsVisibilityUpdater.js";
 import { PostsCompressionToggler } from "./PostsCompressionToggler.js";
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { PostElementFinder } from "../finders/PostElementFinder.js";
 import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 import { UserTaggingElementGenerator } from "../element-generators/UserTaggingElementGenerator.js";
 
@@ -9,7 +9,7 @@ class PostsFormatter {
 
     constructor() {
         this.postsCompressionToggler = new PostsCompressionToggler();
-        this.elementFinder = new ElementFinder();
+        this.postElementFinder = new PostElementFinder();
         this.avatarElementFinder = new AvatarElementFinder();
         this.postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
         this.userTaggingElementGenerator = new UserTaggingElementGenerator();
@@ -23,12 +23,12 @@ class PostsFormatter {
     }
 
     tagUsersPosts(taggedUserDetails) {
-        let userPosts = this.elementFinder.getUserPosts(taggedUserDetails.username);
+        let userPosts = this.postElementFinder.getUserPosts(taggedUserDetails.username);
         this._tagPosts(userPosts, taggedUserDetails);
     }
 
     tagUsersPostsWithinPosts(posts, taggedUserDetails) {
-        let userPosts = this.elementFinder.getUserPostsFromPosts(taggedUserDetails.username, posts)
+        let userPosts = this.postElementFinder.getUserPostsFromPosts(taggedUserDetails.username, posts)
         this._tagPosts(userPosts, taggedUserDetails);
     }
 

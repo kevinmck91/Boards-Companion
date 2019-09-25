@@ -40,6 +40,7 @@
         "finders/NavigationElementFinder.js",
         "finders/HeaderElementFinder.js",
         "finders/NoticeElementFinder.js",
+        "finders/PostElementFinder.js",
         "HeaderTransparencyToggler.js",
         "automatic-pageloading/AutomaticPageLoader.js",
         "page/PageInformationCollector.js",

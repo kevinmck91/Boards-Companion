@@ -1,5 +1,5 @@
 export { ThreadPageAppender }
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { PostElementFinder } from "../finders/PostElementFinder.js";
 import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 import { ThreadPageUpdater } from "../page-updater/ThreadPageUpdater.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
@@ -15,7 +15,7 @@ import { NavigationRibbonStyler } from "./NavigationRibbonStyler.js";
 class ThreadPageAppender {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.postElementFinder = new PostElementFinder();
         this.navigationElementFinder = new NavigationElementFinder();
         this.threadPageUpdater = new ThreadPageUpdater();
         this.loadingElementUpdater = new LoadingElementUpdater();
@@ -31,7 +31,7 @@ class ThreadPageAppender {
 
     appendNextPage(nextPageDocument, hidePostElements) {
         this._insertNavigationRibbon(nextPageDocument);
-        let nextPagePosts = this.elementFinder.getPostsFromDocument(nextPageDocument);
+        let nextPagePosts = this.postElementFinder.getPostsFromDocument(nextPageDocument);
         this.threadPageUpdater.appendElements(nextPagePosts);
         this.navigatorUpdater.updateBottomPageNavigatorFromDocument(nextPageDocument);
         this.loadingElementUpdater.removeLoadingElements();

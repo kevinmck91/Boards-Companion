@@ -1,18 +1,18 @@
 export { PostsCompressionToggler };
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { PostElementFinder } from "../finders/PostElementFinder.js";
 import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 import { PostElementsVisibilityUpdater } from "../element-visibility/PostElementsVisibilityUpdater.js";
 
 class PostsCompressionToggler {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.postElementFinder = new PostElementFinder();
         this.avatarElementFinder = new AvatarElementFinder();
         this.postElementsVisibilityUpdater = new PostElementsVisibilityUpdater();
     }
 
     applyCompressionToggling() {
-        let posts = this.elementFinder.getAllPosts();
+        let posts = this.postElementFinder.getAllPosts();
         this.applyCompressionTogglingToPosts(posts);
     }
 
@@ -37,7 +37,7 @@ class PostsCompressionToggler {
     }
 
     _isPostCompressed(post) {
-        return this.elementFinder.getFooterElementFromPost(post).style.display == 'none';
+        return this.postElementFinder.getFooterElementFromPost(post).style.display == 'none';
     }
 
     _isValidClickLocation(clickEvent, post) {
@@ -50,7 +50,7 @@ class PostsCompressionToggler {
     }
 
     _isClickWithinFooterElement(clickEvent, post) {
-        let postFooter = this.elementFinder.getFooterElementFromPost(post);
+        let postFooter = this.postElementFinder.getFooterElementFromPost(post);
         return postFooter.contains(clickEvent.target);
     }
 

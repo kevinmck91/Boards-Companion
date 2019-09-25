@@ -1,6 +1,6 @@
 export { ThreadPagePrepender }
 import { PageInformationCollector } from "../page/PageInformationCollector.js";
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { PostElementFinder } from "../finders/PostElementFinder.js";
 import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 import { LoadingElementUpdater } from "./LoadingElementUpdater.js";
 import { BoardsScriptInserter } from "../inserted-scripts/BoardsScriptInserter.js";
@@ -17,7 +17,7 @@ class ThreadPagePrepender {
     constructor() {
         this.pageInformationCollector = new PageInformationCollector();
         this.navigationElementFinder = new NavigationElementFinder();
-        this.elementFinder = new ElementFinder();
+        this.postElementFinder = new PostElementFinder();
         this.loadingElementUpdater = new LoadingElementUpdater();
         this.boardsScriptInserter = new BoardsScriptInserter();
         this.postsFormatter = new PostsFormatter();
@@ -35,7 +35,7 @@ class ThreadPagePrepender {
 
     prependPage(previousPageDocument, hidePostElements) {
         this.previousPageDocument = previousPageDocument;
-        this.previousPagePosts = this.elementFinder.getPostsFromDocument(this.previousPageDocument);
+        this.previousPagePosts = this.postElementFinder.getPostsFromDocument(this.previousPageDocument);
         this._setOriginalPosition();
         this._insertNavigationRibbon();
         this.threadPageUpdater.prependElements(this.previousPagePosts);

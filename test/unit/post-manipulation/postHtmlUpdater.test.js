@@ -1,11 +1,11 @@
 import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThreadPageBuilder.js";
 import { PostHtmlUpdater } from "../../../src/post-manipulation/PostHtmlUpdater.js";
-import { ElementFinder } from "../../../src/finders/ElementFinder.js";
+import { PostElementFinder } from "../../../src/finders/PostElementFinder.js";
 import { AvatarElementFinder } from "../../../src/finders/AvatarElementFinder.js";
 
 let testThreadPageBuilder = null;
 let postHtmlUpdater = new PostHtmlUpdater();
-let elementFinder = new ElementFinder();
+let postElementFinder = new PostElementFinder();
 let avatarElementFinder = new AvatarElementFinder();
 
 beforeEach(() => {
@@ -15,8 +15,8 @@ beforeEach(() => {
 it('test tag post', () => {
     document.body.innerHTML = testThreadPageBuilder.withMultiplePosts(2).buildPage();
 
-    postHtmlUpdater.addTagIconElementToPosts(elementFinder.getAllPosts());
-    let userDetailsElement = avatarElementFinder.getUserDetailsElementFromPost(elementFinder.getFirstPost());
+    postHtmlUpdater.addTagIconElementToPosts(postElementFinder.getAllPosts());
+    let userDetailsElement = avatarElementFinder.getUserDetailsElementFromPost(postElementFinder.getFirstPost());
 
     expect(userDetailsElement.querySelector(".tag-icon")).not.toBe(null);
 })
@@ -24,8 +24,8 @@ it('test tag post', () => {
 it('tag icon within post count div', () => {
     document.body.innerHTML = testThreadPageBuilder.buildPage();
 
-    postHtmlUpdater.addTagIconElementToPosts(elementFinder.getAllPosts());
-    let postCountElement = avatarElementFinder.getPostCountElement(elementFinder.getFirstPost());
+    postHtmlUpdater.addTagIconElementToPosts(postElementFinder.getAllPosts());
+    let postCountElement = avatarElementFinder.getPostCountElement(postElementFinder.getFirstPost());
 
     expect(postCountElement.outerHTML.indexOf("tag-icon")).not.toBe(-1);
 })

@@ -1,6 +1,6 @@
 export { UserTagger }
 
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { PostElementFinder } from "../finders/PostElementFinder.js";
 import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 import { PostHtmlUpdater } from "../post-manipulation/PostHtmlUpdater.js";
 import { TaggerModalUpdater } from "../user-tagging/TaggerModalUpdater.js";
@@ -9,7 +9,7 @@ import { UserTagApplier } from "../user-tagging/UserTagApplier.js";
 class UserTagger {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.postElementFinder = new PostElementFinder();
         this.avatarElementFinder = new AvatarElementFinder();
         this.postHtmlUpdater = new PostHtmlUpdater();
         this.taggerModalUpdater = new TaggerModalUpdater();
@@ -17,7 +17,7 @@ class UserTagger {
     }
 
     applyTagging() {
-        this.applyTaggingToPosts(this.elementFinder.getAllPosts());
+        this.applyTaggingToPosts(this.postElementFinder.getAllPosts());
     }
 
     applyTaggingToPosts(posts) {

@@ -1,6 +1,6 @@
 export { PostElementsVisibilityUpdater }
 
-import { ElementFinder } from "../finders/ElementFinder.js";
+import { PostElementFinder } from "../finders/PostElementFinder.js";
 import { AvatarElementFinder } from "../finders/AvatarElementFinder.js";
 import { ElementVisibilityUpdater } from "./ElementVisibilityUpdater.js";
 import { ElementRemover } from "../ElementRemover.js";
@@ -8,7 +8,7 @@ import { ElementRemover } from "../ElementRemover.js";
 class PostElementsVisibilityUpdater {
 
     constructor() {
-        this.elementFinder = new ElementFinder();
+        this.postElementFinder = new PostElementFinder();
         this.avatarElementFinder = new AvatarElementFinder();
         this.elementVisibilityUpdater = new ElementVisibilityUpdater();
         this.elementRemover = new ElementRemover();
@@ -30,7 +30,7 @@ class PostElementsVisibilityUpdater {
     }
 
     _hideEachPostsAvatarInfo() {
-        for (let post of this.elementFinder.getAllPosts()) {
+        for (let post of this.postElementFinder.getAllPosts()) {
             this._hidePostAvatarInfo(post);
         }
     }
@@ -50,16 +50,16 @@ class PostElementsVisibilityUpdater {
     }
 
     _hideEachPostsFooter() {
-        for (let post of this.elementFinder.getAllPosts()) {
-            this.elementVisibilityUpdater.hideElement(this.elementFinder.getFooterElementFromPost(post));
+        for (let post of this.postElementFinder.getAllPosts()) {
+            this.elementVisibilityUpdater.hideElement(this.postElementFinder.getFooterElementFromPost(post));
         }
     }
 
     _hidePostFooter(post) {
-        this.elementVisibilityUpdater.hideElement(this.elementFinder.getFooterElementFromPost(post));
+        this.elementVisibilityUpdater.hideElement(this.postElementFinder.getFooterElementFromPost(post));
     }
 
     _showPostFooter(post) {
-        this.elementVisibilityUpdater.showElement(this.elementFinder.getFooterElementFromPost(post));
+        this.elementVisibilityUpdater.showElement(this.postElementFinder.getFooterElementFromPost(post));
     }
 }

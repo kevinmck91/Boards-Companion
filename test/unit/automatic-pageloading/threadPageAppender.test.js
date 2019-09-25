@@ -1,5 +1,5 @@
 import { ThreadPageAppender } from "../../../src/automatic-pageloading/ThreadPageAppender.js";
-import { ElementFinder } from "../../../src/finders/ElementFinder.js";
+import { PostElementFinder } from "../../../src/finders/PostElementFinder.js";
 import { AvatarElementFinder } from "../../../src/finders/AvatarElementFinder.js";
 import { ChromeStorageMocker } from "../test-environment/ChromeStorageMocker.js";
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
@@ -8,7 +8,7 @@ import { TestThreadPageBuilder } from "../test-environment/html-builders/TestThr
 import { GenericElementGenerator } from "../../../src/element-generators/GenericElementGenerator.js";
 
 let threadPageAppender = new ThreadPageAppender();
-let elementFinder = new ElementFinder();
+let postElementFinder = new PostElementFinder();
 let avatarElementFinder = new AvatarElementFinder();
 let chromeStorageMocker = new ChromeStorageMocker();
 let testEnvironmentArranger = new TestEnvironmentArranger();
@@ -30,7 +30,7 @@ it('add next page successfully', () => {
 
     appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
 
-    expect(elementFinder.getAllPosts().length).toBe(2);
+    expect(postElementFinder.getAllPosts().length).toBe(2);
 })
 
 it('ensure page navigator is inserted', () => {
@@ -53,10 +53,10 @@ it('next page posts have compression toggling', () => {
     document.body.innerHTML = testThreadPageBuilder.specificPage(1, 2).buildPage();
 
     appendNextPage(testThreadPageBuilder.specificPage(2, 2).buildPage());
-    let post = elementFinder.getAllPosts()[1];
+    let post = postElementFinder.getAllPosts()[1];
     post.click();
 
-    post = elementFinder.getAllPosts()[1];
+    post = postElementFinder.getAllPosts()[1];
     expect(avatarElementFinder.getAvatarInfoElementsFromPost(post)[0].style.display).toBe('');
 })
 
