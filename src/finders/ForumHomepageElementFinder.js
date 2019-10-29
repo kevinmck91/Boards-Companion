@@ -17,10 +17,7 @@ class ForumHomepageElementFinder {
     }
 
     getThreadsContainerFromDocument(htmlDocument) {
-        if (this.pageInformationCollector.isUserSignedOut())
-            return this.getSignedOutThreadsContainerFromDocument(htmlDocument);
-        else
-            return this.getSignedInThreadsContainerFromDocument(htmlDocument);
+        return this.getSignedInThreadsContainerFromDocument(htmlDocument);
     }
 
     getSignedInThreadsContainerFromDocument(htmlDocument) {
