@@ -27,7 +27,7 @@ class ForumHomepagePrepender {
         this._setOriginalPosition();
         this._insertNavigationRibbon();
         let nextPageThreadContainer = this.forumHomepageElementFinder.getThreadsContainerFromDocument(this.previousPageDocument);
-        this.forumHomepageUpdater.prependElement(nextPageThreadContainer);
+        this.forumHomepageUpdater.prependContentElement(nextPageThreadContainer);
         this.loadingElementUpdater.removeLoadingElements();
         this.navigatorUpdater.updateTopPageNavigatorFromDocument(this.previousPageDocument);
         this._scrollToOriginalPosition();
@@ -45,6 +45,6 @@ class ForumHomepagePrepender {
     _insertNavigationRibbon() {
         let navigationRibbon = this.navigationElementFinder.getForumBottomNavigationRibbonFromDocument(this.previousPageDocument);
         this.navigationRibbonStyler.stylePrependedNavigationRibbon(navigationRibbon);
-        this.forumHomepageUpdater.prependElement(navigationRibbon);
+        this.forumHomepageUpdater.prependContentElement(navigationRibbon);
     }
 }

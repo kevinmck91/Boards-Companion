@@ -1,20 +1,31 @@
 export { ForumHomepageUpdater }
 import { ForumHomepageElementFinder } from "../finders/ForumHomepageElementFinder.js";
+import { NavigationElementFinder } from "../finders/NavigationElementFinder.js";
 
 class ForumHomepageUpdater {
 
     constructor() {
         this.forumHomepageElementFinder = new ForumHomepageElementFinder();
+        this.navigationElementFinder = new NavigationElementFinder();
     }
 
-    appendElement(element) {
-        let parentElement = this.forumHomepageElementFinder.getForumHomepageThreadContainer();
-        let threadSubContainer = parentElement.children[parentElement.children.length - 2];
-        threadSubContainer.parentElement.insertBefore(element, threadSubContainer.nextSibling);
+    appendLoadingElement(element) {
+        let baseElement = this.forumHomepageElementFinder.getElementToAppend();
+        baseElement.parentElement.insertBefore(element, baseElement.nextSibling);
     }
 
-    prependElement(element) {
-        let parentElement = this.forumHomepageElementFinder.getForumHomepageThreadContainer();
-        parentElement.insertBefore(element, parentElement.children[0]);
+    appendContentElement(element) {
+        const loadingElement = this.navigationElementFinder.getLoadingElements()[0];
+        loadingElement.parentElement.insertBefore(element, loadingElement);
+    }
+
+    prependContentElement(element) {
+        const loadingElement = this.navigationElementFinder.getLoadingElements()[0];
+        loadingElement.parentElement.insertBefore(element, loadingElement.nextSibling);
+    }
+
+    prependLoadingElement(element) {
+        let baseElement = this.forumHomepageElementFinder.getElementToPrepend();
+        baseElement.parentElement.insertBefore(element, baseElement);
     }
 }

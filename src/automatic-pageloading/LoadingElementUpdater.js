@@ -20,7 +20,7 @@ class LoadingElementUpdater {
 
     insertForumPageLoadingElement() {
         let loadingElement = this.automaticPageLoadingElementGenerator.generateLoadingElement();
-        this.forumHomepageUpdater.appendElement(loadingElement);
+        this.forumHomepageUpdater.appendLoadingElement(loadingElement);
     }
 
     prependThreadPageLoadingElement() {
@@ -30,7 +30,7 @@ class LoadingElementUpdater {
 
     prependForumPageLoadingElement() {
         let loadingElement = this.automaticPageLoadingElementGenerator.generateLoadingElement();
-        this.forumHomepageUpdater.prependElement(loadingElement);
+        this.forumHomepageUpdater.prependLoadingElement(loadingElement);
     }
 
     removeLoadingElements() {

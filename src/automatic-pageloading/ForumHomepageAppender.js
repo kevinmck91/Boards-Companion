@@ -22,7 +22,7 @@ class ForumHomepageAppender {
     appendNextPage(nextPageDocument) {
         this._insertNavigationRibbon(nextPageDocument);
         let nextPageThreadContainer = this.forumHomepageElementFinder.getThreadsContainerFromDocument(nextPageDocument);
-        this.forumHomepageUpdater.appendElement(nextPageThreadContainer);
+        this.forumHomepageUpdater.appendContentElement(nextPageThreadContainer);
         this.navigatorUpdater.updateBottomPageNavigatorFromDocument(nextPageDocument);
         this.loadingElementUpdater.removeLoadingElements();
     }
@@ -30,7 +30,7 @@ class ForumHomepageAppender {
     _insertNavigationRibbon(nextPageDocument) {
         let navigationRibbon = this.navigationElementFinder.getForumBottomNavigationRibbonFromDocument(nextPageDocument);
         this.navigationRibbonStyler.styleAppendedNavigationRibbon(navigationRibbon);
-        this.forumHomepageUpdater.appendElement(navigationRibbon);
+        this.forumHomepageUpdater.appendContentElement(navigationRibbon);
     }
 
 }

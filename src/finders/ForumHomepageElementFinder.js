@@ -7,8 +7,13 @@ class ForumHomepageElementFinder {
         this.pageInformationCollector = new PageInformationCollector();
     }
 
-    getForumHomepageThreadContainer() {
-        return document.getElementById('inlinemodform');
+    getElementToAppend() {
+        const threadslistElements = document.querySelectorAll('#threadslist');
+        return threadslistElements[threadslistElements.length - 1];
+    }
+
+    getElementToPrepend() {
+        return document.querySelectorAll('#threadslist')[0];
     }
 
     getThreadsContainerFromDocument(htmlDocument) {

@@ -34,23 +34,23 @@ class TestForumHtmlGenerator {
     }
 
     wrapSignedOutThreadEntries(entries) {
-        return `
-            <div class="threadslist-wrapper">
-                <div class="left-col">
-                    <table id="threadslist">
-                        <tbody>
-                        </tbody>
-                        <tbody id="threadbits_forum_7">
-                            ` + entries + `
-                        </tbody>
-                    </table>
-                </div>
-            </div>`
+        return `<table id="threadslist">
+                    <tbody>
+                    </tbody>
+                    <tbody id="threadbits_forum_7">
+                        ` + entries + `
+                    </tbody>
+                </table>
+                `
     }
 
     wrapThreadAndFooter(content) {
         return `<form id="inlinemodform">
-                    `+ content + `
+                    <div class="threadslist-wrapper">
+                        <div class="left-col">
+                            `+ content + `
+                        </div>
+                    </div>
                 </form>`;
     }
 

@@ -2,11 +2,13 @@ import { ForumHomepagePrepender } from "../../../src/automatic-pageloading/Forum
 import { TestEnvironmentArranger } from "../test-environment/TestEnvironmentArranger.js";
 import { TestForumPageBuilder } from "../test-environment/html-builders/TestForumPageBuilder.js";
 import { GenericElementGenerator } from "../../../src/element-generators/GenericElementGenerator.js";
+import { LoadingElementUpdater } from "../../../src/automatic-pageloading/LoadingElementUpdater.js";
 
 let forumHomepagePrepender = new ForumHomepagePrepender();
 let testEnvironmentArranger = new TestEnvironmentArranger();
 let testForumPageBuilder = null;
 let genericElementGenerator = new GenericElementGenerator();
+let loadingElementUpdater = new LoadingElementUpdater();
 
 beforeAll(() => {
     testEnvironmentArranger.InitializeEnvironment();
@@ -42,5 +44,6 @@ it('ensure navigation ribbon is inserted in correct location', () => {
 
 function prependForumHomepage(pageHtml) {
     let htmlDocument = genericElementGenerator.generateDocument(pageHtml);
+    loadingElementUpdater.prependForumPageLoadingElement();
     forumHomepagePrepender.prependPage(htmlDocument);
 }
