@@ -1,13 +1,21 @@
 export { AutomaticPageLoadingElementGenerator }
+import { FontAwesomeElementGenerator } from "./FontAwesomeElementGenerator.js";
 
 class AutomaticPageLoadingElementGenerator {
+
+    constructor() {
+        this.fontAwesomeElementGenerator = new FontAwesomeElementGenerator();
+    }
 
     generateLoadingElement() {
         let loadingElement = document.createElement('div');
         loadingElement.className = "loading";
-        loadingElement.innerText = "loading...";
         loadingElement.style.textAlign = "center";
-        loadingElement.style.paddingBottom = "4px";
+        loadingElement.style.paddingTop = "4px";
+        loadingElement.style.paddingBottom = "8px";
+        loadingElement.style.color = "#3d5686"
+        let spinner = this.fontAwesomeElementGenerator.generateFontAwesomeIcon("fas fa-spinner fa-spin");
+        loadingElement.insertAdjacentHTML('beforeend', spinner.outerHTML);
         return loadingElement;
     }
 
