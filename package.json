@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "watch": "jest --watch",
+    "coverage": "jest --coverage",
     "chrome-e2e-test": "testcafe chrome:userProfile test/e2e/*.e2e.js",
     "firefox-e2e-test": "testcafe firefox:userProfile test/e2e/*.e2e.js",
     "build": "gulp",
